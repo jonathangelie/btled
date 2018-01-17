@@ -34,6 +34,8 @@ struct ipc_pkt {
 	uint8_t data[0];
 };
 
+static msg_cmd_cb func;
+
 uint8_t ipc_send(enum ipc_msg type, void *data, uint8_t data_len)
 {
 	if (!data) {
@@ -78,8 +80,9 @@ uint8_t ipc_send_info(void *data, uint8_t data_len)
 
 static void ipc_dispatch(uint8_t type, uint8_t *data, uint8_t data_len)
 {
-	if (type == msg_command_req) {
-		cmd_server_handler(data, data_len);
+	if (type == msg_command_req && func) {
+		/* command handler */
+		func(data, data_len);
 	} else if (type == msg_command_loopback) {
 		/* loopback test */
 		ipc_send(type, data, data_len);
@@ -98,23 +101,31 @@ static void ipc_rx_cb(uint8_t *payload, uint8_t payload_len)
 	pkt = (struct ipc_pkt*)&payload[0];
 
 	INFO("IPC RCV:type(%d) | len(%d) | %s\n",
-				pkt->type, pkt->data_len, pkt->data);
+		 pkt->type, pkt->data_len, pkt->data);
 
 	ipc_dispatch(pkt->type, pkt->data, pkt->data_len);
 }
 
-uint8_t ipc_init(void)
+uint8_t ipc_init(msg_cmd_cb req_cb)
 {
-	uint8_t ret;
-	struct btsocket_param param = {
-		.mtu = IPC_MTU,
-		.rx_cb = ipc_rx_cb,
-	};
-	ret = btsocket_init(&param);
+	uint8_t ret = BTLE_ERROR_NULL_ARG;
+
+	if (req_cb) {
+
+		struct btsocket_param param = {
+			.mtu = IPC_MTU,
+			.rx_cb = ipc_rx_cb,
+		};
+		func = req_cb;
+
+		ret = btsocket_init(&param);
+	}
 	INFO("btsocket_init(%d)\n", ret);
 	return ret;
 }
 
-void ipc_close(void) {
+void ipc_close(void)
+{
 	btsocket_close();
+	func = NULL;
 }

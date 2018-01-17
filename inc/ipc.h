@@ -35,6 +35,8 @@ uint8_t ipc_send_cmd(void *data, uint8_t data_len);
 uint8_t ipc_send_rsp(void *data, uint8_t data_len);
 uint8_t ipc_send_info(void *data, uint8_t data_len);
 
-uint8_t ipc_init(void);
+typedef uint8_t (*msg_cmd_cb)(uint8_t *data, uint8_t data_len);
+
+uint8_t ipc_init(msg_cmd_cb req_cb);
 
 #endif /* IPC_HEADER_H */

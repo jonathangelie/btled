@@ -446,13 +446,13 @@ static uint8_t cmd_set_conn_param(uint8_t devId, uint8_t *data,
 	strtou16(&p_data[6], &conn_param.timeout);
 
 	INFO("%02X:%02X:%02X:%02X:%02X:%02X\n",
-			   conn_param.addr.bdaddr.b[0], conn_param.addr.bdaddr.b[1],
-			   conn_param.addr.bdaddr.b[2], conn_param.addr.bdaddr.b[3],
-			   conn_param.addr.bdaddr.b[4], conn_param.addr.bdaddr.b[5]);
+		 conn_param.addr.bdaddr.b[0], conn_param.addr.bdaddr.b[1],
+		 conn_param.addr.bdaddr.b[2], conn_param.addr.bdaddr.b[3],
+		 conn_param.addr.bdaddr.b[4], conn_param.addr.bdaddr.b[5]);
 
-	INFO("[%d] conn param min:%d max:%d latency:%d timeout:%d\n",devId,
-				conn_param.min_interval, conn_param.max_interval,
-				conn_param.latency, conn_param.timeout);
+	INFO("[%d] conn param min:%d max:%d latency:%d timeout:%d\n",
+		 devId, conn_param.min_interval, conn_param.max_interval,
+		 conn_param.latency, conn_param.timeout);
 
 	return BTLE_SUCCESS;
 }
@@ -502,9 +502,9 @@ static uint8_t cmd_scan(uint8_t devId, uint8_t *data, uint8_t data_len)
 				   "MGMT_OP_STOP_DISCOVERY"), ret);
 		struct msg resp = {
 			.header = {
-					.devId  = devId,
-					.msg_type = CMD_MGMT_SCAN,
-					.status = BTLE_ERROR_INTERNAL,
+				.devId  = devId,
+				.msg_type = CMD_MGMT_SCAN,
+				.status = BTLE_ERROR_INTERNAL,
 			},
 		};
 
@@ -589,9 +589,9 @@ static void cmd_read_info_complete(uint8_t status, uint16_t length,
 	} else {
 		struct msg resp = {
 			.header = {
-					.devId  = *devId,
-					.msg_type = CMD_MGMT_READ_CONTROLLER_INFO,
-					.status = status,
+				.devId  = *devId,
+				.msg_type = CMD_MGMT_READ_CONTROLLER_INFO,
+				.status = status,
 			},
 		};
 		ipc_send_rsp(&resp, sizeof(resp));
@@ -610,9 +610,9 @@ static uint8_t cmd_read_controller_info(uint8_t devId, uint8_t *data,
 		ERR("cmd MGMT_OP_READ_INFO failed");
 		struct msg resp = {
 			.header = {
-					.devId  = devId,
-					.msg_type = CMD_MGMT_READ_CONTROLLER_INFO,
-					.status = BTLE_ERROR_INTERNAL,
+				.devId  = devId,
+				.msg_type = CMD_MGMT_READ_CONTROLLER_INFO,
+				.status = BTLE_ERROR_INTERNAL,
 			},
 		};
 
@@ -708,7 +708,7 @@ uint8_t cmd_server_handler(uint8_t *data, uint8_t data_len)
 
 uint8_t cmd_server_init(void)
 {
-	return ipc_init();
+	return ipc_init(cmd_server_handler);
 }
 
 void cmd_server_close(void)

@@ -47,7 +47,7 @@ enum btsocket_type {
 	client,
 };
 
-struct gio_mgmt{
+struct gio_mgmt {
 	int desc;
 	guint evt_src_id;
 };
@@ -130,7 +130,7 @@ void btsocket_set_event(struct gio_mgmt *gio,  GIOFunc func)
 	g_io_channel_set_close_on_unref(io, TRUE);
 
 	gio->evt_src_id = g_io_add_watch(io, G_IO_IN | G_IO_ERR | G_IO_HUP | G_IO_NVAL,
-			func, NULL);
+									 func, NULL);
 	g_io_channel_unref(io);
 }
 
@@ -208,7 +208,8 @@ uint8_t btsocket_init(struct btsocket_param *param)
 
 	if (!param->mtu || param->mtu > SOCKET_MTU) {
 		return BTLE_ERROR_INVALID_ARG;
-}
+	}
+
 	socket_mgmt.param = *param;
 
 	/* unix stream socket */
@@ -217,14 +218,22 @@ uint8_t btsocket_init(struct btsocket_param *param)
 		return BTLE_ERROR_INTERNAL;
 	}
 
-	INFO("creating socket %d\n", socket_mgmt.gios[server].desc);
 	if (setsockopt(socket_mgmt.gios[server].desc, SOL_SOCKET,  SO_REUSEADDR,
 				   &(int){ 1 }, sizeof(int)) < 0 ) {
 		ERR("allow reuse of local addresse failed\n");
 		return BTLE_ERROR_INTERNAL;
-	}
+	} else {
+		uint8_t ret;
 
-	return btsocket_server_setup();
+		ret = btsocket_server_setup();
+		if (ret) {
+			ERR("socket init err(%d)\n", ret);
+			return ret;
+		}
+	}
+	INFO("socket init [ok]\n");
+
+	return BTLE_SUCCESS;
 }
 
 void btsocket_close()

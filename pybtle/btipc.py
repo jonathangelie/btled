@@ -23,9 +23,9 @@ import Queue
 
 class btipc:
 
-    IPC_MSG_TYPE_REQ = 0
-    IPC_MSG_TYPE_RSP = 1
-    IPC_MSG_TYPE_EVENT = 2
+    IPC_MSG_TYPE_REQ    = 0
+    IPC_MSG_TYPE_RSP    = 1
+    IPC_MSG_TYPE_EVENT  = 2
 
     def __init__(self, evt_delegate = None):
         self.socket = btsocket.btsocket(delegate = self.ipc_receive)
@@ -90,30 +90,3 @@ class btipc:
 
     def getmtu(self):
         return self.mtu
-
-    def conn_param(self, adapter, addr, min, max, latency, timeout):
-        pkt = struct.pack('>BB', adapter, 4)
-        pkt += addr
-        pkt += struct.pack('>HHHH', min, max, latency, timeout)
-        self.ipc_send(0, pkt, len(pkt))
-
-    def set_local_name(self, adapter, name):
-        pkt = struct.pack('>BBB', adapter, 3, len(name))
-        pkt += name
-        self.ipc_send(0, pkt, len(pkt))
-
-    def power_on(self, adapter):
-        pkt = struct.pack('>BBB', adapter, 2, 1)
-        self.ipc_send(0, pkt, len(pkt))
-
-    def power_off(self, adapter):
-        pkt = struct.pack('>BBB', adapter, 2, 0)
-        self.ipc_send(0, pkt, len(pkt))
-
-    def scan_start(self, adapter, timeout):
-        pkt = struct.pack('>BBBH', adapter, 5, 1, timeout)
-        self.ipc_send(0, pkt, len(pkt))
-
-    def scan_stop(self, adapter):
-        pkt = struct.pack('>BBB', adapter, 5, 1)
-        self.ipc_send(0, pkt, len(pkt))

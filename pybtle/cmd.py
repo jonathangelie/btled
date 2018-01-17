@@ -21,25 +21,25 @@ import binascii
 import Queue
 
 
-CMD_MGMT_GET_DEVICE_INFO = 0    # [devid]
-CMD_MGMT_RESET =1               # [devid]
-CMD_MGMT_POWER =2               # [devid] (mode(u8)=0:off, 1:on)
-CMD_MGMT_SET_LOCAL_NAME=3       # [devid | len(u8) < 31bytes | data]
-CMD_MGMT_SET_CONNECTION_PARAM =4     # [devid | addr | addrtype | min(u8) | max(u8)| interval(u8) | timeout(u16)]
-CMD_MGMT_SCAN =5                # [devid | (mode(u8)=0:stop, 1:start) | timeout_ms(u16)]
-CMD_MGMT_READ_CONTROLLER_INFO = 6 # [devid
-CMD_GATTC_WRITE_CMD =7         # [devid | handle(u16) | data ]
-CMD_GATTC_WRITE_REQ =8         # [devid | handle(u16) | data ]
-CMD_GATTC_READ_REQ =9          # [devid | handle(u16)] /
-CMD_GATTC_DISC_PRIM =10        # [devid | start(u16) | end(u16)]
-CMD_GATTC_DISC_CHAR =11        # [devid | start(u16) | end(u16)]
-CMD_GATTC_DISC_DESC =12        # [devid | start(u16) | end(u16)]
+CMD_MGMT_GET_DEVICE_INFO        = 0     # [devid]
+CMD_MGMT_RESET                  = 1     # [devid]
+CMD_MGMT_POWER                  = 2     # [devid] (mode(u8)=0:off, 1:on)
+CMD_MGMT_SET_LOCAL_NAME         = 3     # [devid | len(u8) < 31bytes | data]
+CMD_MGMT_SET_CONNECTION_PARAM   = 4     # [devid | addr | addrtype | min(u8) | max(u8)| interval(u8) | timeout(u16)]
+CMD_MGMT_SCAN                   = 5     # [devid | (mode(u8)=0:stop, 1:start) | timeout_ms(u16)]
+CMD_MGMT_READ_CONTROLLER_INFO   = 6     # [devid
+CMD_GATTC_WRITE_CMD             = 7     # [devid | handle(u16) | data ]
+CMD_GATTC_WRITE_REQ             = 8     # [devid | handle(u16) | data ]
+CMD_GATTC_READ_REQ              = 9     # [devid | handle(u16)] /
+CMD_GATTC_DISC_PRIM             = 10    # [devid | start(u16) | end(u16)]
+CMD_GATTC_DISC_CHAR             = 11    # [devid | start(u16) | end(u16)]
+CMD_GATTC_DISC_DESC             = 12    # [devid | start(u16) | end(u16)]
 
-EVT_CONNECTED = 0
-EVT_DISCONNECTED = 1
-EVT_SCAN_STATUS = 2
-EVT_SCAN_RESULT = 3
-EVT_NEW_CONN_PARAM = 4
+EVT_CONNECTED       = 0
+EVT_DISCONNECTED    = 1
+EVT_SCAN_STATUS     = 2
+EVT_SCAN_RESULT     = 3
+EVT_NEW_CONN_PARAM  = 4
 
 class cmdException(Exception):
     pass
