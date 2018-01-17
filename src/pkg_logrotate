@@ -1,0 +1,9 @@
+/var/log/_program_/*.log {
+	weekly
+	missingok
+	rotate 4
+	copytruncate
+	compress
+	notifempty
+	create 640 _program_
+}

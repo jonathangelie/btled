@@ -1,0 +1,10 @@
+Package: _program_
+Version: 1.0
+Section: custom
+Priority: optional
+Architecture: all
+Essential: no
+Installed-Size: 1024
+Maintainer: Jonathan Gelie <contact@jonathangelie.com>
+Description: Bluetooth Low Energy daemon
+
