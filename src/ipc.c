@@ -20,7 +20,6 @@
 #include "btle_error.h"
 #include "btsocket.h"
 #include "ipc.h"
-#include "cmd.h"
 
 #define MODULE "ipc"
 #include "btprint.h"

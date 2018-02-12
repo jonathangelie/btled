@@ -24,12 +24,11 @@
 #include <stdio.h>
 #include <errno.h>
 #include <stddef.h>
+#include <stdbool.h>
 
-#include "btle_error.h"
-#include "btsocket.h"
-#include "ipc.h"
 
 #include "lib/bluetooth.h"
+
 #include "lib/mgmt.h"
 #include "src/shared/mgmt.h"
 #include "src/shared/util.h"
@@ -37,6 +36,11 @@
 #define MODULE "cmd"
 #include "btprint.h"
 
+#include "btle_error.h"
+#include "btsocket.h"
+#include "ipc.h"
+#include "gattc.h"
+#include "cmd.h"
 
 #ifndef BUILD_BUG_ON_ZERO
 /*  Force a compilation error if condition is true */
@@ -56,13 +60,7 @@
 
 #define CMD_ADAPTER_MAX 16
 
-enum event_type {
-	EVENT_CONNECTED = 0,
-	EVENT_DISCONNECTED,
-	EVENT_SCAN_STATUS,
-	EVENT_SCAN_RESULT,
-	EVENT_NEW_CONN_PARAM,
-};
+
 
 enum scan_mode {
 	SCAN_STOP = 0,
@@ -72,25 +70,6 @@ enum scan_mode {
 enum power_mode {
 	POWER_OFF = 0,
 	POWER_ON,
-};
-
-enum cmds {
-	CMD_MGMT_GET_DEVICE_INFO = 0,	/* [devid] */
-	CMD_MGMT_RESET,					/* [devid] */
-	CMD_MGMT_POWER,					/* [devid] (mode(u8)=0:off, 1:on) */
-	CMD_MGMT_SET_LOCAL_NAME,		/* [devid | len(u8) < 31bytes | data] */
-	CMD_MGMT_SET_CONNECTION_PARAM, 	/* [devid | addr | addrtype | min(u8) | max(u8)| interval(u8) | timeout(u16)] */
-	CMD_MGMT_SCAN,					/* [devid | (mode(u8)=0:stop, 1:start) | timeout_ms(u16)] */
-	CMD_MGMT_READ_CONTROLLER_INFO,	/* [devid] */
-
-	CMD_GATTC_WRITE_CMD,			/* [devid | handle(u16) | data ] */
-	CMD_GATTC_WRITE_REQ,			/* [devid | handle(u16) | data ] */
-	CMD_GATTC_READ_REQ,					/* [devid | handle(u16)] */
-	CMD_GATTC_DISC_PRIM,			/* [devid | start(u16) | end(u16)] */
-	CMD_GATTC_DISC_CHAR,			/* [devid | start(u16) | end(u16)] */
-	CMD_GATTC_DISC_DESC,			/* [devid | start(u16) | end(u16)] */
-
-	CMD_MAX, /* must be last element */
 };
 
 struct msg {
@@ -111,12 +90,6 @@ static uint8_t cmd_set_conn_param(uint8_t devId, uint8_t *data, uint8_t data_len
 static uint8_t cmd_scan(uint8_t devId, uint8_t *data, uint8_t data_len);
 static uint8_t cmd_read_controller_info(uint8_t devId, uint8_t *data,
 										uint8_t data_len);
-static uint8_t cmd_gattc_write_req(uint8_t devId, uint8_t *data, uint8_t data_len);
-static uint8_t cmd_gattc_write_cmd(uint8_t devId, uint8_t *data, uint8_t data_len);
-static uint8_t cmd_gattc_read_req(uint8_t devId, uint8_t *data, uint8_t data_len);
-static uint8_t cmd_gattc_disc_prim(uint8_t devId, uint8_t *data, uint8_t data_len);
-static uint8_t cmd_gattc_disc_char(uint8_t devId, uint8_t *data, uint8_t data_len);
-static uint8_t cmd_gattc_disc_desc(uint8_t devId, uint8_t *data, uint8_t data_len);
 
 static const struct {
 	uint8_t (*cmd_fct)(uint8_t devId, uint8_t *data, uint8_t data_len);
@@ -128,13 +101,11 @@ static const struct {
 	[CMD_MGMT_SET_CONNECTION_PARAM] = {cmd_set_conn_param},
 	[CMD_MGMT_SCAN] = {cmd_scan},
 	[CMD_MGMT_READ_CONTROLLER_INFO] = {cmd_read_controller_info},
+	[CMD_MGMT_CONNECT] = {gattc_connect},
 
-	[CMD_GATTC_WRITE_CMD] = {cmd_gattc_write_cmd},
-	[CMD_GATTC_WRITE_REQ] = {cmd_gattc_write_req},
-	[CMD_GATTC_READ_REQ] = {cmd_gattc_read_req},
-	[CMD_GATTC_DISC_PRIM] = {cmd_gattc_disc_prim},
-	[CMD_GATTC_DISC_CHAR] = {cmd_gattc_disc_char},
-	[CMD_GATTC_DISC_DESC] = {cmd_gattc_disc_desc},
+	[CMD_GATTC_WRITE_CMD] = {gattc_write_cmd},
+	[CMD_GATTC_WRITE_REQ] = {gattc_write_req},
+	[CMD_GATTC_READ_REQ]  = {gattc_read_req},
 	[CMD_MAX] = {NULL},
 };
 
@@ -144,12 +115,15 @@ struct cmd_param {
 };
 
 struct cmd_param param;
+
 static struct {
 	struct mgmt *desc;
 	uint16_t reg_flag; /* up to 16 adapters */
 	struct {
 		uint8_t devId;
 	} cmd_param;
+
+	struct cmd_adaper adapter[CMD_MAX_ADAPTER];
 } btmgmt = {
 	.desc = NULL,
 	.reg_flag = 0,
@@ -159,7 +133,7 @@ static struct {
 #define set_flag(idx) 		(btmgmt.reg_flag |= BIT(idx))
 #define unset_flag(idx) 	(btmgmt.reg_flag &= ~BIT(idx))
 
-static void cmd_send_error(uint8_t devId, uint8_t cmd, uint8_t ret)
+void cmd_send_status(uint8_t devId, uint8_t cmd, uint8_t ret)
 {
 	struct msg resp = {
 		.header = {
@@ -172,28 +146,65 @@ static void cmd_send_error(uint8_t devId, uint8_t cmd, uint8_t ret)
 	ipc_send_rsp(&resp, sizeof(resp));
 }
 
+void cmd_send_status_msg(uint8_t devId, uint8_t cmd, uint8_t ret,
+						 void *data, uint8_t data_len)
+{
+	struct msg *resp;
+	uint8_t container[sizeof(*resp) + data_len];
+
+	resp = (void*) &container[0];
+
+	resp->header.devId  = devId;
+	resp->header.msg_type = cmd;
+	resp->header.status = ret;
+	resp->data_len = data_len;
+	if (resp->data_len)
+		memcpy(resp->data, data, resp->data_len);
+
+	ipc_send_rsp(&container[0], sizeof(container));
+}
+
+void cmd_send_event(uint8_t devId, uint8_t evt_type)
+{
+	struct msg resp = {
+		.header = {
+			.devId  = devId,
+			.msg_type = evt_type,
+		},
+	};
+
+	ipc_send_event(&resp, sizeof(resp));
+}
+
+void cmd_send_event_msg(uint8_t devId, uint8_t evt_type,
+						void *data, uint8_t data_len)
+{
+	struct msg *resp;
+	uint8_t container[sizeof(*resp) + data_len];
+
+	resp = (void*) &container[0];
+
+	resp->header.devId  = devId;
+	resp->header.msg_type = evt_type;
+	resp->data_len = data_len;
+	memcpy(resp->data, data, resp->data_len);
+
+	ipc_send_event(&container[0], sizeof(container));
+}
+
+
 static void cmd_event_connected(uint16_t index, uint16_t length,
 								const void *param, void *user_data)
 {
-	uint8_t event[2];
-
-	event[0] = index;
-	event[1] = EVENT_CONNECTED;
-
-	ipc_send_event(event, sizeof(event));
 	INFO("%s\n", __FUNCTION__);
+	cmd_send_event(index, EVENT_CONNECTED);
 }
 
 static void cmd_event_disconnected(uint16_t index, uint16_t length,
 								   const void *param, void *user_data)
 {
-	uint8_t event[2];
-
-	event[0] = index;
-	event[1] = EVENT_DISCONNECTED;
-
-	ipc_send_event(event, sizeof(event));
 	INFO("%s\n", __FUNCTION__);
+	cmd_send_event(index, EVENT_DISCONNECTED);
 }
 
 static void cmd_event_dev_found(uint16_t index, uint16_t length,
@@ -201,8 +212,7 @@ static void cmd_event_dev_found(uint16_t index, uint16_t length,
 {
 	const struct mgmt_ev_device_found *ev_device_found = param;
 	uint8_t le_adv_len = MIN(ev_device_found->eir_len, LE_ADV_DATA_LEN);
-	struct msg *evt;
-	struct device_info {
+	struct {
 		/* must be naturally packed */
 		uint32_t flags;
 		uint8_t addr[6];
@@ -210,34 +220,25 @@ static void cmd_event_dev_found(uint16_t index, uint16_t length,
 		int8_t rssi;
 		uint8_t le_adv_data_len;
 		uint8_t le_adv_data[le_adv_len];
-	};
-	struct device_info *device;
-	uint8_t container[sizeof(*evt) + sizeof(*device)];
+	} device;
 
-	evt = (void*)&container[0];
-	evt->header.devId = index;
-	evt->header.msg_type = EVENT_SCAN_RESULT,
-	evt->header.status = BTLE_SUCCESS,
-	evt->data_len = sizeof(*device);
+	memcpy(&device.addr[0], &ev_device_found->addr.bdaddr, sizeof(device.addr));
+	device.addr_type = ev_device_found->addr.type;
+	device.flags = ev_device_found->flags;
+	device.rssi = ev_device_found->rssi;
+	device.le_adv_data_len = le_adv_len;
 
-	device = (void*)&container[sizeof(*evt)];
-	memcpy(&device->addr[0], &ev_device_found->addr.bdaddr, sizeof(device->addr));
-	device->addr_type = ev_device_found->addr.type;
-	device->flags = ev_device_found->flags;
-	device->rssi = ev_device_found->rssi;
-	device->le_adv_data_len = le_adv_len;
-
-	memcpy(&device->le_adv_data[0], &ev_device_found->eir[0],
-		   device->le_adv_data_len);
+	memcpy(&device.le_adv_data[0], &ev_device_found->eir[0],
+		   device.le_adv_data_len);
 
 	INFO("dev[%d] found %02X:%02X:%02X:%02X:%02X:%02X flag(%d) rssi(%d)\n",
 			index,
-			device->addr[0], device->addr[1],
-			device->addr[2], device->addr[3],
-			device->addr[4], device->addr[5],
+			device.addr[0], device.addr[1],
+			device.addr[2], device.addr[3],
+			device.addr[4], device.addr[5],
 			ev_device_found->flags, ev_device_found->rssi);
 
-	ipc_send_event(&container[0], sizeof(container));
+	cmd_send_event_msg(index, EVENT_SCAN_RESULT, &device, sizeof(device));
 
 }
 
@@ -246,15 +247,11 @@ static void cmd_event_new_conn_param(uint16_t index, uint16_t length,
 {
 	const struct mgmt_ev_new_conn_param *evt_conn_param = param;
 	struct {
-		uint8_t idx;
-		uint8_t msg_type;
 		uint16_t min_interval;
 		uint16_t max_interval;
 		uint16_t latency;
 		uint16_t timeout;
-	} event = {
-		.idx = index,
-		.msg_type = EVENT_NEW_CONN_PARAM,
+	} conn_params = {
 		.min_interval = evt_conn_param->min_interval,
 		.max_interval = evt_conn_param->max_interval,
 		.latency = evt_conn_param->latency,
@@ -263,28 +260,27 @@ static void cmd_event_new_conn_param(uint16_t index, uint16_t length,
 
 	INFO("dev[%d] new conn params: min: %d max: %d latency: %d timeout: %d\n",
 				index,
-				event.min_interval,
-				event.max_interval,
-				event.latency,
-				event.timeout);
+				conn_params.min_interval,
+				conn_params.max_interval,
+				conn_params.latency,
+				conn_params.timeout);
 
-	ipc_send_event(&event, sizeof(event));
+	cmd_send_event_msg(index, EVENT_NEW_CONN_PARAM,
+					   &conn_params, sizeof(conn_params));
 }
 
 static void cmd_event_scan(uint16_t index, uint16_t length,
 						   const void *param, void *user_data)
 {
 	const struct mgmt_ev_discovering *evt_disc = param;
-	uint8_t event[3];
+	uint8_t msg;
 
 	INFO("dev[%d] scanning (0x%x): %s", index, evt_disc->type,
-			   evt_disc->discovering? "on going" : "stopped");
+			   evt_disc->discovering ? "on going" : "stopped");
 
-	event[0] = index;
-	event[1] = EVENT_SCAN_STATUS;
-	event[2] = SCAN_START;
+	msg = evt_disc->discovering ? SCAN_START : SCAN_STOP;
 
-	ipc_send_event(event, sizeof(event));
+	cmd_send_event_msg(index, EVENT_SCAN_STATUS, &msg, 1);
 }
 
 static uint8_t cmd_mgmt_event_registration(uint8_t devId)
@@ -328,7 +324,7 @@ static uint8_t cmd_mgmt_event_registration(uint8_t devId)
 
 static void cmd_mgmt_dbg(const char *str, void *user_data)
 {
-	/* DBG("%s\n", str); */
+	/* DBG("mgmt: %s\n", str); */
 }
 
 static uint8_t cmd_mgmt_init(uint8_t devId)
@@ -353,13 +349,13 @@ static uint8_t cmd_mgmt_init(uint8_t devId)
 static uint8_t cmd_get_device_info(uint8_t devId, uint8_t *data,
 								   uint8_t data_len)
 {
-	cmd_send_error(devId, CMD_MGMT_GET_DEVICE_INFO, BTLE_ERROR_NOT_IMPLEMENTED);
+	cmd_send_status(devId, CMD_MGMT_GET_DEVICE_INFO, BTLE_ERROR_NOT_IMPLEMENTED);
 	return BTLE_ERROR_NOT_IMPLEMENTED;
 }
 
 static uint8_t cmd_reset(uint8_t devId, uint8_t *data, uint8_t data_len)
 {
-	cmd_send_error(devId, CMD_MGMT_RESET, BTLE_ERROR_NOT_IMPLEMENTED);
+	cmd_send_status(devId, CMD_MGMT_RESET, BTLE_ERROR_NOT_IMPLEMENTED);
 	return BTLE_ERROR_NOT_IMPLEMENTED;
 }
 
@@ -367,15 +363,9 @@ static void cmd_power_complete(uint8_t status, uint16_t length,
 							  const void *param, void *user_data)
 {
 	uint8_t *devId = user_data;
-	struct msg resp = {
-		.header = {
-				.devId  = *devId,
-				.msg_type = CMD_MGMT_POWER,
-				.status = status,
-		},
-	};
+
 	INFO("[%d] cmd power complete (%d)\n", *devId, status);
-	ipc_send_rsp(&resp, sizeof(resp));
+	cmd_send_status(*devId, CMD_MGMT_POWER, status);
 }
 
 static uint8_t cmd_power(uint8_t devId, uint8_t *data, uint8_t data_len)
@@ -389,7 +379,7 @@ static uint8_t cmd_power(uint8_t devId, uint8_t *data, uint8_t data_len)
 	} else if (data[0] == POWER_OFF) {
 		val = 0x00;
 	} else {
-		cmd_send_error(devId, CMD_MGMT_POWER, BTLE_ERROR_INVALID_ARG);
+		cmd_send_status(devId, CMD_MGMT_POWER, BTLE_ERROR_INVALID_ARG);
 		return BTLE_ERROR_INVALID_ARG;
 	}
 
@@ -417,7 +407,7 @@ static uint8_t cmd_set_local_name(uint8_t devId, uint8_t *data,
 	return BTLE_SUCCESS;
 }
 
-static uint8_t strtou16(uint8_t *in, uint16_t *out)
+uint8_t cmd_strtou16(uint8_t *in, uint16_t *out)
 {
 	if (!in || !out)
 		return BTLE_ERROR_NULL_ARG;
@@ -440,10 +430,10 @@ static uint8_t cmd_set_conn_param(uint8_t devId, uint8_t *data,
 	}
 	p_data = &data[17];
 
-	strtou16(&p_data[0], &conn_param.min_interval);
-	strtou16(&p_data[2], &conn_param.max_interval);
-	strtou16(&p_data[4], &conn_param.latency);
-	strtou16(&p_data[6], &conn_param.timeout);
+	cmd_strtou16(&p_data[0], &conn_param.min_interval);
+	cmd_strtou16(&p_data[2], &conn_param.max_interval);
+	cmd_strtou16(&p_data[4], &conn_param.latency);
+	cmd_strtou16(&p_data[6], &conn_param.timeout);
 
 	INFO("%02X:%02X:%02X:%02X:%02X:%02X\n",
 		 conn_param.addr.bdaddr.b[0], conn_param.addr.bdaddr.b[1],
@@ -461,15 +451,9 @@ static void cmd_scan_complete(uint8_t status, uint16_t length,
 							  const void *param, void *user_data)
 {
 	uint8_t *devId = user_data;
-	struct msg resp = {
-		.header = {
-			.devId  = *devId,
-			.msg_type = CMD_MGMT_SCAN,
-			.status = status,
-		},
-	};
+
 	INFO("[%d] scan complete (%d)\n", *devId, status);
-	ipc_send_rsp(&resp, sizeof(resp));
+	cmd_send_status(*devId, CMD_MGMT_SCAN, status);
 }
 
 static uint8_t cmd_scan(uint8_t devId, uint8_t *data, uint8_t data_len)
@@ -500,15 +484,8 @@ static uint8_t cmd_scan(uint8_t devId, uint8_t *data, uint8_t data_len)
 				  ((opcode == MGMT_OP_START_DISCOVERY) ?
 				   "MGMT_OP_START_DISCOVERY" :
 				   "MGMT_OP_STOP_DISCOVERY"), ret);
-		struct msg resp = {
-			.header = {
-				.devId  = devId,
-				.msg_type = CMD_MGMT_SCAN,
-				.status = BTLE_ERROR_INTERNAL,
-			},
-		};
 
-		ipc_send_rsp(&resp, sizeof(resp));
+		cmd_send_status(devId, CMD_MGMT_SCAN, BTLE_ERROR_INTERNAL);
 
 		return BTLE_ERROR_INTERNAL;
 	}
@@ -550,125 +527,62 @@ static void cmd_set_settings(uint8_t devId, const struct mgmt_rp_read_info *info
 static void cmd_read_info_complete(uint8_t status, uint16_t length,
 							   const void *param, void *user_data)
 {
+	uint8_t msg_len = 0;
 	const struct mgmt_rp_read_info *info = param;
 	uint8_t *devId = user_data;
 
 	if (!status) {
-
-		struct msg *resp;
-		size_t extra_len;
-		/* removing short name ; making name shorter */
-		extra_len = sizeof(*info) - sizeof(info->short_name) + LE_NAME - (sizeof(info->name));
-		uint8_t container[sizeof(*resp) + extra_len];
-
-		resp = (void *)&container[0];
-
-		resp->header.devId = *devId;
-		resp->header.msg_type = CMD_MGMT_READ_CONTROLLER_INFO;
-		resp->header.status = status;
-		resp->data_len = extra_len;
-#if 0
-		/* works only if short_name and name are respectively last and second last member */
-		BUILD_BUG_ON_ZERO((void*)&info->short_name[sizeof(info->short_name)] != (void*)&info[sizeof(*info)]);
-		BUILD_BUG_ON_ZERO((void*)&info->name[sizeof(info->name)] != (void*)&info->short_name[0]);
-#endif
-		memcpy(&resp->data[0], info, extra_len);
 
 		INFO("[%d] read info (%d)\n", *devId, status);
 		INFO("[%d] version (%d)\n", *devId, info->version);
 		INFO("[%d] manufacturer (%d)\n", *devId, info->manufacturer);
 		INFO("[%d] supported_settings (%04X)\n", *devId, info->supported_settings);
 		INFO("[%d] current_settings (%04X)\n", *devId, info->current_settings);
-		INFO("[%d] dev_class (%02X %02X %02X)\n", *devId, info->dev_class[0], info->dev_class[1], info->dev_class[2]);
+		INFO("[%d] dev_class (%02X %02X %02X)\n", *devId, info->dev_class[0],
+							info->dev_class[1], info->dev_class[2]);
 		INFO("[%d] name (%s)\n", *devId, info->name);
 
+		/* removing short name ; making name shorter */
+		msg_len = sizeof(*info) - sizeof(info->short_name) + LE_NAME - (sizeof(info->name));
+
+#if 0
+		/* works only if short_name and name are respectively last and second last member */
+		BUILD_BUG_ON_ZERO((void*)&info->short_name[sizeof(info->short_name)] != (void*)&info[sizeof(*info)]);
+		BUILD_BUG_ON_ZERO((void*)&info->name[sizeof(info->name)] != (void*)&info->short_name[0]);
+#endif
+
 		cmd_set_settings(*devId, info);
-
-		ipc_send_rsp(&container[0], sizeof(container));
-
-	} else {
-		struct msg resp = {
-			.header = {
-				.devId  = *devId,
-				.msg_type = CMD_MGMT_READ_CONTROLLER_INFO,
-				.status = status,
-			},
-		};
-		ipc_send_rsp(&resp, sizeof(resp));
 	}
+
+	cmd_send_status_msg(*devId, CMD_MGMT_READ_CONTROLLER_INFO, status,
+						(void *)info, msg_len);
 }
 
 static uint8_t cmd_read_controller_info(uint8_t devId, uint8_t *data,
 										uint8_t data_len)
 {
-	uint16_t ret;
+	uint16_t ret = BTLE_SUCCESS;
 
 	btmgmt.cmd_param.devId = devId;
 	ret = mgmt_send_nowait(btmgmt.desc, MGMT_OP_READ_INFO, devId, 0, NULL,
 					cmd_read_info_complete, &btmgmt.cmd_param.devId, NULL);
 	if (!ret) {
 		ERR("cmd MGMT_OP_READ_INFO failed");
-		struct msg resp = {
-			.header = {
-				.devId  = devId,
-				.msg_type = CMD_MGMT_READ_CONTROLLER_INFO,
-				.status = BTLE_ERROR_INTERNAL,
-			},
-		};
+		cmd_send_status(devId, CMD_MGMT_READ_CONTROLLER_INFO, BTLE_ERROR_INTERNAL);
 
-		ipc_send_rsp(&resp, sizeof(resp));
-
-		return BTLE_ERROR_INTERNAL;
+		ret =  BTLE_ERROR_INTERNAL;
 	}
-	return BTLE_SUCCESS;
+	return ret;
 }
 
-static uint8_t cmd_gattc_write_req(uint8_t devId, uint8_t *data,
-								   uint8_t data_len)
+struct cmd_adaper * cmd_get_adapter_by_id(uint8_t devId)
 {
-	INFO("%s\n", __FUNCTION__);
-	cmd_send_error(devId, CMD_GATTC_WRITE_REQ, BTLE_ERROR_NOT_IMPLEMENTED);
-	return BTLE_ERROR_NOT_IMPLEMENTED;
-}
+	struct cmd_adaper * adapter = NULL;
 
-static uint8_t cmd_gattc_write_cmd(uint8_t devId, uint8_t *data,
-								   uint8_t data_len)
-{
-	INFO("%s\n", __FUNCTION__);
-	cmd_send_error(devId, CMD_GATTC_WRITE_CMD, BTLE_ERROR_NOT_IMPLEMENTED);
-	return BTLE_ERROR_NOT_IMPLEMENTED;
-}
-
-static uint8_t cmd_gattc_read_req(uint8_t devId, uint8_t *data,
-								  uint8_t data_len)
-{
-	INFO("%s\n", __FUNCTION__);
-	cmd_send_error(devId, CMD_GATTC_READ_REQ, BTLE_ERROR_NOT_IMPLEMENTED);
-	return BTLE_ERROR_NOT_IMPLEMENTED;
-}
-
-static uint8_t cmd_gattc_disc_prim(uint8_t devId, uint8_t *data,
-								   uint8_t data_len)
-{
-	INFO("%s\n", __FUNCTION__);
-	cmd_send_error(devId, CMD_GATTC_DISC_PRIM, BTLE_ERROR_NOT_IMPLEMENTED);
-	return BTLE_ERROR_NOT_IMPLEMENTED;
-}
-
-static uint8_t cmd_gattc_disc_char(uint8_t devId, uint8_t *data,
-								   uint8_t data_len)
-{
-	INFO("%s\n", __FUNCTION__);
-	cmd_send_error(devId, CMD_GATTC_DISC_CHAR, BTLE_ERROR_NOT_IMPLEMENTED);
-	return BTLE_ERROR_NOT_IMPLEMENTED;
-}
-
-static uint8_t cmd_gattc_disc_desc(uint8_t devId, uint8_t *data,
-								   uint8_t data_len)
-{
-	INFO("%s\n", __FUNCTION__);
-	cmd_send_error(devId, CMD_GATTC_DISC_DESC, BTLE_ERROR_NOT_IMPLEMENTED);
-	return BTLE_ERROR_NOT_IMPLEMENTED;
+	if (devId < CMD_MAX_ADAPTER) {
+		adapter = &btmgmt.adapter[devId];
+	}
+	return adapter;
 }
 
 uint8_t cmd_server_handler(uint8_t *data, uint8_t data_len)
@@ -690,7 +604,7 @@ uint8_t cmd_server_handler(uint8_t *data, uint8_t data_len)
 
 		if (devId >= CMD_ADAPTER_MAX) {
 			ret = BTLE_ERROR_INVALID_ARG;
-			cmd_send_error(devId, cmdtype, ret);
+			cmd_send_status(devId, cmdtype, ret);
 			return ret;
 		}
 		if (cmdtype < CMD_MAX) {
@@ -699,7 +613,7 @@ uint8_t cmd_server_handler(uint8_t *data, uint8_t data_len)
 		}
 
 		if (ret) {
-			cmd_send_error(devId, cmdtype, ret);
+			cmd_send_status(devId, cmdtype, ret);
 		}
 	}
 	return ret;

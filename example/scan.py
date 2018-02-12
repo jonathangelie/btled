@@ -94,7 +94,7 @@ class CustomerFormatter(argparse.ArgumentDefaultsHelpFormatter, argparse.RawText
 
 parser = argparse.ArgumentParser(formatter_class=CustomerFormatter,
                                  description=textwrap.dedent('''
-    Script catching debug message sent by device throw BLE connection
+    BTLE scan
     '''))
 parser.add_argument('-c', '--controller', action='store', default='hci0',
                     help='controller')

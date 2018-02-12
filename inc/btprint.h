@@ -31,5 +31,5 @@ void btprint(const char* format, ...);
 #define INFO(format, ...) 			BTPRINT("%s " format, "[I]", ##__VA_ARGS__)
 #define ERR(format, ...) 			BTPRINT("%s " format, "[E]", ##__VA_ARGS__)
 #define BT_PR_WARNING(format, ...) 	BTPRINT("%s " format, "[W]", ##__VA_ARGS__)
-#define BT_PR_DBG(format, ...) 		BTPRINT("%s " format, "[D]", ##__VA_ARGS__)
+#define DBG(format, ...) 			BTPRINT("%s " format, "[D]", ##__VA_ARGS__)
 #endif /* BT_PRINT_HEADER_H */

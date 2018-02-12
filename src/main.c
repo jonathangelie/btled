@@ -18,8 +18,7 @@
 #include <stdint.h>
 #include <unistd.h>
 
-#include <sys/signalfd.h>
-#include <glib.h>
+#include "src/shared/mainloop.h"
 
 #define MODULE "main"
 #include "btprint.h"
@@ -33,92 +32,45 @@
 	}\
 }
 
-static GMainLoop *main_loop;
-
-static gboolean signal_handler(GIOChannel *channel, GIOCondition condition,
-							gpointer user_data)
+static void cleaning(void *user_data)
 {
-	struct signalfd_siginfo si;
-	ssize_t result;
-	int fd;
-
-	if (condition & (G_IO_NVAL | G_IO_ERR | G_IO_HUP)) {
-		g_main_loop_quit(main_loop);
-		return FALSE;
-	}
-
-	fd = g_io_channel_unix_get_fd(channel);
-
-	result = read(fd, &si, sizeof(si));
-	if (result != sizeof(si))
-		return FALSE;
-
-	switch (si.ssi_signo) {
-	case SIGINT:
-	case SIGTERM:
-			INFO("Bluetooth Low Energy daemon exit\n");
-			cmd_server_close();
-			g_main_loop_quit(main_loop);
-		break;
-	}
-
-	return TRUE;
+	cmd_server_close();
 }
 
-static guint setup_signal(void)
+static void signal_callback(int signum, void *user_data)
 {
-	GIOChannel *channel;
-	guint source;
-	sigset_t mask;
-	int desc;
-
-	sigemptyset(&mask);
-	sigaddset(&mask, SIGINT);
-	sigaddset(&mask, SIGTERM);
-
-	if (sigprocmask(SIG_BLOCK, &mask, NULL) < 0) {
-		ERR("Setting signal mask failed");
-		return 0;
+	switch (signum) {
+	case SIGINT:
+	case SIGTERM:
+		INFO("Bluetooth Low Energy daemon exit\n");
+		cleaning(NULL);
+		mainloop_quit();
+		break;
 	}
-
-	desc = signalfd(-1, &mask, 0);
-	if (desc < 0) {
-		ERR("Creating signal descriptor failed");
-		return 0;
-	}
-
-	channel = g_io_channel_unix_new(desc);
-
-	g_io_channel_set_close_on_unref(channel, TRUE);
-	g_io_channel_set_encoding(channel, NULL, NULL);
-	g_io_channel_set_buffered(channel, FALSE);
-
-	source = g_io_add_watch(channel,
-				G_IO_IN | G_IO_HUP | G_IO_ERR | G_IO_NVAL,
-				signal_handler, NULL);
-
-	g_io_channel_unref(channel);
-
-	return source;
 }
 
 int main(void)
 {
 	int ret;
-	guint signal;
+	sigset_t mask;
 
 	INFO("Starting Bluetooth Low Energy daemon\n");
 
-	main_loop = g_main_loop_new(NULL, FALSE);
-
-	signal = setup_signal();
+	mainloop_init();
 
 	ret = cmd_server_init();
 	CHK_RETURN(ret)
 
-	g_main_loop_run(main_loop);
-	g_source_remove(signal);
+	sigemptyset(&mask);
+	sigaddset(&mask, SIGINT);
+	sigaddset(&mask, SIGTERM);
+
+	mainloop_set_signal(&mask, signal_callback, NULL, NULL);
+
+	ret = mainloop_run();
+
 	cmd_server_close();
 
 	return 0;
+
 }

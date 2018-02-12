@@ -43,16 +43,13 @@ SIZE     := "$(GNU_PREFIX)size"
 #function for removing duplicates in a list
 remduplicates = $(strip $(if $1,$(firstword $1) $(call remduplicates,$(filter-out $(firstword $1),$1))))
 
--include bluez.mk
-
 #sources project
 SOURCES := $(wildcard $(SRCDIR)/*.c)
-SOURCES += $(BLUEZ_SRC)
 
 #includes common to all targets
 INC_PATHS += -I$(BLUEZDIR)
 INC_PATHS += -I$(HEADERDIR)
-#INC_PATHS += -I$(BLUEZDIR)/attrib -I$(BLUEZDIR) -I$(BLUEZDIR)/lib -I$(BLUEZDIR)/src -I$(BLUEZDIR)/gdbus -I$(BLUEZDIR)/btio
+INC_PATHS += -I$(BLUEZDIR)/lib
 
 LISTING_DIRECTORY = $(OBJDIR)
 
@@ -69,7 +66,7 @@ CFLAGS += `pkg-config --cflags glib-2.0`
 
 #Link Library
 LIBS += $(BLUEZDIR)/lib/.libs/libbluetooth-internal.a
-LIBS += $(BLUEZDIR)/src/.libs/libshared-glib.a
+LIBS += $(BLUEZDIR)/src/.libs/libshared-mainloop.a
 LIBS += -lreadline
 LIBS += `pkg-config --libs glib-2.0`
 
@@ -104,7 +101,7 @@ LDFLAGS += -ggdb3 -O0
 
 $(BIN_NAME): $(BUILD_DIRECTORIES) $(OBJECTS)
 	@echo LD $(OUTPUT_FILENAME)
-	@$(NO_ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $(BINDIR)/$(OUTPUT_FILENAME)
+	$(NO_ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $(BINDIR)/$(OUTPUT_FILENAME)
 
 ## Create build directories
 $(BUILD_DIRECTORIES):

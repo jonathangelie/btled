@@ -14,21 +14,11 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef BTLE_ERROR_H
-#define BTLE_ERROR_H
+#ifndef GATTC_HEADER_H
+#define GATTC_HEADER_H
 
-enum btle_error {
-	BTLE_SUCCESS = 0,
-	BTLE_ERROR_INVALID_STATE,
-	BTLE_ERROR_INVALID_ARG,
-	BTLE_ERROR_NULL_ARG,
-	BTLE_ERROR_TIMEOUT,
-	BTLE_ERROR_BUSY,
-	BTLE_ERROR_ALREADY,
-	BTLE_ERROR_INTERNAL,
-	BTLE_ERROR_EMPTY,
-	BTLE_ERROR_MEMORY,
-	BTLE_ERROR_NOT_IMPLEMENTED,
-};
-
-#endif /* BTLE_ERROR_H */
+uint8_t gattc_write_req(uint8_t devId, uint8_t *data, uint8_t data_len);
+uint8_t gattc_write_cmd(uint8_t devId, uint8_t *data, uint8_t data_len);
+uint8_t gattc_read_req(uint8_t devId, uint8_t *data, uint8_t data_len);
+uint8_t gattc_connect(uint8_t devId, uint8_t *data, uint8_t data_len);
+#endif /* GATTC_HEADER_H */
