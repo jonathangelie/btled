@@ -18,6 +18,7 @@ import imp
 import sys
 import inspect, os
 import time
+import re
 
 # for options parsing 
 import textwrap

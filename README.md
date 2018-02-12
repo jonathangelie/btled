@@ -5,18 +5,20 @@
 The origin of the btled server/client application come from a personnal desire to gathers 
 into one interface most of powerful capabilities offers by Linux bluetooth stack.
 
-In fact Bluez exposed many useful tools like btmgmt, btmon, btgatt-client, btattach, but while developing, verifying or testing BLE firmware, we have to jump from a binary to an other one, as their use are different.
+In fact Bluez exposed many useful tools like btmgmt, btmon, btgatt-client, btattach, but while developing, verifying or testing BLE firmware, we have to jump from a binary to an other one.
 
-Fortunately, exists two majors python script for automate our hardware testing:
+Fortunately, exists two majors python script with similar requierements:
 
 * pyGatt is a awesome mulitplatform (Linux and Windows) scripts.
 However, as pyGatt is based on the deprecated gatttool, it does not offers mgmt capacity like setting local name, connection parameters for instance.
 * Bluepy is another tools communicating (through stdin, stdout) with its corresponding bluepy-helper binary to handle Bluez management interface.
 However, the main drawback is that Bluepy is launching as many bluepy-helper binary as BT interface you want to work with.
 
+However both of them are deprecated as they are using hci socket interface instead of the new D-Bus Gatt API.
+
 ## Design
 
-Btled component is inspired by a whole open source project, but is written from scratch focusing on speed, simplicity, and flexibility.
+Btled component is inspired by a whole open source project, but is written focusing on speed, simplicity, and flexibility.
 
 ![Btled design](./images/btled_design.png)
 ### Build
