@@ -40,7 +40,7 @@ $ sudo /etc/init.d/btled --start
 ```
 
 ```shell
-# running scan example
+# running scan.py example
 $ sudo python ./example/scan.py
 reading controller information
 response status [ok]
@@ -73,6 +73,34 @@ response status [ok]
 powering off
 response status [ok]
 
+```
+
+```shell
+# running central.py example
+$ sudo python ./example/central.py -c hci0 -a "00:11:22:33:44:55"
+connected with 00:11:22:33:44:55
+service discovery:
+service: 00001800-0000-1000-8000-00805f9b34fb
+start: 1
+end: 5
+        characteristics: 00002a00-0000-1000-8000-00805f9b34fb
+        handle: 2
+        value_handle:  03
+        properties: 02
+        ext_prop: 0000
+        characteristics: 00002a01-0000-1000-8000-00805f9b34fb
+        handle: 4
+        value_handle:  05
+        properties: 02
+        ext_prop: 0000
+service: 00001801-0000-1000-8000-00805f9b34fb
+start: 6
+end: 9
+        characteristics: 00002a05-0000-1000-8000-00805f9b34fb
+        handle: 7
+        value_handle:  08
+        properties: 20
+        ext_prop: 0000
 ```
 
 ### Running the test
