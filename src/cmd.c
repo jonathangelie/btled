@@ -106,6 +106,9 @@ static const struct {
 	[CMD_GATTC_WRITE_CMD] = {gattc_write_cmd},
 	[CMD_GATTC_WRITE_REQ] = {gattc_write_req},
 	[CMD_GATTC_READ_REQ]  = {gattc_read_req},
+	[CMD_GATTC_SUBSCRIBE_REQ]  = {gattc_subscribe_req},
+	[CMD_GATTC_UNSUBSCRIBE_REQ]  = {gattc_unsubscribe_req},
+
 	[CMD_MAX] = {NULL},
 };
 

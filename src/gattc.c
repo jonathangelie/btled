@@ -44,6 +44,7 @@
 #include "src/shared/gatt-db.h"
 #include "src/shared/gatt-client.h"
 
+
 #define MODULE "gattc"
 #include "btprint.h"
 
@@ -54,7 +55,12 @@
 #define ATT_CID 4
 #define ATT_DEFAULT_LE_MTU 23
 
-static void gattc_write_complete(bool success, uint8_t att_ecode, void *user_data)
+#define GATT_INVALID      0x00
+#define GATT_NOTIFICATION 0x01
+#define GATT_INDICATION   0x02
+
+static void gattc_write_complete(bool success, uint8_t att_ecode,
+								 void *user_data)
 {
 	struct cmd_adaper *adapter = user_data;
 	uint8_t status = (success ? 0 : 1);
@@ -82,15 +88,7 @@ static uint8_t gattc_write(uint8_t cmd, uint8_t devId,
 		cmd_strtou16(&data[0], &handle);
 		len = data_len - 2;
 
-		if (CMD_GATTC_WRITE_REQ == cmd) {
-
-			if (!bt_gatt_client_write_value(adapter->cli->gatt, handle,
-											&data[2], len,
-											gattc_write_complete,
-											adapter, NULL)) {
-				ret = BTLE_ERROR_INTERNAL;
-			}
-		} else if (CMD_GATTC_WRITE_CMD == cmd) {
+		if (CMD_GATTC_WRITE_CMD == cmd) {
 			bool signed_write = false;
 
 			if (!bt_gatt_client_write_without_response(adapter->cli->gatt,
@@ -98,10 +96,18 @@ static uint8_t gattc_write(uint8_t cmd, uint8_t devId,
 													   &data[2], len)) {
 				ret = BTLE_ERROR_INTERNAL;
 			}
+		} else if (cmd == CMD_GATTC_SUBSCRIBE_REQ) {
+
+			if (!bt_gatt_client_write_value(adapter->cli->gatt, handle,
+											&data[2], len,
+											gattc_write_complete,
+											adapter, NULL)) {
+				ret = BTLE_ERROR_INTERNAL;
+			}
 		}
 	}
 
-	if (ret)
+	if (ret || CMD_GATTC_WRITE_CMD == cmd)
 		cmd_send_status(devId, cmd, ret);
 
 	return ret;
@@ -110,15 +116,104 @@ static uint8_t gattc_write(uint8_t cmd, uint8_t devId,
 uint8_t gattc_write_req(uint8_t devId, uint8_t *data,
 						uint8_t data_len)
 {
-	INFO("%s\n", __FUNCTION__);
 	return gattc_write(CMD_GATTC_WRITE_REQ, devId, data, data_len);
 }
 
 uint8_t gattc_write_cmd(uint8_t devId, uint8_t *data,
 						uint8_t data_len)
 {
-	INFO("%s\n", __FUNCTION__);
 	return gattc_write(CMD_GATTC_WRITE_CMD, devId, data, data_len);
+}
+
+static void gattc_subscribe_complete(uint16_t att_ecode, void *user_data)
+{
+	struct cmd_adaper *adapter = user_data;
+
+	cmd_send_status_msg(adapter->devId, CMD_GATTC_SUBSCRIBE_REQ, att_ecode,
+						&adapter->cli->cccd_id, 1);
+}
+
+void on_gattc_notification(uint16_t value_handle, const uint8_t *value,
+						   uint16_t length, void *user_data)
+{
+	struct cmd_adaper *adapter = user_data;
+	struct {
+		uint16_t value_handle;
+		uint16_t data_len;
+		uint8_t cccd_id;
+		uint8_t data[length];
+	} msg;
+
+	msg.cccd_id = adapter->cli->cccd_id;
+	msg.value_handle = value_handle;
+	msg.data_len = length;
+	memcpy(&msg.data[0], value, sizeof(msg.data));
+
+	cmd_send_event_msg(adapter->devId, EVENT_GATTC_NOTIFICATION,
+					   &msg, sizeof(msg));
+}
+
+uint8_t gattc_subscribe_req(uint8_t devId, uint8_t *data,
+						uint8_t data_len)
+{
+	uint8_t ret = BTLE_ERROR_INTERNAL;
+	struct cmd_adaper *adapter;
+
+	adapter = cmd_get_adapter_by_id(devId);
+	if (!adapter) {
+		ret = BTLE_ERROR_INVALID_ARG;
+	} else if (!adapter->cli) {
+		ret =  BTLE_ERROR_INVALID_STATE;
+	} else {
+
+		if (data[0] == GATT_NOTIFICATION) {
+			uint16_t chrc_value_handle;
+			uint8_t cccd_id;
+
+			cmd_strtou16(&data[1], &chrc_value_handle);
+			cccd_id = bt_gatt_client_register_notify(adapter->cli->gatt,
+											   chrc_value_handle,
+											   gattc_subscribe_complete,
+											   on_gattc_notification,
+											   adapter,
+											   NULL);
+			if (cccd_id) {
+				adapter->cli->cccd_id = cccd_id;
+				ret = BTLE_SUCCESS;
+			}
+		}
+	}
+
+	if(ret)
+		cmd_send_status(devId, CMD_GATTC_SUBSCRIBE_REQ, ret);
+
+	return ret;
+}
+
+uint8_t gattc_unsubscribe_req(uint8_t devId, uint8_t *data,
+		uint8_t data_len)
+{
+	uint8_t ret = BTLE_ERROR_INTERNAL;
+	struct cmd_adaper *adapter;
+
+	adapter = cmd_get_adapter_by_id(devId);
+	if (!adapter) {
+		ret = BTLE_ERROR_INVALID_ARG;
+	} else if (!adapter->cli) {
+		ret =  BTLE_ERROR_INVALID_STATE;
+	} else {
+		uint8_t cccd_id;
+
+		cccd_id = data[0];
+
+		if (bt_gatt_client_unregister_notify(adapter->cli->gatt, cccd_id)) {
+			ret = BTLE_SUCCESS;
+		}
+	}
+
+	cmd_send_status(devId, CMD_GATTC_UNSUBSCRIBE_REQ, ret);
+
+	return ret;
 }
 
 static void gattc_read_complete(bool success, uint8_t att_ecode,
@@ -137,8 +232,6 @@ uint8_t gattc_read_req(uint8_t devId, uint8_t *data,
 {
 	uint8_t ret = BTLE_SUCCESS;
 	struct cmd_adaper *adapter;
-
-	INFO("%s\n", __FUNCTION__);
 
 	adapter = cmd_get_adapter_by_id(devId);
 	if (!adapter)
@@ -218,13 +311,13 @@ static void gattc_disc_desc_complete(struct gatt_db_attribute *attr, void *user_
 		/* must be naturally packed */
 		uint16_t handle;
 		uint16_t uuid16;
-		char uuid_str[MAX_LEN_UUID_STR + 1];
+		uint8_t uuid_str[MAX_LEN_UUID_STR + 1];
 	} msg;
 
 	msg.handle = gatt_db_attribute_get_handle(attr);
 	uuid = gatt_db_attribute_get_type(attr);
 	msg.uuid16 = uuid->value.u16;
-	bt_uuid_to_string(uuid, msg.uuid_str, sizeof(msg.uuid_str));
+	bt_uuid_to_string(uuid, (char *)msg.uuid_str, sizeof(msg.uuid_str));
 
 
 	cmd_send_event_msg(adapter->devId, EVENT_GATTC_DISC_DESC,
@@ -240,8 +333,8 @@ static void gattc_disc_char_complete(struct gatt_db_attribute *attr, void *user_
 		/* must be naturally packed */
 		uint16_t handle;
 		uint16_t value_handle;
-		uint8_t properties;
 		uint16_t ext_prop;
+		uint8_t properties;
 		uint8_t uuid_str[MAX_LEN_UUID_STR + 1];
 	} msg;
 
@@ -446,7 +539,8 @@ static int l2cap_le_att_connect(bdaddr_t *src, bdaddr_t *dst, uint8_t dst_type,
 	INFO("Connecting to device...type(%d)\n", dst_type);
 
 	if (connect(sock, (struct sockaddr *) &dstaddr, sizeof(dstaddr)) < 0) {
-		ERR(" Failed to connect\n");
+
+		ERR("Failed to connect %s\n", strerror(errno));
 		close(sock);
 		return -1;
 	}
@@ -461,13 +555,10 @@ uint8_t gattc_connect(uint8_t devId, uint8_t *data, uint8_t data_len)
 	uint8_t ret = BTLE_SUCCESS;
 	struct cmd_adaper *adapter;
 
-	DBG("gattc_connect len(%d)\n", data_len);
 	adapter = cmd_get_adapter_by_id(devId);
 	if (!adapter) {
-		DBG("adapter %d not found\n", devId);
 		ret = BTLE_ERROR_INVALID_ARG;
 	} else if (adapter->cli) {
-		DBG("adapter %d already connected\n", devId);
 		ret = BTLE_ERROR_ALREADY;
 	}
 
@@ -507,7 +598,6 @@ uint8_t gattc_connect(uint8_t devId, uint8_t *data, uint8_t data_len)
 			}
 
 			if (!adapter->cli) {
-				DBG("%s:%d\n", __FUNCTION__, __LINE__);
 				cmd_send_status(devId, CMD_MGMT_CONNECT, BTLE_ERROR_INTERNAL);
 				memset(adapter, 0, sizeof(*adapter));
 			}

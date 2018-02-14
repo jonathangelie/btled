@@ -29,10 +29,12 @@ CMD_MGMT_SET_CONNECTION_PARAM   = 4     # [devid | addr | addrtype | min(u8) | m
 CMD_MGMT_SCAN                   = 5     # [devid | (mode(u8)=0:stop, 1:start) | timeout_ms(u16)]
 CMD_MGMT_READ_CONTROLLER_INFO   = 6     # [devid
 
-CMD_GATTC_CONNECT_REQ           = 7    # [devid | addr | addrtype | sec_level
+CMD_GATTC_CONNECT_REQ           = 7     # [devid | addr | addrtype | sec_level
 CMD_GATTC_WRITE_CMD             = 8     # [devid | handle(u16) | data ]
 CMD_GATTC_WRITE_REQ             = 9     # [devid | handle(u16) | data ]
-CMD_GATTC_READ_REQ              = 10     # [devid | handle(u16)]
+CMD_GATTC_READ_REQ              = 10    # [devid | handle(u16)]
+CMD_GATTC_SUBSCRIBE_REQ         = 11    # [devid | handle(u16) | None(0)|Nty(1)|Ind(2)]
+CMD_GATTC_UNSUBSCRIBE_REQ       = 12    # [devid | cccd_if(u8)
 
 EVT_CONNECTED            = 0
 EVT_DISCONNECTED         = 1
@@ -44,6 +46,8 @@ EVT_GATTC_INDICATION     = 6
 EVT_GATTC_DISC_PRIMARY   = 7
 EVT_GATTC_DISC_CHAR      = 8
 EVT_GATTC_DISC_DESC      = 9
+
+UUID_STR_MAX_LEN         = 37
 
 class cmdException(Exception):
     pass
@@ -83,7 +87,7 @@ class cmd :
 
         data_len = struct.unpack('>B', data[:1])[0]
         if data_len == 0:
-            self.delegate[EVT_GATTC_DISC_PRIMARY](EVT_GATTC_DISC_PRIMARY, self.attrs)
+            self.delegate[EVT_GATTC_DISC_PRIMARY](self.attrs)
             return
 
         data = data[1:]
@@ -107,10 +111,10 @@ class cmd :
         data_len = struct.unpack('>B', data[:1])[0]
 
         data = data[1:]
-        (handle, value_handle, properties, ext_prop) = struct.unpack('<HHBH', data[:7])
+        (handle, value_handle, ext_prop, properties) = struct.unpack('<HHHB', data[:7])
         data = data[7:]
-        data_len -= 8
-        uuid = data[:data_len]
+        data_len -= 7
+        uuid = data[:UUID_STR_MAX_LEN]
 
         chr = {}
         chr["handle"] = handle
@@ -127,14 +131,29 @@ class cmd :
 
             desc = {}
             data_len = struct.unpack('>B', data[:1])[0]
-
             data = data[1:]
+            
             (desc["handle"], desc["uuid16"]) = struct.unpack('<HH', data[:4])
             data = data[4:]
             data_len -= 5
             desc["uuid"] = data[:data_len]
 
             self.attr["service"]["characteristics"][-1]["desc"].append(desc)
+
+    def parse_notification_evt(self):
+
+        data_len = struct.unpack('>B', data[:1])[0]
+        data = data[1:]
+
+        notif = {}
+        (id, value_handle, len) = struct.unpack('<BHH', data[:5])
+        data = data[5:]
+
+        notif["id"] = id
+        notif["value_handle"] = value_handle
+        notif["data_len"] = len
+        notif["data"] = data[:len]
+        self.delegate[EVT_GATTC_NOTIFICATION](notif)
 
     def parse_event(self, evt_dict):
         (adapter, evt, status) = struct.unpack('>BBB', evt_dict["content"][:3])
@@ -147,8 +166,10 @@ class cmd :
             self.parse_discover_characteristc_evt(data)
         elif evt == EVT_GATTC_DISC_DESC:
             self.parse_discover_descriptor_evt(data)
+        elif evt == EVT_GATTC_NOTIFICATION:
+            self.parse_notification_evt(data)
 
-    def parse_read_controller_info(self, data, data_len):
+    def parse_read_controller_info_rsp(self, data, data_len):
         dict = {}
         litle_addr = ''.join('%02x' % ord(b) for b in data[:6])
         dict["addr"] = ":".join([litle_addr[x:x+2] for x in range(0,len(litle_addr),2)][::-1])
@@ -178,22 +199,54 @@ class cmd :
 
         return dict
 
+    def parse_read_characteristic_rsp(self, data, data_len):
+        dict = {}
+        dict["length"] = data_len
+        dict["value"] = data[:data_len]
+
+        return dict
+
+    def parse_write_characteristic_rsp(self, data, data_len):
+        '''
+        nothing to do as status has already been checked
+        '''
+
+    def parse_subscibe_rsp(self, data, data_len):
+        dict = {}
+        dict["cccd_id"] = struct.unpack('<B', data[0])[0]
+
+        return dict
+
+    def parse_unsubscibe_rsp(self, data, data_len):
+        '''
+        nothing to do as status has already been checked
+        '''
+
     def parse_resp(self, adapter, cmd, data):
-       ret = {"status": "error", "reason": "unknown command"}
+        ret = {"status": "error", "reason": "unknown command"}
 
-       status = struct.unpack('>B', data[:1])[0]
-       if status == 0:
-           data = data[1:]
-           ret["status"] = "ok"
-           del ret["reason"]
-           data_len = struct.unpack('>B', data[:1])[0]
-           data = data[1:]
-           if cmd == CMD_MGMT_READ_CONTROLLER_INFO:
-               ret["result"] = self.parse_read_controller_info(data, data_len)
-       else:
-           ret["reason"] = data[2:]
+        (status, data_len) = struct.unpack('>BB', data[:2])
+        data = data[2:]
 
-       return ret
+        if status == 0:
+            ret["status"] = "ok"
+            del ret["reason"]
+
+            if cmd == CMD_MGMT_READ_CONTROLLER_INFO:
+                ret["result"] = self.parse_read_controller_info_rsp(data, data_len)
+            if cmd == CMD_GATTC_READ_REQ:
+                ret["result"] = self.parse_read_characteristic_rsp(data, data_len)
+            if cmd == CMD_GATTC_WRITE_REQ or cmd == CMD_GATTC_WRITE_CMD:
+                ret["result"] = parse_write_characteristic_rsp(data, data_len)
+            if cmd == CMD_GATTC_SUBSCRIBE_REQ:
+                ret["result"] = self.parse_subscibe_rsp(data, data_len)
+            if cmd == CMD_GATTC_UNSUBSCRIBE_REQ:
+                ret["result"] = self.parse_unsubscibe_rsp(data, data_len)
+        else:
+            ret["err_code"] = status
+            ret["reason"] = data[:data_len]
+
+        return ret
 
     def wait_resp(self, timeout = 10):
         ret = {"status": "error", "reason": "timeout"}
@@ -219,7 +272,7 @@ class cmd :
         # print binascii.hexlify(pkt)
         self.ipc.ipc_send_req(pkt, len(pkt))
         ret = self.wait_resp(timeout)
-        print("response status [%s]" % ret["status"])
+        print("cmd(%d) response status [%s]" % (cmd, ret["status"]))
         return ret
 
     def read_controller_info(self, adapter):
@@ -253,10 +306,20 @@ class cmd :
         bin = struct.pack('>B', 0)
         return self.send_cmd(adapter, CMD_MGMT_SCAN, bin)
 
-    def connect(self, adapter, addr, addrtype, sec_level, service_discovery):
-        self.delegate[EVT_GATTC_DISC_PRIMARY] = service_discovery
+    def connect(self, adapter, addr, addrtype, sec_level, service_discovery_cb):
+        self.delegate[EVT_GATTC_DISC_PRIMARY] = service_discovery_cb
         bin = addr
         bin = ":".join([addr[x:x+2] for x in range(0,len(addr),3)][::-1])
         bin += struct.pack('>BB', addrtype, sec_level)
         self.reset_db()
         return self.send_cmd(adapter, CMD_GATTC_CONNECT_REQ, bin, timeout = 15)
+
+    def subscribe(self, adapter, value_handle, value, notification_cb):
+        if value != 0:
+            self.delegate[EVT_GATTC_NOTIFICATION] = notification_cb
+        bin = struct.pack('>HB', handle, value)
+        return self.send_cmd(adapter, CMD_GATTC_SUBSCRIBE_REQ, bin)
+
+    def unsubscribe(self, adapter, cccd_id):
+        bin = struct.pack('>B', cccd_id)
+        return self.send_cmd(adapter, CMD_GATTC_UNSUBSCRIBE_REQ, bin)

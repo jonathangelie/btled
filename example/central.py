@@ -30,10 +30,11 @@ cmd = imp.load_source('cmd', os.path.normpath(path + '/../pybtle/cmd.py'))
 gattc = imp.load_source('gattc', os.path.normpath(path + '/../pybtle/gattc.py'))
 
 
+c_red       = '\033[31m'
 c_green     = '\033[32m'
 c_yellow    = '\033[33m'
-c_white     = '\033[37m'
 c_cyan      = '\033[36m'
+c_white     = '\033[37m'
 c_off       = '\033[0m'
 
 class Central:
@@ -78,22 +79,36 @@ class Central:
         print c_white + "start: %d" % attr["service"]["start"]
         print c_white + "end: %d" % attr["service"]["end"]
         for chr in attr["service"]["characteristics"]:
-            print "\t" + c_green + "characteristics: " + chr["uuid"]
+            print "\t" + c_green + "characteristic: " + chr["uuid"]
             print "\t" + c_white + "handle: %d" % chr["handle"]
-            print "\t" + c_white + "value_handle:  %02x" % chr["value_handle"]
+            print "\t" + c_white + "value_handle:  %d" % chr["value_handle"]
             print "\t" + c_white + "properties: %02x" % chr["properties"]
-            print "\t" + c_white + "ext_prop: %04x" % chr["ext_prop"]
+            print "\t" + c_white + "ext prop: %04x" % chr["ext_prop"]
             for desc in  chr["desc"]:
                 print "\t\t" + c_yellow + "descriptor: " + desc["uuid"]
-                print "\t\t" + c_white + "handle: " + desc["handle"]
+                print "\t\t" + c_white + "handle: %d" % desc["handle"]
 
     def service_discovery(self):
-        db = self.gattc.get_db()
-        if db != None :
-            for attr in db:
-                self.print_attr(attr)
-        return db
+        try:
+            return self.db
+        except AttributeError:
+            db = self.gattc.get_db()
+            if db != None :
+                self.db = db
+                for attr in db:
+                    self.print_attr(attr)
+                # battery level characteristic 
+                self.enable_notification("00002a19-0000-1000-8000-00805f9b34fb")
+            return db
 
+    def enable_notification(self, uuid):
+        self.gattc.subscribe_notification(self.devId, uuid, self.notification_event)
+
+    def notification_event(self, notif):
+        print c_red + "Notification from characteristic: " + notif["chrc_uuid"]
+        print "\t" + c_white + "value_handle: %d" % notif["value_handle"]
+        print "\t" + c_white + "len: %d" % notif["len"]
+        print "\t" + c_white + "data: %d" % int(notif["data"])
 
 class CustomerFormatter(argparse.ArgumentDefaultsHelpFormatter, argparse.RawTextHelpFormatter):
     pass
@@ -120,9 +135,8 @@ try:
     central.connect(arg.address, arg.type)
 
     while (time.time() - start) <= arg.duration :
-        ret = central.service_discovery()
-        if ret != None:
-            break
+
+        central.service_discovery()
         time.sleep(1)
 
 except KeyboardInterrupt:

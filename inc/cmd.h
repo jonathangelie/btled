@@ -31,7 +31,9 @@ enum cmds {
 
 	CMD_GATTC_WRITE_CMD,			/* [devid | handle(u16) | data ] */
 	CMD_GATTC_WRITE_REQ,			/* [devid | handle(u16) | data ] */
-	CMD_GATTC_READ_REQ,					/* [devid | handle(u16)] */
+	CMD_GATTC_READ_REQ,				/* [devid | handle(u16)] */
+	CMD_GATTC_SUBSCRIBE_REQ,		/* [devid | handle(u16)] | value*/
+	CMD_GATTC_UNSUBSCRIBE_REQ,		/* [devid | handle(u16)] | cccd_id*/
 
 	CMD_GATTS_ADD_SVC,
 	CMD_GATTS_ADD_CHARACTERISTIC,
@@ -65,7 +67,7 @@ struct client {
 	struct gatt_db *db;
 	struct bt_gatt_client *gatt;
 
-	unsigned int reliable_session_id;
+	uint8_t cccd_id;
 };
 
 struct cmd_adaper {

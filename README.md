@@ -82,27 +82,69 @@ response status [ok]
 $ sudo python ./example/central.py -c hci0 -a "00:11:22:33:44:55"
 connected with 00:11:22:33:44:55
 service discovery:
-service: 00001800-0000-1000-8000-00805f9b34fb
+service: 0000180a-0000-1000-8000-00805f9b34fb
 start: 1
-end: 5
-        characteristics: 00002a00-0000-1000-8000-00805f9b34fb
+end: 13
+        characteristics: 00002a24-0000-1000-8000-00805f9b34fb
         handle: 2
-        value_handle:  03
+        value_handle:  3
         properties: 02
-        ext_prop: 0000
-        characteristics: 00002a01-0000-1000-8000-00805f9b34fb
+        ext prop: 0000
+        characteristics: 00002a25-0000-1000-8000-00805f9b34fb
         handle: 4
-        value_handle:  05
+        value_handle:  5
         properties: 02
-        ext_prop: 0000
-service: 00001801-0000-1000-8000-00805f9b34fb
-start: 6
-end: 9
-        characteristics: 00002a05-0000-1000-8000-00805f9b34fb
-        handle: 7
-        value_handle:  08
-        properties: 20
-        ext_prop: 0000
+        ext prop: 0000
+        characteristics: 00002a26-0000-1000-8000-00805f9b34fb
+        handle: 6
+        value_handle:  7
+        properties: 02
+        ext prop: 0000
+        characteristics: 00002a27-0000-1000-8000-00805f9b34fb
+        handle: 8
+        value_handle:  9
+        properties: 02
+        ext prop: 0000
+        characteristics: 00002a28-0000-1000-8000-00805f9b34fb
+        handle: 10
+        value_handle:  11
+        properties: 02
+        ext prop: 0000
+        characteristics: 00002a29-0000-1000-8000-00805f9b34fb
+        handle: 12
+        value_handle:  13
+        properties: 02
+        ext prop: 0000
+service: 0000180d-0000-1000-8000-00805f9b34fb
+start: 14
+end: 18
+        characteristics: 00002a37-0000-1000-8000-00805f9b34fb
+        handle: 15
+        value_handle:  16
+        properties: 02
+        ext prop: 0000
+        characteristics: 00002a39-0000-1000-8000-00805f9b34fb
+        handle: 17
+        value_handle:  18
+        properties: 02
+        ext prop: 0000
+service: 0000180f-0000-1000-8000-00805f9b34fb
+start: 19
+end: 23
+        characteristics: 00002a19-0000-1000-8000-00805f9b34fb
+        handle: 21
+        value_handle:  22
+        properties: 02
+        ext prop: 0000
+service: de305d54-75b4-431b-adb2-eb6b9e546015
+start: 24
+end: 27
+        characteristics: de305d54-75b4-431b-adb2-eb6b9e546016
+        handle: 25
+        value_handle:  26
+        properties: 3a
+        ext prop: 0000
+
 ```
 
 ### Running the test

@@ -21,4 +21,6 @@ uint8_t gattc_write_req(uint8_t devId, uint8_t *data, uint8_t data_len);
 uint8_t gattc_write_cmd(uint8_t devId, uint8_t *data, uint8_t data_len);
 uint8_t gattc_read_req(uint8_t devId, uint8_t *data, uint8_t data_len);
 uint8_t gattc_connect(uint8_t devId, uint8_t *data, uint8_t data_len);
+uint8_t gattc_subscribe_req(uint8_t devId, uint8_t *data, uint8_t data_len);
+uint8_t gattc_unsubscribe_req(uint8_t devId, uint8_t *data, uint8_t data_len);
 #endif /* GATTC_HEADER_H */
