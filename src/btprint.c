@@ -13,7 +13,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
@@ -22,12 +22,12 @@
 
 #include "btle_error.h"
 
-#define DBG_MSG_LEN	80
+#define DBG_MSG_LEN     80
 
-void btprint(const char* format, ...)
+void btprint(const char *format, ...)
 {
 	va_list args;
-	uint8_t data[DBG_MSG_LEN] = {0};
+	uint8_t data[DBG_MSG_LEN] = { 0 };
 	uint8_t *p_data = &data[0];
 	time_t t = time(NULL);
 	struct tm *tm;
@@ -35,13 +35,14 @@ void btprint(const char* format, ...)
 	tm = localtime(&t);
 
 	va_start(args, format);
-	p_data += snprintf((char *)p_data, sizeof(data) -1, "%02d:%02d:%02d ",
-						tm->tm_hour, tm->tm_min, tm->tm_sec);
+	p_data += snprintf((char *)p_data, sizeof(data) - 1, "%02d:%02d:%02d ",
+			   tm->tm_hour, tm->tm_min, tm->tm_sec);
 
-	vsnprintf((char *)p_data, &data[sizeof(data) -1] - p_data, format, args);
+	vsnprintf((char *)p_data, &data[sizeof(data) - 1] - p_data, format,
+		  args);
 
-	fprintf(stdout,"%s", data);
-	fflush (stdout);
+	fprintf(stdout, "%s", data);
+	fflush(stdout);
 
 	va_end(args);
 }

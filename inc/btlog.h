@@ -28,7 +28,7 @@
 uint8_t bt_log_init(void);
 uint8_t bt_log_close(void);
 
-void bt_log(const char* format, ...);
+void bt_log(const char *format, ...);
 
 #define BT_LOG(format, ...) 		bt_log("%s " format, MODULE, ##__VA_ARGS__)
 

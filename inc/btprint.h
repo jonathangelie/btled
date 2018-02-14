@@ -24,7 +24,7 @@
 #endif
 
 
-void btprint(const char* format, ...);
+void btprint(const char *format, ...);
 
 #define BTPRINT(format, ...) 		btprint("%s " format, MODULE, ##__VA_ARGS__)
 

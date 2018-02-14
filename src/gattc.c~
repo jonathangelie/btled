@@ -13,7 +13,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -67,7 +67,7 @@ static void gattc_write_complete(bool success, uint8_t att_ecode,
 }
 
 static uint8_t gattc_write(uint8_t cmd, uint8_t devId,
-			   uint8_t *data, uint8_t data_len)
+			   uint8_t * data, uint8_t data_len)
 {
 	uint8_t ret = BTLE_SUCCESS;
 	struct cmd_adaper *adapter;
@@ -79,6 +79,7 @@ static uint8_t gattc_write(uint8_t cmd, uint8_t devId,
 		ret = BTLE_ERROR_INVALID_STATE;
 
 	if (!ret) {
+
 		uint16_t handle;
 		uint8_t len;
 		struct bt_gatt_client *gatt = adapter->cli->gatt;
@@ -88,18 +89,15 @@ static uint8_t gattc_write(uint8_t cmd, uint8_t devId,
 
 		if (CMD_GATTC_WRITE_CMD == cmd) {
 			bool signed_write = false;
-
-			if (!bt_gatt_client_write_without_response(gatt, handle,
-								   signed_write,
-								   &data[2],
-								   len)) {
+			if (!bt_gatt_client_write_without_response(gatt, handle, signed_write, &data[2],
+			     len)) {
 				ret = BTLE_ERROR_INTERNAL;
 			}
 		} else if (cmd == CMD_GATTC_SUBSCRIBE_REQ) {
+
 			if (!bt_gatt_client_write_value(gatt, handle,
-							&data[2], len,
-							gattc_write_complete,
-							adapter, NULL)) {
+					&data[2], len,
+			     gattc_write_complete, adapter, NULL)) {
 				ret = BTLE_ERROR_INTERNAL;
 			}
 		}
@@ -111,12 +109,12 @@ static uint8_t gattc_write(uint8_t cmd, uint8_t devId,
 	return ret;
 }
 
-uint8_t gattc_write_req(uint8_t devId, uint8_t *data, uint8_t data_len)
+uint8_t gattc_write_req(uint8_t devId, uint8_t * data, uint8_t data_len)
 {
 	return gattc_write(CMD_GATTC_WRITE_REQ, devId, data, data_len);
 }
 
-uint8_t gattc_write_cmd(uint8_t devId, uint8_t *data, uint8_t data_len)
+uint8_t gattc_write_cmd(uint8_t devId, uint8_t * data, uint8_t data_len)
 {
 	return gattc_write(CMD_GATTC_WRITE_CMD, devId, data, data_len);
 }
@@ -129,11 +127,10 @@ static void gattc_subscribe_complete(uint16_t att_ecode, void *user_data)
 			    &adapter->cli->cccd_id, 1);
 }
 
-void on_gattc_notification(uint16_t value_handle, const uint8_t *value,
+void on_gattc_notification(uint16_t value_handle, const uint8_t * value,
 			   uint16_t length, void *user_data)
 {
 	struct cmd_adaper *adapter = user_data;
-
 	struct {
 		uint16_t value_handle;
 		uint16_t data_len;
@@ -150,7 +147,7 @@ void on_gattc_notification(uint16_t value_handle, const uint8_t *value,
 			   &msg, sizeof(msg));
 }
 
-uint8_t gattc_subscribe_req(uint8_t devId, uint8_t *data, uint8_t data_len)
+uint8_t gattc_subscribe_req(uint8_t devId, uint8_t * data, uint8_t data_len)
 {
 	uint8_t ret = BTLE_ERROR_INTERNAL;
 	struct cmd_adaper *adapter;
@@ -161,19 +158,18 @@ uint8_t gattc_subscribe_req(uint8_t devId, uint8_t *data, uint8_t data_len)
 	} else if (!adapter->cli) {
 		ret = BTLE_ERROR_INVALID_STATE;
 	} else {
+
 		if (data[0] == GATT_NOTIFICATION) {
 			uint16_t chrc_value_handle;
 			uint8_t cccd_id;
-			struct bt_gatt_client *gatt;
 
-			gatt = adapter->cli->gatt;;
 			cmd_strtou16(&data[1], &chrc_value_handle);
-			cccd_id = bt_gatt_client_register_notify(
-				gatt,
-				chrc_value_handle,
-				gattc_subscribe_complete,
-				on_gattc_notification,
-				adapter, NULL);
+			cccd_id =
+			    bt_gatt_client_register_notify(adapter->cli->gatt,
+							   chrc_value_handle,
+							   gattc_subscribe_complete,
+							   on_gattc_notification,
+							   adapter, NULL);
 			if (cccd_id) {
 				adapter->cli->cccd_id = cccd_id;
 				ret = BTLE_SUCCESS;
@@ -187,7 +183,7 @@ uint8_t gattc_subscribe_req(uint8_t devId, uint8_t *data, uint8_t data_len)
 	return ret;
 }
 
-uint8_t gattc_unsubscribe_req(uint8_t devId, uint8_t *data, uint8_t data_len)
+uint8_t gattc_unsubscribe_req(uint8_t devId, uint8_t * data, uint8_t data_len)
 {
 	uint8_t ret = BTLE_ERROR_INTERNAL;
 	struct cmd_adaper *adapter;
@@ -202,8 +198,8 @@ uint8_t gattc_unsubscribe_req(uint8_t devId, uint8_t *data, uint8_t data_len)
 
 		cccd_id = data[0];
 
-		if (bt_gatt_client_unregister_notify(adapter->cli->gatt,
-						     cccd_id)) {
+		if (bt_gatt_client_unregister_notify
+		    (adapter->cli->gatt, cccd_id)) {
 			ret = BTLE_SUCCESS;
 		}
 	}
@@ -214,7 +210,7 @@ uint8_t gattc_unsubscribe_req(uint8_t devId, uint8_t *data, uint8_t data_len)
 }
 
 static void gattc_read_complete(bool success, uint8_t att_ecode,
-				const uint8_t *value, uint16_t length,
+				const uint8_t * value, uint16_t length,
 				void *user_data)
 {
 	struct cmd_adaper *adapter = user_data;
@@ -224,7 +220,7 @@ static void gattc_read_complete(bool success, uint8_t att_ecode,
 			    (void *)value, length);
 }
 
-uint8_t gattc_read_req(uint8_t devId, uint8_t *data, uint8_t data_len)
+uint8_t gattc_read_req(uint8_t devId, uint8_t * data, uint8_t data_len)
 {
 	uint8_t ret = BTLE_SUCCESS;
 	struct cmd_adaper *adapter;
@@ -253,7 +249,7 @@ uint8_t gattc_read_req(uint8_t devId, uint8_t *data, uint8_t data_len)
 	return ret;
 }
 
-static void gattc_disconnect_cb(int err, void *user_data)
+static void cmd_att_disconnect_cb(int err, void *user_data)
 {
 	struct cmd_adaper *adapter = user_data;
 
@@ -268,7 +264,6 @@ static void service_added_cb(struct gatt_db_attribute *attr, void *user_data)
 {
 	struct cmd_adaper *adapter = user_data;
 	bt_uuid_t uuid;
-
 	return;
 	struct {
 		/* must be naturally packed */
@@ -292,23 +287,20 @@ static void service_removed_cb(struct gatt_db_attribute *attr, void *user_data)
 static void att_debug_cb(const char *str, void *user_data)
 {
 	struct cmd_adaper *adapter = user_data;
-
 	DBG("[%d] att:%s\n", adapter->devId, str);
 }
 
 static void gatt_debug_cb(const char *str, void *user_data)
 {
 	struct cmd_adaper *adapter = user_data;
-
 	DBG("[%d] gatt:%s\n", adapter->devId, str);
 }
 
-static void gattc_disc_desc_complete(struct gatt_db_attribute * attr,
+static void gattc_disc_desc_complete(struct gatt_db_attribute *attr,
 				     void *user_data)
 {
 	struct cmd_adaper *adapter = user_data;
 	const bt_uuid_t *uuid;
-
 	struct {
 		/* must be naturally packed */
 		uint16_t handle;
@@ -325,8 +317,8 @@ static void gattc_disc_desc_complete(struct gatt_db_attribute * attr,
 			   &msg, sizeof(msg));
 }
 
-static void gattc_disc_char_complete(struct gatt_db_attribute * attr,
-				     void *			user_data)
+static void gattc_disc_char_complete(struct gatt_db_attribute *attr,
+				     void *user_data)
 {
 	struct cmd_adaper *adapter = user_data;
 	bt_uuid_t uuid;
@@ -353,15 +345,15 @@ static void gattc_disc_char_complete(struct gatt_db_attribute * attr,
 			   &msg, sizeof(msg));
 
 	gatt_db_service_foreach_char(attr, gattc_disc_desc_complete, adapter);
+
 }
 
-static void gattc_disc_prim_complete(struct gatt_db_attribute * attr,
-				     void *			user_data)
+static void gattc_disc_prim_complete(struct gatt_db_attribute *attr,
+				     void *user_data)
 {
 	struct cmd_adaper *adapter = user_data;
 	bool is_primary;
 	bt_uuid_t uuid;
-
 	struct {
 		/* must be naturally packed */
 		uint16_t start;
@@ -381,6 +373,7 @@ static void gattc_disc_prim_complete(struct gatt_db_attribute * attr,
 	}
 	/* gatt_db_service_foreach_incl(attr, gattc_disc_inclu_complete, adapter); */
 	gatt_db_service_foreach_char(attr, gattc_disc_char_complete, adapter);
+
 }
 
 static void dicovery_done(bool success, uint8_t att_ecode, void *user_data)
@@ -389,8 +382,7 @@ static void dicovery_done(bool success, uint8_t att_ecode, void *user_data)
 
 	if (!success) {
 		cmd_send_event_msg(adapter->devId, EVENT_GATTC_DISC_PRIMARY,
-				   NULL,
-				   0);
+				   NULL, 0);
 		return;
 	}
 
@@ -439,8 +431,8 @@ static struct client *client_create(struct cmd_adaper *adapter, int fd,
 		return NULL;
 	}
 
-	if (!bt_att_register_disconnect(cli->att, gattc_disconnect_cb,
-					adapter, NULL)) {
+	if (!bt_att_register_disconnect
+	    (cli->att, cmd_att_disconnect_cb, adapter, NULL)) {
 		ERR("Failed to set ATT disconnect handler\n");
 		bt_att_unref(cli->att);
 		free(cli);
@@ -483,12 +475,23 @@ static struct client *client_create(struct cmd_adaper *adapter, int fd,
 	return cli;
 }
 
-static int l2cap_le_att_connect(bdaddr_t *src, bdaddr_t *dst,
+static int l2cap_le_att_connect(bdaddr_t * src, bdaddr_t * dst,
 				uint8_t dst_type, int sec)
 {
 	int sock;
 	struct sockaddr_l2 srcaddr, dstaddr;
 	struct bt_security btsec;
+
+	if (true) {
+		char srcaddr_str[18], dstaddr_str[18];
+
+		ba2str(src, srcaddr_str);
+		ba2str(dst, dstaddr_str);
+
+		printf("btgatt-client: Opening L2CAP LE connection on ATT "
+		       "channel:\n\t src: %s\n\tdest: %s\n",
+		       srcaddr_str, dstaddr_str);
+	}
 
 	sock = socket(PF_BLUETOOTH, SOCK_SEQPACKET, BTPROTO_L2CAP);
 	if (sock < 0) {
@@ -529,6 +532,7 @@ static int l2cap_le_att_connect(bdaddr_t *src, bdaddr_t *dst,
 	INFO("Connecting to device...type(%d)\n", dst_type);
 
 	if (connect(sock, (struct sockaddr *)&dstaddr, sizeof(dstaddr)) < 0) {
+
 		ERR("Failed to connect %s\n", strerror(errno));
 		close(sock);
 		return -1;
@@ -539,7 +543,7 @@ static int l2cap_le_att_connect(bdaddr_t *src, bdaddr_t *dst,
 	return sock;
 }
 
-uint8_t gattc_connect(uint8_t devId, uint8_t *data, uint8_t data_len)
+uint8_t gattc_connect(uint8_t devId, uint8_t * data, uint8_t data_len)
 {
 	uint8_t ret = BTLE_SUCCESS;
 	struct cmd_adaper *adapter;
@@ -593,7 +597,9 @@ uint8_t gattc_connect(uint8_t devId, uint8_t *data, uint8_t data_len)
 				memset(adapter, 0, sizeof(*adapter));
 			}
 		}
+
 		cmd_send_status(devId, CMD_MGMT_CONNECT, BTLE_SUCCESS);
+
 	}
 	return ret;
 }

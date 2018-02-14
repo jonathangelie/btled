@@ -13,7 +13,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 #include <stdint.h>
 #include <string.h>
 
@@ -24,7 +24,7 @@
 #define MODULE "ipc"
 #include "btprint.h"
 
-#define IPC_MTU 	(2 + IPC_DATA_LEN_MAX)
+#define IPC_MTU         (2 + IPC_DATA_LEN_MAX)
 
 /* has to be naturally packed */
 struct ipc_pkt {
@@ -39,7 +39,7 @@ uint8_t ipc_send(enum ipc_msg type, void *data, uint8_t data_len)
 {
 	if (!data) {
 		return BTLE_ERROR_NULL_ARG;
-}
+	}
 	if (!data_len || data_len > IPC_DATA_LEN_MAX || type >= msg_unknown) {
 		return BTLE_ERROR_INVALID_ARG;
 	} else {
@@ -47,7 +47,7 @@ uint8_t ipc_send(enum ipc_msg type, void *data, uint8_t data_len)
 		uint8_t buf[IPC_MTU];
 		struct ipc_pkt *pkt;
 
-		pkt = (void*)&buf[0];
+		pkt = (void *)&buf[0];
 		pkt->type = type;
 		pkt->data_len = data_len;
 		memcpy(pkt->data, data, data_len);
@@ -97,10 +97,10 @@ static void ipc_rx_cb(uint8_t *payload, uint8_t payload_len)
 		ERR("invalid payload length (%d)\n", payload_len);
 		return;
 	}
-	pkt = (struct ipc_pkt*)&payload[0];
+	pkt = (struct ipc_pkt *)&payload[0];
 
 	INFO("IPC RCV:type(%d) | len(%d) | %s\n",
-		 pkt->type, pkt->data_len, pkt->data);
+	     pkt->type, pkt->data_len, pkt->data);
 
 	ipc_dispatch(pkt->type, pkt->data, pkt->data_len);
 }
@@ -110,7 +110,6 @@ uint8_t ipc_init(msg_cmd_cb req_cb)
 	uint8_t ret = BTLE_ERROR_NULL_ARG;
 
 	if (req_cb) {
-
 		struct btsocket_param param = {
 			.mtu = IPC_MTU,
 			.rx_cb = ipc_rx_cb,

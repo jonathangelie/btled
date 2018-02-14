@@ -13,7 +13,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -40,7 +40,7 @@
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
 
 #define SOCKET_INVALID  (-1)
-#define SOCKET_ADDRESS	"/var/run/btled"
+#define SOCKET_ADDRESS  "/var/run/btled"
 
 #define SOCKET_CONN_MAX 5
 
@@ -54,14 +54,14 @@ static struct {
 	struct btsocket_param param;
 	socket_rx_notifier rx_cb;
 } socket_mgmt = {
-	.desc = {SOCKET_INVALID, SOCKET_INVALID},
-	.param = {0, NULL},
+	.desc = { SOCKET_INVALID, SOCKET_INVALID },
+	.param = { 0, NULL },
 };
 
 uint8_t btsocket_send(uint8_t *data, uint8_t data_len)
 {
 	if (socket_mgmt.desc[client] == SOCKET_INVALID ||
-		socket_mgmt.desc[server] == SOCKET_INVALID) {
+	    socket_mgmt.desc[server] == SOCKET_INVALID) {
 		return BTLE_ERROR_INVALID_STATE;
 	}
 
@@ -94,17 +94,15 @@ static uint8_t btsocket_mtu_negociation(void)
 
 static void btsocket_read(int fd, uint32_t events, void *user_data)
 {
-
 	if (events & (EPOLLERR | EPOLLHUP)) {
 		mainloop_remove_fd(socket_mgmt.desc[client]);
 		return;
 	}
 
 	if (socket_mgmt.desc[client] == SOCKET_INVALID ||
-		socket_mgmt.desc[server] == SOCKET_INVALID) {
-		return ;
+	    socket_mgmt.desc[server] == SOCKET_INVALID) {
+		return;
 	} else {
-
 		int rx_len;
 		uint8_t data[socket_mgmt.param.mtu];
 
@@ -124,7 +122,6 @@ static void btsocket_read(int fd, uint32_t events, void *user_data)
 
 static void btsocket_accept_conn(int fd, uint32_t events, void *user_data)
 {
-
 	if (events & (EPOLLERR | EPOLLHUP)) {
 		mainloop_remove_fd(socket_mgmt.desc[server]);
 		return;
@@ -133,9 +130,11 @@ static void btsocket_accept_conn(int fd, uint32_t events, void *user_data)
 		struct sockaddr_un client_sockaddr;
 		addrlen = sizeof(client_sockaddr);
 
-		socket_mgmt.desc[client] = accept(socket_mgmt.desc[server],
-										 (struct sockaddr *) &client_sockaddr,
-										 &addrlen);
+		socket_mgmt.desc[client] = accept(
+			socket_mgmt.desc[server],
+			(struct sockaddr *)&
+			client_sockaddr,
+			&addrlen);
 		if (socket_mgmt.desc[client] == SOCKET_INVALID) {
 			ERR("Failed to accept: %d\n", errno);
 			return;
@@ -143,11 +142,11 @@ static void btsocket_accept_conn(int fd, uint32_t events, void *user_data)
 		INFO("connection established: %d\n", socket_mgmt.desc[client]);
 		btsocket_mtu_negociation();
 
-		if (mainloop_add_fd(socket_mgmt.desc[client], EPOLLIN, btsocket_read,
-							NULL, btsocket_close) < 0) {
+		if (mainloop_add_fd(socket_mgmt.desc[client], EPOLLIN,
+				    btsocket_read,
+				    NULL, btsocket_close) < 0) {
 			btsocket_close(NULL);
 		}
-
 	}
 
 	INFO("connection established: %d\n", socket_mgmt.desc[client]);
@@ -156,15 +155,16 @@ static void btsocket_accept_conn(int fd, uint32_t events, void *user_data)
 uint8_t btsocket_server_setup(void)
 {
 	struct sockaddr_un server_socket = {
-		.sun_family=  AF_UNIX,
+		.sun_family = AF_UNIX,
 	};
+
 	memcpy(&server_socket.sun_path[0], SOCKET_ADDRESS,
-		   sizeof(server_socket.sun_path));
+	       sizeof(server_socket.sun_path));
 
 	unlink(SOCKET_ADDRESS);
 	/* gets a unique name for the socket*/
-	if (bind(socket_mgmt.desc[server], (struct sockaddr *) &server_socket,
-			 sizeof(server_socket)) == -1) {
+	if (bind(socket_mgmt.desc[server], (struct sockaddr *)&server_socket,
+		 sizeof(server_socket)) == -1) {
 		ERR("Failed to bind server socket err: %d\n", errno);
 		btsocket_close(NULL);
 		return BTLE_ERROR_INTERNAL;
@@ -176,8 +176,9 @@ uint8_t btsocket_server_setup(void)
 		return BTLE_ERROR_INTERNAL;
 	}
 
-	if (mainloop_add_fd(socket_mgmt.desc[server], EPOLLIN, btsocket_accept_conn,
-						NULL, btsocket_close) < 0) {
+	if (mainloop_add_fd(socket_mgmt.desc[server], EPOLLIN,
+			    btsocket_accept_conn,
+			    NULL, btsocket_close) < 0) {
 		btsocket_close(NULL);
 		return BTLE_ERROR_INTERNAL;
 	}
@@ -206,8 +207,8 @@ uint8_t btsocket_init(struct btsocket_param *param)
 	}
 
 	INFO("creating socket %d\n", socket_mgmt.desc[server]);
-	if (setsockopt(socket_mgmt.desc[server], SOL_SOCKET,  SO_REUSEADDR,
-				   &(int){ 1 }, sizeof(int)) < 0 ) {
+	if (setsockopt(socket_mgmt.desc[server], SOL_SOCKET, SO_REUSEADDR,
+		       &(int){1 }, sizeof(int)) < 0) {
 		ERR("allow reuse of local addresse failed\n");
 		return BTLE_ERROR_INTERNAL;
 	} else {

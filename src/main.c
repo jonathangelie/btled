@@ -13,7 +13,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 #include <stdio.h>
 #include <stdint.h>
 #include <unistd.h>
@@ -26,10 +26,10 @@
 #include "btle_error.h"
 #include "cmd.h"
 
-#define CHK_RETURN(condition) {\
-	if (condition) { \
-		return condition; \
-	}\
+#define CHK_RETURN(condition) {	\
+		if (condition) { \
+			return condition; \
+		} \
 }
 
 static void cleaning(void *user_data)
@@ -72,5 +72,4 @@ int main(void)
 	cmd_server_close();
 
 	return 0;
-
 }
