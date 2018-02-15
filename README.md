@@ -80,70 +80,57 @@ response status [ok]
 ```shell
 # running central.py example
 $ sudo python ./example/central.py -c hci0 -a "00:11:22:33:44:55"
-connected with 00:11:22:33:44:55
-service discovery:
+connected with: 00:11:22:33:44:55
+
 service: 0000180a-0000-1000-8000-00805f9b34fb
 start: 1
-end: 13
-        characteristics: 00002a24-0000-1000-8000-00805f9b34fb
+end: 8
+        characteristic: 00002a24-0000-1000-8000-00805f9b34fb
         handle: 2
         value_handle:  3
         properties: 02
         ext prop: 0000
-        characteristics: 00002a25-0000-1000-8000-00805f9b34fb
+        characteristic: 00002a25-0000-1000-8000-00805f9b34fb
         handle: 4
         value_handle:  5
         properties: 02
         ext prop: 0000
-        characteristics: 00002a26-0000-1000-8000-00805f9b34fb
+        characteristic: 00002a19-0000-1000-8000-00805f9b34fb
         handle: 6
         value_handle:  7
-        properties: 02
-        ext prop: 0000
-        characteristics: 00002a27-0000-1000-8000-00805f9b34fb
-        handle: 8
-        value_handle:  9
-        properties: 02
-        ext prop: 0000
-        characteristics: 00002a28-0000-1000-8000-00805f9b34fb
-        handle: 10
-        value_handle:  11
-        properties: 02
-        ext prop: 0000
-        characteristics: 00002a29-0000-1000-8000-00805f9b34fb
-        handle: 12
-        value_handle:  13
-        properties: 02
-        ext prop: 0000
-service: 0000180d-0000-1000-8000-00805f9b34fb
-start: 14
-end: 18
-        characteristics: 00002a37-0000-1000-8000-00805f9b34fb
-        handle: 15
-        value_handle:  16
-        properties: 02
-        ext prop: 0000
-        characteristics: 00002a39-0000-1000-8000-00805f9b34fb
-        handle: 17
-        value_handle:  18
-        properties: 02
-        ext prop: 0000
-service: 0000180f-0000-1000-8000-00805f9b34fb
-start: 19
-end: 23
-        characteristics: 00002a19-0000-1000-8000-00805f9b34fb
-        handle: 21
-        value_handle:  22
-        properties: 02
+        properties: 12
         ext prop: 0000
 service: de305d54-75b4-431b-adb2-eb6b9e546015
-start: 24
-end: 27
-        characteristics: de305d54-75b4-431b-adb2-eb6b9e546016
-        handle: 25
-        value_handle:  26
+start: 9
+end: 12
+        characteristic: de305d54-75b4-431b-adb2-eb6b9e546016
+        handle: 10
+        value_handle:  11
         properties: 3a
         ext prop: 0000
+
+Subscribing to characteristic: 00002a19-0000-1000-8000-00805f9b34fb
+
+Notification from characteristic: 00002a19-0000-1000-8000-00805f9b34fb
+        value_handle: 7
+        len: 2
+        data: 67
+Notification from characteristic: 00002a19-0000-1000-8000-00805f9b34fb
+        value_handle: 7
+        len: 2
+        data: 66
+Notification from characteristic: 00002a19-0000-1000-8000-00805f9b34fb
+        value_handle: 7
+        len: 2
+        data: 67
+
+Unubscribing to characteristic: 00002a19-0000-1000-8000-00805f9b34fb
+
+Subscribing to characteristic: 000fake-UUID-1000-8000-00805f9b34fb
+Unubscription failed reason: uuid 000fake-UUID-1000-8000-00805f9b34fb not found
+
+Unsubscribing to characteristic: 000fake-UUID-1000-8000-00805f9b34fb
+Unsubscription failed reason: uuid 000fake-UUID-1000-8000-00805f9b34fb not found
 
 ```
 

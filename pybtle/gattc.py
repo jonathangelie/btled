@@ -66,10 +66,9 @@ class gattc():
 
     def notif_ind_handler(self, result):
         try:
-            msg = result
-            del msg["cccd_id"]
-            msg["chrc_uuid"] = self.ntf_ind_cb[result["cccd_id"]]["chrc_uuid"]
-            self.ntf_ind_cb[result["cccd_id"]]["callback"](msg)
+            cccd_id = result.pop('cccd_id')
+            result["chrc_uuid"] = self.ntf_ind_cb[cccd_id]["chrc_uuid"]
+            self.ntf_ind_cb[cccd_id]["callback"](result)
         except ValueError:
             '''
             happens when notification/indication are received
@@ -87,7 +86,7 @@ class gattc():
             for elt in self.ntf_ind_cb:
                 if elt["value_handle"] == chr["value_handle"]:
                     ret["reason"] = "subscription already exists"
-                return ret
+                    return ret
         else:
             self.ntf_ind_cb = {}
 
@@ -101,7 +100,7 @@ class gattc():
             info["chrc_uuid"] = chrc_uuid
             info["callback"] = notification_cb
 
-            self.ntf_ind_cb[ret["cccd_id"]] = info
+            self.ntf_ind_cb[ret["result"]["cccd_id"]] = info
 
         return ret
 
@@ -115,12 +114,12 @@ class gattc():
         if False == hasattr(self, "ntf_ind_cb"):
             return ret
 
-        for elt in self.ntf_ind_cb:
+        for idx in self.ntf_ind_cb:
+            elt = self.ntf_ind_cb[idx]
             if elt["value_handle"] == chr["value_handle"]:
                 ret = self.cmd.unsubscribe(devId, elt["cccd_id"])
                 if ret["status"] == "ok":
                     self.ntf_ind_cb.pop(elt["cccd_id"])
-
-                break
+                    break
 
         return ret

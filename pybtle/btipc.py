@@ -33,7 +33,7 @@ class btipc:
         self.q_resp = Queue.Queue()
         self.evt_delegate = evt_delegate
 
-        print("mtu %d" % self.mtu)
+        #print("mtu %d" % self.mtu)
 
     def ipc_receive(self, data):
         '''

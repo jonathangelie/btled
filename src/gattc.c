@@ -166,8 +166,9 @@ uint8_t gattc_subscribe_req(uint8_t devId, uint8_t *data, uint8_t data_len)
 			uint8_t cccd_id;
 			struct bt_gatt_client *gatt;
 
-			gatt = adapter->cli->gatt;;
+			gatt = adapter->cli->gatt;
 			cmd_strtou16(&data[1], &chrc_value_handle);
+
 			cccd_id = bt_gatt_client_register_notify(
 				gatt,
 				chrc_value_handle,
@@ -291,6 +292,7 @@ static void service_removed_cb(struct gatt_db_attribute *attr, void *user_data)
 
 static void att_debug_cb(const char *str, void *user_data)
 {
+	return;
 	struct cmd_adaper *adapter = user_data;
 
 	DBG("[%d] att:%s\n", adapter->devId, str);
@@ -298,6 +300,7 @@ static void att_debug_cb(const char *str, void *user_data)
 
 static void gatt_debug_cb(const char *str, void *user_data)
 {
+	return;
 	struct cmd_adaper *adapter = user_data;
 
 	DBG("[%d] gatt:%s\n", adapter->devId, str);

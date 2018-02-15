@@ -46,7 +46,7 @@ class btsocket:
             (h, l) = struct.unpack("<BB", pkt[:2])
             self.mtu = 0xff & (h << 8)
             self.mtu += 0xff & l
-            print ("mtu = %d" % self.mtu)
+            #print ("mtu = %d" % self.mtu)
 
     def getmtu(self):
         return self.mtu

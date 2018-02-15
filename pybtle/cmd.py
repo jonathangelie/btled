@@ -47,7 +47,7 @@ EVT_GATTC_DISC_PRIMARY   = 7
 EVT_GATTC_DISC_CHAR      = 8
 EVT_GATTC_DISC_DESC      = 9
 
-UUID_STR_MAX_LEN         = 37
+UUID_STR_MAX_LEN         = 36
 
 class cmdException(Exception):
     pass
@@ -140,16 +140,16 @@ class cmd :
 
             self.attr["service"]["characteristics"][-1]["desc"].append(desc)
 
-    def parse_notification_evt(self):
+    def parse_notification_evt(self, data):
 
         data_len = struct.unpack('>B', data[:1])[0]
         data = data[1:]
 
         notif = {}
-        (id, value_handle, len) = struct.unpack('<BHH', data[:5])
+        (value_handle, len, cccd_id) = struct.unpack('<HHB', data[:5])
         data = data[5:]
 
-        notif["id"] = id
+        notif["cccd_id"] = cccd_id
         notif["value_handle"] = value_handle
         notif["data_len"] = len
         notif["data"] = data[:len]
@@ -307,6 +307,16 @@ class cmd :
         return self.send_cmd(adapter, CMD_MGMT_SCAN, bin)
 
     def connect(self, adapter, addr, addrtype, sec_level, service_discovery_cb):
+        if addrtype == "public":
+            addrtype = 1
+        elif addrtype == "random":
+            addrtype = 2
+        else:
+            ret = {}
+            ret["result"] = "error"
+            ret["reason"] = "wrong address type"
+            return ret
+
         self.delegate[EVT_GATTC_DISC_PRIMARY] = service_discovery_cb
         bin = addr
         bin = ":".join([addr[x:x+2] for x in range(0,len(addr),3)][::-1])
@@ -317,7 +327,7 @@ class cmd :
     def subscribe(self, adapter, value_handle, value, notification_cb):
         if value != 0:
             self.delegate[EVT_GATTC_NOTIFICATION] = notification_cb
-        bin = struct.pack('>HB', handle, value)
+        bin = struct.pack('>BH', value, value_handle)
         return self.send_cmd(adapter, CMD_GATTC_SUBSCRIBE_REQ, bin)
 
     def unsubscribe(self, adapter, cccd_id):

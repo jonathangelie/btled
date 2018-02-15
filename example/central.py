@@ -102,13 +102,18 @@ class Central:
             return db
 
     def enable_notification(self, uuid):
-        self.gattc.subscribe_notification(self.devId, uuid, self.notification_event)
+        print c_white + "\nSubscribing to characteristic: " + c_cyan + uuid + c_off
+        return self.gattc.subscribe_notification(self.devId, uuid, self.notification_event)
+
+    def disable_notification(self, uuid):
+        print c_white + "\nUnubscribing to characteristic: " + c_cyan + uuid + c_off
+        return self.gattc.unsubscribe_notification(self.devId, uuid)
 
     def notification_event(self, notif):
-        print c_red + "Notification from characteristic: " + notif["chrc_uuid"]
+        print c_yellow + "Notification from characteristic: " + notif["chrc_uuid"]
         print "\t" + c_white + "value_handle: %d" % notif["value_handle"]
-        print "\t" + c_white + "len: %d" % notif["len"]
-        print "\t" + c_white + "data: %d" % int(notif["data"])
+        print "\t" + c_white + "len: %d" % notif["data_len"]
+        print "\t" + c_white + "data: " + notif["data"]
 
 class CustomerFormatter(argparse.ArgumentDefaultsHelpFormatter, argparse.RawTextHelpFormatter):
     pass
@@ -121,10 +126,10 @@ parser.add_argument('-c', '--controller', action='store', default = 'hci0',
                     help='controller')
 parser.add_argument('-a', '--address', action='store', default = None,
                     help='gatts address')
-parser.add_argument('-d', '--duration', action='store', type=int, default=30,
+parser.add_argument('-d', '--duration', action='store', type=int, default=10,
                     help='test duration ')
-parser.add_argument('-t', '--type', action='store', type=int, default=0,
-                    help='gatts address type')
+parser.add_argument('-t', '--type', action='store', default= 'public',
+                    help='gatts address type (public|random)')
 arg = parser.parse_args(sys.argv[1:])
 
 start = time.time()
@@ -133,11 +138,24 @@ try:
     central = Central(arg.controller)
     central.start()
     central.connect(arg.address, arg.type)
-
+    print c_white + "connected with: " + c_cyan + arg.address + c_off
+    print "\n"
     while (time.time() - start) <= arg.duration :
 
         central.service_discovery()
         time.sleep(1)
+
+    central.disable_notification("00002a19-0000-1000-8000-00805f9b34fb")
+    for temp in range(5):
+        time.sleep(1)
+
+    ret = central.enable_notification("000fake-UUID-1000-8000-00805f9b34fb")
+    if ret["status"] != "ok":
+        print("Unubscription failed reason: " + c_red + ret["reason"] + c_off)
+
+    ret = central.disable_notification("000fake-UUID-1000-8000-00805f9b34fb")
+    if ret["status"] != "ok":
+        print("Unubscription failed reason: "  + c_red + ret["reason"] + c_off)
 
 except KeyboardInterrupt:
     print("\ncentral.py exit")
