@@ -15,6 +15,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 import cmd
+import uuid
 
 SMP_SECURITY_LOW    =  1
 SMP_SECURITY_MEDIUM =  2
@@ -52,14 +53,14 @@ class gattc():
         ret = self.cmd.read(devId, chr, handle)
         return ret
 
-    def get_characteristic_by_uuid(self, uuid):
+    def get_characteristic_by_uuid(self, struuid):
         if self.attrs == None:
             return None
 
         for attr in self.attrs:
             for chr in attr["service"]["characteristics"]:
 
-                if chr["uuid"].startswith(uuid):
+                if chr["uuid"].startswith(uuid.str_to_uuid128(struuid)):
                     return chr
 
         return None

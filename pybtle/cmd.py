@@ -94,7 +94,7 @@ class cmd :
         (start, end) = struct.unpack('<HH', data[:4])
         data = data[4:]
         data_len -= 5
-        uuid = data[:data_len]
+        uuid = data[:UUID_STR_MAX_LEN]
 
         self.attr = {}
         self.attr["service"] = {}
@@ -127,16 +127,16 @@ class cmd :
 
     def parse_discover_descriptor_evt(self, data):
 
-        if self.attr and hasattr(self.attr["service"], "characteristics"):
+        if self.attr and "characteristics" in self.attr["service"]:
 
             desc = {}
             data_len = struct.unpack('>B', data[:1])[0]
             data = data[1:]
-            
+
             (desc["handle"], desc["uuid16"]) = struct.unpack('<HH', data[:4])
             data = data[4:]
             data_len -= 5
-            desc["uuid"] = data[:data_len]
+            desc["uuid"] = data[:UUID_STR_MAX_LEN]
 
             self.attr["service"]["characteristics"][-1]["desc"].append(desc)
 

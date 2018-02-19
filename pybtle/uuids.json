@@ -1,0 +1,2444 @@
+{
+    "uuid128": [
+        {
+            "uuid": "00000001-0000-1000-8000-00805f9b34fb", 
+            "str": "SDP"
+        }, 
+        {
+            "uuid": "00000003-0000-1000-8000-00805f9b34fb", 
+            "str": "RFCOMM"
+        }, 
+        {
+            "uuid": "00000005-0000-1000-8000-00805f9b34fb", 
+            "str": "TCS-BIN"
+        }, 
+        {
+            "uuid": "00000007-0000-1000-8000-00805f9b34fb", 
+            "str": "ATT"
+        }, 
+        {
+            "uuid": "00000008-0000-1000-8000-00805f9b34fb", 
+            "str": "OBEX"
+        }, 
+        {
+            "uuid": "0000000f-0000-1000-8000-00805f9b34fb", 
+            "str": "BNEP"
+        }, 
+        {
+            "uuid": "00000010-0000-1000-8000-00805f9b34fb", 
+            "str": "UPNP"
+        }, 
+        {
+            "uuid": "00000011-0000-1000-8000-00805f9b34fb", 
+            "str": "HIDP"
+        }, 
+        {
+            "uuid": "00000012-0000-1000-8000-00805f9b34fb", 
+            "str": "Hardcopy Control Channel"
+        }, 
+        {
+            "uuid": "00000014-0000-1000-8000-00805f9b34fb", 
+            "str": "Hardcopy Data Channel"
+        }, 
+        {
+            "uuid": "00000016-0000-1000-8000-00805f9b34fb", 
+            "str": "Hardcopy Notification"
+        }, 
+        {
+            "uuid": "00000017-0000-1000-8000-00805f9b34fb", 
+            "str": "AVCTP"
+        }, 
+        {
+            "uuid": "00000019-0000-1000-8000-00805f9b34fb", 
+            "str": "AVDTP"
+        }, 
+        {
+            "uuid": "0000001b-0000-1000-8000-00805f9b34fb", 
+            "str": "CMTP"
+        }, 
+        {
+            "uuid": "0000001e-0000-1000-8000-00805f9b34fb", 
+            "str": "MCAP Control Channel"
+        }, 
+        {
+            "uuid": "0000001f-0000-1000-8000-00805f9b34fb", 
+            "str": "MCAP Data Channel"
+        }, 
+        {
+            "uuid": "00000100-0000-1000-8000-00805f9b34fb", 
+            "str": "L2CAP"
+        }, 
+        {
+            "uuid": "00001000-0000-1000-8000-00805f9b34fb", 
+            "str": "Service Discovery Server Service Class"
+        }, 
+        {
+            "uuid": "00001001-0000-1000-8000-00805f9b34fb", 
+            "str": "Browse Group Descriptor Service Class"
+        }, 
+        {
+            "uuid": "00001002-0000-1000-8000-00805f9b34fb", 
+            "str": "Public Browse Root"
+        }, 
+        {
+            "uuid": "00001101-0000-1000-8000-00805f9b34fb", 
+            "str": "Serial Port"
+        }, 
+        {
+            "uuid": "00001102-0000-1000-8000-00805f9b34fb", 
+            "str": "LAN Access Using PPP"
+        }, 
+        {
+            "uuid": "00001103-0000-1000-8000-00805f9b34fb", 
+            "str": "Dialup Networking"
+        }, 
+        {
+            "uuid": "00001104-0000-1000-8000-00805f9b34fb", 
+            "str": "IrMC Sync"
+        }, 
+        {
+            "uuid": "00001105-0000-1000-8000-00805f9b34fb", 
+            "str": "OBEX Object Push"
+        }, 
+        {
+            "uuid": "00001106-0000-1000-8000-00805f9b34fb", 
+            "str": "OBEX File Transfer"
+        }, 
+        {
+            "uuid": "00001107-0000-1000-8000-00805f9b34fb", 
+            "str": "IrMC Sync Command"
+        }, 
+        {
+            "uuid": "00001108-0000-1000-8000-00805f9b34fb", 
+            "str": "Headset"
+        }, 
+        {
+            "uuid": "00001109-0000-1000-8000-00805f9b34fb", 
+            "str": "Cordless Telephony"
+        }, 
+        {
+            "uuid": "0000110a-0000-1000-8000-00805f9b34fb", 
+            "str": "Audio Source"
+        }, 
+        {
+            "uuid": "0000110b-0000-1000-8000-00805f9b34fb", 
+            "str": "Audio Sink"
+        }, 
+        {
+            "uuid": "0000110c-0000-1000-8000-00805f9b34fb", 
+            "str": "A/V Remote Control Target"
+        }, 
+        {
+            "uuid": "0000110d-0000-1000-8000-00805f9b34fb", 
+            "str": "Advanced Audio Distribution"
+        }, 
+        {
+            "uuid": "0000110e-0000-1000-8000-00805f9b34fb", 
+            "str": "A/V Remote Control"
+        }, 
+        {
+            "uuid": "0000110f-0000-1000-8000-00805f9b34fb", 
+            "str": "A/V Remote Control Controller"
+        }, 
+        {
+            "uuid": "00001110-0000-1000-8000-00805f9b34fb", 
+            "str": "Intercom"
+        }, 
+        {
+            "uuid": "00001111-0000-1000-8000-00805f9b34fb", 
+            "str": "Fax"
+        }, 
+        {
+            "uuid": "00001112-0000-1000-8000-00805f9b34fb", 
+            "str": "Headset AG"
+        }, 
+        {
+            "uuid": "00001113-0000-1000-8000-00805f9b34fb", 
+            "str": "WAP"
+        }, 
+        {
+            "uuid": "00001114-0000-1000-8000-00805f9b34fb", 
+            "str": "WAP Client"
+        }, 
+        {
+            "uuid": "00001115-0000-1000-8000-00805f9b34fb", 
+            "str": "PANU"
+        }, 
+        {
+            "uuid": "00001116-0000-1000-8000-00805f9b34fb", 
+            "str": "NAP"
+        }, 
+        {
+            "uuid": "00001117-0000-1000-8000-00805f9b34fb", 
+            "str": "GN"
+        }, 
+        {
+            "uuid": "00001118-0000-1000-8000-00805f9b34fb", 
+            "str": "Direct Printing"
+        }, 
+        {
+            "uuid": "00001119-0000-1000-8000-00805f9b34fb", 
+            "str": "Reference Printing"
+        }, 
+        {
+            "uuid": "0000111a-0000-1000-8000-00805f9b34fb", 
+            "str": "Basic Imaging Profile"
+        }, 
+        {
+            "uuid": "0000111b-0000-1000-8000-00805f9b34fb", 
+            "str": "Imaging Responder"
+        }, 
+        {
+            "uuid": "0000111c-0000-1000-8000-00805f9b34fb", 
+            "str": "Imaging Automatic Archive"
+        }, 
+        {
+            "uuid": "0000111d-0000-1000-8000-00805f9b34fb", 
+            "str": "Imaging Referenced Objects"
+        }, 
+        {
+            "uuid": "0000111e-0000-1000-8000-00805f9b34fb", 
+            "str": "Handsfree"
+        }, 
+        {
+            "uuid": "0000111f-0000-1000-8000-00805f9b34fb", 
+            "str": "Handsfree Audio Gateway"
+        }, 
+        {
+            "uuid": "00001120-0000-1000-8000-00805f9b34fb", 
+            "str": "Direct Printing Refrence Objects Service"
+        }, 
+        {
+            "uuid": "00001121-0000-1000-8000-00805f9b34fb", 
+            "str": "Reflected UI"
+        }, 
+        {
+            "uuid": "00001122-0000-1000-8000-00805f9b34fb", 
+            "str": "Basic Printing"
+        }, 
+        {
+            "uuid": "00001123-0000-1000-8000-00805f9b34fb", 
+            "str": "Printing Status"
+        }, 
+        {
+            "uuid": "00001124-0000-1000-8000-00805f9b34fb", 
+            "str": "Human Interface Device Service"
+        }, 
+        {
+            "uuid": "00001125-0000-1000-8000-00805f9b34fb", 
+            "str": "Hardcopy Cable Replacement"
+        }, 
+        {
+            "uuid": "00001126-0000-1000-8000-00805f9b34fb", 
+            "str": "HCR Print"
+        }, 
+        {
+            "uuid": "00001127-0000-1000-8000-00805f9b34fb", 
+            "str": "HCR Scan"
+        }, 
+        {
+            "uuid": "00001128-0000-1000-8000-00805f9b34fb", 
+            "str": "Common ISDN Access"
+        }, 
+        {
+            "uuid": "0000112d-0000-1000-8000-00805f9b34fb", 
+            "str": "SIM Access"
+        }, 
+        {
+            "uuid": "0000112e-0000-1000-8000-00805f9b34fb", 
+            "str": "Phonebook Access Client"
+        }, 
+        {
+            "uuid": "0000112f-0000-1000-8000-00805f9b34fb", 
+            "str": "Phonebook Access Server"
+        }, 
+        {
+            "uuid": "00001130-0000-1000-8000-00805f9b34fb", 
+            "str": "Phonebook Access"
+        }, 
+        {
+            "uuid": "00001131-0000-1000-8000-00805f9b34fb", 
+            "str": "Headset HS"
+        }, 
+        {
+            "uuid": "00001132-0000-1000-8000-00805f9b34fb", 
+            "str": "Message Access Server"
+        }, 
+        {
+            "uuid": "00001133-0000-1000-8000-00805f9b34fb", 
+            "str": "Message Notification Server"
+        }, 
+        {
+            "uuid": "00001134-0000-1000-8000-00805f9b34fb", 
+            "str": "Message Access Profile"
+        }, 
+        {
+            "uuid": "00001135-0000-1000-8000-00805f9b34fb", 
+            "str": "GNSS"
+        }, 
+        {
+            "uuid": "00001136-0000-1000-8000-00805f9b34fb", 
+            "str": "GNSS Server"
+        }, 
+        {
+            "uuid": "00001137-0000-1000-8000-00805f9b34fb", 
+            "str": "3D Display"
+        }, 
+        {
+            "uuid": "00001138-0000-1000-8000-00805f9b34fb", 
+            "str": "3D Glasses"
+        }, 
+        {
+            "uuid": "00001139-0000-1000-8000-00805f9b34fb", 
+            "str": "3D Synchronization"
+        }, 
+        {
+            "uuid": "0000113a-0000-1000-8000-00805f9b34fb", 
+            "str": "MPS Profile"
+        }, 
+        {
+            "uuid": "0000113b-0000-1000-8000-00805f9b34fb", 
+            "str": "MPS Service"
+        }, 
+        {
+            "uuid": "00001200-0000-1000-8000-00805f9b34fb", 
+            "str": "PnP Information"
+        }, 
+        {
+            "uuid": "00001201-0000-1000-8000-00805f9b34fb", 
+            "str": "Generic Networking"
+        }, 
+        {
+            "uuid": "00001202-0000-1000-8000-00805f9b34fb", 
+            "str": "Generic File Transfer"
+        }, 
+        {
+            "uuid": "00001203-0000-1000-8000-00805f9b34fb", 
+            "str": "Generic Audio"
+        }, 
+        {
+            "uuid": "00001204-0000-1000-8000-00805f9b34fb", 
+            "str": "Generic Telephony"
+        }, 
+        {
+            "uuid": "00001205-0000-1000-8000-00805f9b34fb", 
+            "str": "UPNP Service"
+        }, 
+        {
+            "uuid": "00001206-0000-1000-8000-00805f9b34fb", 
+            "str": "UPNP IP Service"
+        }, 
+        {
+            "uuid": "00001300-0000-1000-8000-00805f9b34fb", 
+            "str": "UPNP IP PAN"
+        }, 
+        {
+            "uuid": "00001301-0000-1000-8000-00805f9b34fb", 
+            "str": "UPNP IP LAP"
+        }, 
+        {
+            "uuid": "00001302-0000-1000-8000-00805f9b34fb", 
+            "str": "UPNP IP L2CAP"
+        }, 
+        {
+            "uuid": "00001303-0000-1000-8000-00805f9b34fb", 
+            "str": "Video Source"
+        }, 
+        {
+            "uuid": "00001304-0000-1000-8000-00805f9b34fb", 
+            "str": "Video Sink"
+        }, 
+        {
+            "uuid": "00001305-0000-1000-8000-00805f9b34fb", 
+            "str": "Video Distribution"
+        }, 
+        {
+            "uuid": "00001400-0000-1000-8000-00805f9b34fb", 
+            "str": "HDP"
+        }, 
+        {
+            "uuid": "00001401-0000-1000-8000-00805f9b34fb", 
+            "str": "HDP Source"
+        }, 
+        {
+            "uuid": "00001402-0000-1000-8000-00805f9b34fb", 
+            "str": "HDP Sink"
+        }, 
+        {
+            "uuid": "00001800-0000-1000-8000-00805f9b34fb", 
+            "str": "Generic Access Profile"
+        }, 
+        {
+            "uuid": "00001801-0000-1000-8000-00805f9b34fb", 
+            "str": "Generic Attribute Profile"
+        }, 
+        {
+            "uuid": "00001802-0000-1000-8000-00805f9b34fb", 
+            "str": "Immediate Alert"
+        }, 
+        {
+            "uuid": "00001803-0000-1000-8000-00805f9b34fb", 
+            "str": "Link Loss"
+        }, 
+        {
+            "uuid": "00001804-0000-1000-8000-00805f9b34fb", 
+            "str": "Tx Power"
+        }, 
+        {
+            "uuid": "00001805-0000-1000-8000-00805f9b34fb", 
+            "str": "Current Time Service"
+        }, 
+        {
+            "uuid": "00001806-0000-1000-8000-00805f9b34fb", 
+            "str": "Reference Time Update Service"
+        }, 
+        {
+            "uuid": "00001807-0000-1000-8000-00805f9b34fb", 
+            "str": "Next DST Change Service"
+        }, 
+        {
+            "uuid": "00001808-0000-1000-8000-00805f9b34fb", 
+            "str": "Glucose"
+        }, 
+        {
+            "uuid": "00001809-0000-1000-8000-00805f9b34fb", 
+            "str": "Health Thermometer"
+        }, 
+        {
+            "uuid": "0000180a-0000-1000-8000-00805f9b34fb", 
+            "str": "Device Information"
+        }, 
+        {
+            "uuid": "0000180d-0000-1000-8000-00805f9b34fb", 
+            "str": "Heart Rate"
+        }, 
+        {
+            "uuid": "0000180e-0000-1000-8000-00805f9b34fb", 
+            "str": "Phone Alert Status Service"
+        }, 
+        {
+            "uuid": "0000180f-0000-1000-8000-00805f9b34fb", 
+            "str": "Battery Service"
+        }, 
+        {
+            "uuid": "00001810-0000-1000-8000-00805f9b34fb", 
+            "str": "Blood Pressure"
+        }, 
+        {
+            "uuid": "00001811-0000-1000-8000-00805f9b34fb", 
+            "str": "Alert Notification Service"
+        }, 
+        {
+            "uuid": "00001812-0000-1000-8000-00805f9b34fb", 
+            "str": "Human Interface Device"
+        }, 
+        {
+            "uuid": "00001813-0000-1000-8000-00805f9b34fb", 
+            "str": "Scan Parameters"
+        }, 
+        {
+            "uuid": "00001814-0000-1000-8000-00805f9b34fb", 
+            "str": "Running Speed and Cadence"
+        }, 
+        {
+            "uuid": "00001815-0000-1000-8000-00805f9b34fb", 
+            "str": "Automation IO"
+        }, 
+        {
+            "uuid": "00001816-0000-1000-8000-00805f9b34fb", 
+            "str": "Cycling Speed and Cadence"
+        }, 
+        {
+            "uuid": "00001818-0000-1000-8000-00805f9b34fb", 
+            "str": "Cycling Power"
+        }, 
+        {
+            "uuid": "00001819-0000-1000-8000-00805f9b34fb", 
+            "str": "Location and Navigation"
+        }, 
+        {
+            "uuid": "0000181a-0000-1000-8000-00805f9b34fb", 
+            "str": "Environmental Sensing"
+        }, 
+        {
+            "uuid": "0000181b-0000-1000-8000-00805f9b34fb", 
+            "str": "Body Composition"
+        }, 
+        {
+            "uuid": "0000181c-0000-1000-8000-00805f9b34fb", 
+            "str": "User Data"
+        }, 
+        {
+            "uuid": "0000181d-0000-1000-8000-00805f9b34fb", 
+            "str": "Weight Scale"
+        }, 
+        {
+            "uuid": "0000181e-0000-1000-8000-00805f9b34fb", 
+            "str": "Bond Management"
+        }, 
+        {
+            "uuid": "0000181f-0000-1000-8000-00805f9b34fb", 
+            "str": "Continuous Glucose Monitoring"
+        }, 
+        {
+            "uuid": "00001820-0000-1000-8000-00805f9b34fb", 
+            "str": "Internet Protocol Support"
+        }, 
+        {
+            "uuid": "00001821-0000-1000-8000-00805f9b34fb", 
+            "str": "Indoor Positioning"
+        }, 
+        {
+            "uuid": "00001822-0000-1000-8000-00805f9b34fb", 
+            "str": "Pulse Oximeter"
+        }, 
+        {
+            "uuid": "00001823-0000-1000-8000-00805f9b34fb", 
+            "str": "HTTP Proxy"
+        }, 
+        {
+            "uuid": "00001824-0000-1000-8000-00805f9b34fb", 
+            "str": "Transport Discovery"
+        }, 
+        {
+            "uuid": "00001825-0000-1000-8000-00805f9b34fb", 
+            "str": "Object Transfer"
+        }, 
+        {
+            "uuid": "00001826-0000-1000-8000-00805f9b34fb", 
+            "str": "Fitness Machine"
+        }, 
+        {
+            "uuid": "00001827-0000-1000-8000-00805f9b34fb", 
+            "str": "Mesh Provisioning"
+        }, 
+        {
+            "uuid": "00001828-0000-1000-8000-00805f9b34fb", 
+            "str": "Mesh Proxy"
+        }, 
+        {
+            "uuid": "00002800-0000-1000-8000-00805f9b34fb", 
+            "str": "Primary Service"
+        }, 
+        {
+            "uuid": "00002801-0000-1000-8000-00805f9b34fb", 
+            "str": "Secondary Service"
+        }, 
+        {
+            "uuid": "00002802-0000-1000-8000-00805f9b34fb", 
+            "str": "Include"
+        }, 
+        {
+            "uuid": "00002803-0000-1000-8000-00805f9b34fb", 
+            "str": "Characteristic"
+        }, 
+        {
+            "uuid": "00002900-0000-1000-8000-00805f9b34fb", 
+            "str": "Characteristic Extended Properties"
+        }, 
+        {
+            "uuid": "00002901-0000-1000-8000-00805f9b34fb", 
+            "str": "Characteristic User Description"
+        }, 
+        {
+            "uuid": "00002902-0000-1000-8000-00805f9b34fb", 
+            "str": "Client Characteristic Configuration"
+        }, 
+        {
+            "uuid": "00002903-0000-1000-8000-00805f9b34fb", 
+            "str": "Server Characteristic Configuration"
+        }, 
+        {
+            "uuid": "00002904-0000-1000-8000-00805f9b34fb", 
+            "str": "Characteristic Format"
+        }, 
+        {
+            "uuid": "00002905-0000-1000-8000-00805f9b34fb", 
+            "str": "Characteristic Aggregate Formate"
+        }, 
+        {
+            "uuid": "00002906-0000-1000-8000-00805f9b34fb", 
+            "str": "Valid Range"
+        }, 
+        {
+            "uuid": "00002907-0000-1000-8000-00805f9b34fb", 
+            "str": "External Report Reference"
+        }, 
+        {
+            "uuid": "00002908-0000-1000-8000-00805f9b34fb", 
+            "str": "Report Reference"
+        }, 
+        {
+            "uuid": "00002909-0000-1000-8000-00805f9b34fb", 
+            "str": "Number of Digitals"
+        }, 
+        {
+            "uuid": "0000290a-0000-1000-8000-00805f9b34fb", 
+            "str": "Value Trigger Setting"
+        }, 
+        {
+            "uuid": "0000290b-0000-1000-8000-00805f9b34fb", 
+            "str": "Environmental Sensing Configuration"
+        }, 
+        {
+            "uuid": "0000290c-0000-1000-8000-00805f9b34fb", 
+            "str": "Environmental Sensing Measurement"
+        }, 
+        {
+            "uuid": "0000290d-0000-1000-8000-00805f9b34fb", 
+            "str": "Environmental Sensing Trigger Setting"
+        }, 
+        {
+            "uuid": "0000290e-0000-1000-8000-00805f9b34fb", 
+            "str": "Time Trigger Setting"
+        }, 
+        {
+            "uuid": "00002a00-0000-1000-8000-00805f9b34fb", 
+            "str": "Device Name"
+        }, 
+        {
+            "uuid": "00002a01-0000-1000-8000-00805f9b34fb", 
+            "str": "Appearance"
+        }, 
+        {
+            "uuid": "00002a02-0000-1000-8000-00805f9b34fb", 
+            "str": "Peripheral Privacy Flag"
+        }, 
+        {
+            "uuid": "00002a03-0000-1000-8000-00805f9b34fb", 
+            "str": "Reconnection Address"
+        }, 
+        {
+            "uuid": "00002a04-0000-1000-8000-00805f9b34fb", 
+            "str": "Peripheral Preferred Connection Parameters"
+        }, 
+        {
+            "uuid": "00002a05-0000-1000-8000-00805f9b34fb", 
+            "str": "Service Changed"
+        }, 
+        {
+            "uuid": "00002a06-0000-1000-8000-00805f9b34fb", 
+            "str": "Alert Level"
+        }, 
+        {
+            "uuid": "00002a07-0000-1000-8000-00805f9b34fb", 
+            "str": "Tx Power Level"
+        }, 
+        {
+            "uuid": "00002a08-0000-1000-8000-00805f9b34fb", 
+            "str": "Date Time"
+        }, 
+        {
+            "uuid": "00002a09-0000-1000-8000-00805f9b34fb", 
+            "str": "Day of Week"
+        }, 
+        {
+            "uuid": "00002a0a-0000-1000-8000-00805f9b34fb", 
+            "str": "Day Date Time"
+        }, 
+        {
+            "uuid": "00002a0c-0000-1000-8000-00805f9b34fb", 
+            "str": "Exact Time 256"
+        }, 
+        {
+            "uuid": "00002a0d-0000-1000-8000-00805f9b34fb", 
+            "str": "DST Offset"
+        }, 
+        {
+            "uuid": "00002a0e-0000-1000-8000-00805f9b34fb", 
+            "str": "Time Zone"
+        }, 
+        {
+            "uuid": "00002a0f-0000-1000-8000-00805f9b34fb", 
+            "str": "Local Time Information"
+        }, 
+        {
+            "uuid": "00002a11-0000-1000-8000-00805f9b34fb", 
+            "str": "Time with DST"
+        }, 
+        {
+            "uuid": "00002a12-0000-1000-8000-00805f9b34fb", 
+            "str": "Time Accuracy"
+        }, 
+        {
+            "uuid": "00002a13-0000-1000-8000-00805f9b34fb", 
+            "str": "Time Source"
+        }, 
+        {
+            "uuid": "00002a14-0000-1000-8000-00805f9b34fb", 
+            "str": "Reference Time Information"
+        }, 
+        {
+            "uuid": "00002a16-0000-1000-8000-00805f9b34fb", 
+            "str": "Time Update Control Point"
+        }, 
+        {
+            "uuid": "00002a17-0000-1000-8000-00805f9b34fb", 
+            "str": "Time Update State"
+        }, 
+        {
+            "uuid": "00002a18-0000-1000-8000-00805f9b34fb", 
+            "str": "Glucose Measurement"
+        }, 
+        {
+            "uuid": "00002a19-0000-1000-8000-00805f9b34fb", 
+            "str": "Battery Level"
+        }, 
+        {
+            "uuid": "00002a1c-0000-1000-8000-00805f9b34fb", 
+            "str": "Temperature Measurement"
+        }, 
+        {
+            "uuid": "00002a1d-0000-1000-8000-00805f9b34fb", 
+            "str": "Temperature Type"
+        }, 
+        {
+            "uuid": "00002a1e-0000-1000-8000-00805f9b34fb", 
+            "str": "Intermediate Temperature"
+        }, 
+        {
+            "uuid": "00002a21-0000-1000-8000-00805f9b34fb", 
+            "str": "Measurement Interval"
+        }, 
+        {
+            "uuid": "00002a22-0000-1000-8000-00805f9b34fb", 
+            "str": "Boot Keyboard Input Report"
+        }, 
+        {
+            "uuid": "00002a23-0000-1000-8000-00805f9b34fb", 
+            "str": "System ID"
+        }, 
+        {
+            "uuid": "00002a24-0000-1000-8000-00805f9b34fb", 
+            "str": "Model Number String"
+        }, 
+        {
+            "uuid": "00002a25-0000-1000-8000-00805f9b34fb", 
+            "str": "Serial Number String"
+        }, 
+        {
+            "uuid": "00002a26-0000-1000-8000-00805f9b34fb", 
+            "str": "Firmware Revision String"
+        }, 
+        {
+            "uuid": "00002a27-0000-1000-8000-00805f9b34fb", 
+            "str": "Hardware Revision String"
+        }, 
+        {
+            "uuid": "00002a28-0000-1000-8000-00805f9b34fb", 
+            "str": "Software Revision String"
+        }, 
+        {
+            "uuid": "00002a29-0000-1000-8000-00805f9b34fb", 
+            "str": "Manufacturer Name String"
+        }, 
+        {
+            "uuid": "00002a2a-0000-1000-8000-00805f9b34fb", 
+            "str": "IEEE 11073-20601 Regulatory Cert. Data List"
+        }, 
+        {
+            "uuid": "00002a2b-0000-1000-8000-00805f9b34fb", 
+            "str": "Current Time"
+        }, 
+        {
+            "uuid": "00002a2c-0000-1000-8000-00805f9b34fb", 
+            "str": "Magnetic Declination"
+        }, 
+        {
+            "uuid": "00002a31-0000-1000-8000-00805f9b34fb", 
+            "str": "Scan Refresh"
+        }, 
+        {
+            "uuid": "00002a32-0000-1000-8000-00805f9b34fb", 
+            "str": "Boot Keyboard Output Report"
+        }, 
+        {
+            "uuid": "00002a33-0000-1000-8000-00805f9b34fb", 
+            "str": "Boot Mouse Input Report"
+        }, 
+        {
+            "uuid": "00002a34-0000-1000-8000-00805f9b34fb", 
+            "str": "Glucose Measurement Context"
+        }, 
+        {
+            "uuid": "00002a35-0000-1000-8000-00805f9b34fb", 
+            "str": "Blood Pressure Measurement"
+        }, 
+        {
+            "uuid": "00002a36-0000-1000-8000-00805f9b34fb", 
+            "str": "Intermediate Cuff Pressure"
+        }, 
+        {
+            "uuid": "00002a37-0000-1000-8000-00805f9b34fb", 
+            "str": "Heart Rate Measurement"
+        }, 
+        {
+            "uuid": "00002a38-0000-1000-8000-00805f9b34fb", 
+            "str": "Body Sensor Location"
+        }, 
+        {
+            "uuid": "00002a39-0000-1000-8000-00805f9b34fb", 
+            "str": "Heart Rate Control Point"
+        }, 
+        {
+            "uuid": "00002a3f-0000-1000-8000-00805f9b34fb", 
+            "str": "Alert Status"
+        }, 
+        {
+            "uuid": "00002a40-0000-1000-8000-00805f9b34fb", 
+            "str": "Ringer Control Point"
+        }, 
+        {
+            "uuid": "00002a41-0000-1000-8000-00805f9b34fb", 
+            "str": "Ringer Setting"
+        }, 
+        {
+            "uuid": "00002a42-0000-1000-8000-00805f9b34fb", 
+            "str": "Alert Category ID Bit Mask"
+        }, 
+        {
+            "uuid": "00002a43-0000-1000-8000-00805f9b34fb", 
+            "str": "Alert Category ID"
+        }, 
+        {
+            "uuid": "00002a44-0000-1000-8000-00805f9b34fb", 
+            "str": "Alert Notification Control Point"
+        }, 
+        {
+            "uuid": "00002a45-0000-1000-8000-00805f9b34fb", 
+            "str": "Unread Alert Status"
+        }, 
+        {
+            "uuid": "00002a46-0000-1000-8000-00805f9b34fb", 
+            "str": "New Alert"
+        }, 
+        {
+            "uuid": "00002a47-0000-1000-8000-00805f9b34fb", 
+            "str": "Supported New Alert Category"
+        }, 
+        {
+            "uuid": "00002a48-0000-1000-8000-00805f9b34fb", 
+            "str": "Supported Unread Alert Category"
+        }, 
+        {
+            "uuid": "00002a49-0000-1000-8000-00805f9b34fb", 
+            "str": "Blood Pressure Feature"
+        }, 
+        {
+            "uuid": "00002a4a-0000-1000-8000-00805f9b34fb", 
+            "str": "HID Information"
+        }, 
+        {
+            "uuid": "00002a4b-0000-1000-8000-00805f9b34fb", 
+            "str": "Report Map"
+        }, 
+        {
+            "uuid": "00002a4c-0000-1000-8000-00805f9b34fb", 
+            "str": "HID Control Point"
+        }, 
+        {
+            "uuid": "00002a4d-0000-1000-8000-00805f9b34fb", 
+            "str": "Report"
+        }, 
+        {
+            "uuid": "00002a4e-0000-1000-8000-00805f9b34fb", 
+            "str": "Protocol Mode"
+        }, 
+        {
+            "uuid": "00002a4f-0000-1000-8000-00805f9b34fb", 
+            "str": "Scan Interval Window"
+        }, 
+        {
+            "uuid": "00002a50-0000-1000-8000-00805f9b34fb", 
+            "str": "PnP ID"
+        }, 
+        {
+            "uuid": "00002a51-0000-1000-8000-00805f9b34fb", 
+            "str": "Glucose Feature"
+        }, 
+        {
+            "uuid": "00002a52-0000-1000-8000-00805f9b34fb", 
+            "str": "Record Access Control Point"
+        }, 
+        {
+            "uuid": "00002a53-0000-1000-8000-00805f9b34fb", 
+            "str": "RSC Measurement"
+        }, 
+        {
+            "uuid": "00002a54-0000-1000-8000-00805f9b34fb", 
+            "str": "RSC Feature"
+        }, 
+        {
+            "uuid": "00002a55-0000-1000-8000-00805f9b34fb", 
+            "str": "SC Control Point"
+        }, 
+        {
+            "uuid": "00002a56-0000-1000-8000-00805f9b34fb", 
+            "str": "Digital"
+        }, 
+        {
+            "uuid": "00002a58-0000-1000-8000-00805f9b34fb", 
+            "str": "Analog"
+        }, 
+        {
+            "uuid": "00002a5a-0000-1000-8000-00805f9b34fb", 
+            "str": "Aggregate"
+        }, 
+        {
+            "uuid": "00002a5b-0000-1000-8000-00805f9b34fb", 
+            "str": "CSC Measurement"
+        }, 
+        {
+            "uuid": "00002a5c-0000-1000-8000-00805f9b34fb", 
+            "str": "CSC Feature"
+        }, 
+        {
+            "uuid": "00002a5d-0000-1000-8000-00805f9b34fb", 
+            "str": "Sensor Location"
+        }, 
+        {
+            "uuid": "00002a63-0000-1000-8000-00805f9b34fb", 
+            "str": "Cycling Power Measurement"
+        }, 
+        {
+            "uuid": "00002a64-0000-1000-8000-00805f9b34fb", 
+            "str": "Cycling Power Vector"
+        }, 
+        {
+            "uuid": "00002a65-0000-1000-8000-00805f9b34fb", 
+            "str": "Cycling Power Feature"
+        }, 
+        {
+            "uuid": "00002a66-0000-1000-8000-00805f9b34fb", 
+            "str": "Cycling Power Control Point"
+        }, 
+        {
+            "uuid": "00002a67-0000-1000-8000-00805f9b34fb", 
+            "str": "Location and Speed"
+        }, 
+        {
+            "uuid": "00002a68-0000-1000-8000-00805f9b34fb", 
+            "str": "Navigation"
+        }, 
+        {
+            "uuid": "00002a69-0000-1000-8000-00805f9b34fb", 
+            "str": "Position Quality"
+        }, 
+        {
+            "uuid": "00002a6a-0000-1000-8000-00805f9b34fb", 
+            "str": "LN Feature"
+        }, 
+        {
+            "uuid": "00002a6b-0000-1000-8000-00805f9b34fb", 
+            "str": "LN Control Point"
+        }, 
+        {
+            "uuid": "00002a6c-0000-1000-8000-00805f9b34fb", 
+            "str": "Elevation"
+        }, 
+        {
+            "uuid": "00002a6d-0000-1000-8000-00805f9b34fb", 
+            "str": "Pressure"
+        }, 
+        {
+            "uuid": "00002a6e-0000-1000-8000-00805f9b34fb", 
+            "str": "Temperature"
+        }, 
+        {
+            "uuid": "00002a6f-0000-1000-8000-00805f9b34fb", 
+            "str": "Humidity"
+        }, 
+        {
+            "uuid": "00002a70-0000-1000-8000-00805f9b34fb", 
+            "str": "True Wind Speed"
+        }, 
+        {
+            "uuid": "00002a71-0000-1000-8000-00805f9b34fb", 
+            "str": "True Wind Direction"
+        }, 
+        {
+            "uuid": "00002a72-0000-1000-8000-00805f9b34fb", 
+            "str": "Apparent Wind Speed"
+        }, 
+        {
+            "uuid": "00002a73-0000-1000-8000-00805f9b34fb", 
+            "str": "Apparent Wind Direction"
+        }, 
+        {
+            "uuid": "00002a74-0000-1000-8000-00805f9b34fb", 
+            "str": "Gust Factor"
+        }, 
+        {
+            "uuid": "00002a75-0000-1000-8000-00805f9b34fb", 
+            "str": "Pollen Concentration"
+        }, 
+        {
+            "uuid": "00002a76-0000-1000-8000-00805f9b34fb", 
+            "str": "UV Index"
+        }, 
+        {
+            "uuid": "00002a77-0000-1000-8000-00805f9b34fb", 
+            "str": "Irradiance"
+        }, 
+        {
+            "uuid": "00002a78-0000-1000-8000-00805f9b34fb", 
+            "str": "Rainfall"
+        }, 
+        {
+            "uuid": "00002a79-0000-1000-8000-00805f9b34fb", 
+            "str": "Wind Chill"
+        }, 
+        {
+            "uuid": "00002a7a-0000-1000-8000-00805f9b34fb", 
+            "str": "Heat Index"
+        }, 
+        {
+            "uuid": "00002a7b-0000-1000-8000-00805f9b34fb", 
+            "str": "Dew Point"
+        }, 
+        {
+            "uuid": "00002a7c-0000-1000-8000-00805f9b34fb", 
+            "str": "Trend"
+        }, 
+        {
+            "uuid": "00002a7d-0000-1000-8000-00805f9b34fb", 
+            "str": "Descriptor Value Changed"
+        }, 
+        {
+            "uuid": "00002a7e-0000-1000-8000-00805f9b34fb", 
+            "str": "Aerobic Heart Rate Lower Limit"
+        }, 
+        {
+            "uuid": "00002a7f-0000-1000-8000-00805f9b34fb", 
+            "str": "Aerobic Threshold"
+        }, 
+        {
+            "uuid": "00002a80-0000-1000-8000-00805f9b34fb", 
+            "str": "Age"
+        }, 
+        {
+            "uuid": "00002a81-0000-1000-8000-00805f9b34fb", 
+            "str": "Anaerobic Heart Rate Lower Limit"
+        }, 
+        {
+            "uuid": "00002a82-0000-1000-8000-00805f9b34fb", 
+            "str": "Anaerobic Heart Rate Upper Limit"
+        }, 
+        {
+            "uuid": "00002a83-0000-1000-8000-00805f9b34fb", 
+            "str": "Anaerobic Threshold"
+        }, 
+        {
+            "uuid": "00002a84-0000-1000-8000-00805f9b34fb", 
+            "str": "Aerobic Heart Rate Upper Limit"
+        }, 
+        {
+            "uuid": "00002a85-0000-1000-8000-00805f9b34fb", 
+            "str": "Date of Birth"
+        }, 
+        {
+            "uuid": "00002a86-0000-1000-8000-00805f9b34fb", 
+            "str": "Date of Threshold Assessment"
+        }, 
+        {
+            "uuid": "00002a87-0000-1000-8000-00805f9b34fb", 
+            "str": "Email Address"
+        }, 
+        {
+            "uuid": "00002a88-0000-1000-8000-00805f9b34fb", 
+            "str": "Fat Burn Heart Rate Lower Limit"
+        }, 
+        {
+            "uuid": "00002a89-0000-1000-8000-00805f9b34fb", 
+            "str": "Fat Burn Heart Rate Upper Limit"
+        }, 
+        {
+            "uuid": "00002a8a-0000-1000-8000-00805f9b34fb", 
+            "str": "First Name"
+        }, 
+        {
+            "uuid": "00002a8b-0000-1000-8000-00805f9b34fb", 
+            "str": "Five Zone Heart Rate Limits"
+        }, 
+        {
+            "uuid": "00002a8c-0000-1000-8000-00805f9b34fb", 
+            "str": "Gender"
+        }, 
+        {
+            "uuid": "00002a8d-0000-1000-8000-00805f9b34fb", 
+            "str": "Heart Rate Max"
+        }, 
+        {
+            "uuid": "00002a8e-0000-1000-8000-00805f9b34fb", 
+            "str": "Height"
+        }, 
+        {
+            "uuid": "00002a8f-0000-1000-8000-00805f9b34fb", 
+            "str": "Hip Circumference"
+        }, 
+        {
+            "uuid": "00002a90-0000-1000-8000-00805f9b34fb", 
+            "str": "Last Name"
+        }, 
+        {
+            "uuid": "00002a91-0000-1000-8000-00805f9b34fb", 
+            "str": "Maximum Recommended Heart Rate"
+        }, 
+        {
+            "uuid": "00002a92-0000-1000-8000-00805f9b34fb", 
+            "str": "Resting Heart Rate"
+        }, 
+        {
+            "uuid": "00002a93-0000-1000-8000-00805f9b34fb", 
+            "str": "Sport Type for Aerobic/Anaerobic Thresholds"
+        }, 
+        {
+            "uuid": "00002a94-0000-1000-8000-00805f9b34fb", 
+            "str": "Three Zone Heart Rate Limits"
+        }, 
+        {
+            "uuid": "00002a95-0000-1000-8000-00805f9b34fb", 
+            "str": "Two Zone Heart Rate Limit"
+        }, 
+        {
+            "uuid": "00002a96-0000-1000-8000-00805f9b34fb", 
+            "str": "VO2 Max"
+        }, 
+        {
+            "uuid": "00002a97-0000-1000-8000-00805f9b34fb", 
+            "str": "Waist Circumference"
+        }, 
+        {
+            "uuid": "00002a98-0000-1000-8000-00805f9b34fb", 
+            "str": "Weight"
+        }, 
+        {
+            "uuid": "00002a99-0000-1000-8000-00805f9b34fb", 
+            "str": "Database Change Increment"
+        }, 
+        {
+            "uuid": "00002a9a-0000-1000-8000-00805f9b34fb", 
+            "str": "User Index"
+        }, 
+        {
+            "uuid": "00002a9b-0000-1000-8000-00805f9b34fb", 
+            "str": "Body Composition Feature"
+        }, 
+        {
+            "uuid": "00002a9c-0000-1000-8000-00805f9b34fb", 
+            "str": "Body Composition Measurement"
+        }, 
+        {
+            "uuid": "00002a9d-0000-1000-8000-00805f9b34fb", 
+            "str": "Weight Measurement"
+        }, 
+        {
+            "uuid": "00002a9e-0000-1000-8000-00805f9b34fb", 
+            "str": "Weight Scale Feature"
+        }, 
+        {
+            "uuid": "00002a9f-0000-1000-8000-00805f9b34fb", 
+            "str": "User Control Point"
+        }, 
+        {
+            "uuid": "00002aa0-0000-1000-8000-00805f9b34fb", 
+            "str": "Magnetic Flux Density - 2D"
+        }, 
+        {
+            "uuid": "00002aa1-0000-1000-8000-00805f9b34fb", 
+            "str": "Magnetic Flux Density - 3D"
+        }, 
+        {
+            "uuid": "00002aa2-0000-1000-8000-00805f9b34fb", 
+            "str": "Language"
+        }, 
+        {
+            "uuid": "00002aa3-0000-1000-8000-00805f9b34fb", 
+            "str": "Barometric Pressure Trend"
+        }, 
+        {
+            "uuid": "00002aa4-0000-1000-8000-00805f9b34fb", 
+            "str": "Bond Management Control Point"
+        }, 
+        {
+            "uuid": "00002aa5-0000-1000-8000-00805f9b34fb", 
+            "str": "Bond Management Feature"
+        }, 
+        {
+            "uuid": "00002aa6-0000-1000-8000-00805f9b34fb", 
+            "str": "Central Address Resolution"
+        }, 
+        {
+            "uuid": "00002aa7-0000-1000-8000-00805f9b34fb", 
+            "str": "CGM Measurement"
+        }, 
+        {
+            "uuid": "00002aa8-0000-1000-8000-00805f9b34fb", 
+            "str": "CGM Feature"
+        }, 
+        {
+            "uuid": "00002aa9-0000-1000-8000-00805f9b34fb", 
+            "str": "CGM Status"
+        }, 
+        {
+            "uuid": "00002aaa-0000-1000-8000-00805f9b34fb", 
+            "str": "CGM Session Start Time"
+        }, 
+        {
+            "uuid": "00002aab-0000-1000-8000-00805f9b34fb", 
+            "str": "CGM Session Run Time"
+        }, 
+        {
+            "uuid": "00002aac-0000-1000-8000-00805f9b34fb", 
+            "str": "CGM Specific Ops Control Point"
+        }, 
+        {
+            "uuid": "00002aad-0000-1000-8000-00805f9b34fb", 
+            "str": "Indoor Positioning Configuration"
+        }, 
+        {
+            "uuid": "00002aae-0000-1000-8000-00805f9b34fb", 
+            "str": "Latitude"
+        }, 
+        {
+            "uuid": "00002aaf-0000-1000-8000-00805f9b34fb", 
+            "str": "Longitude"
+        }, 
+        {
+            "uuid": "00002ab0-0000-1000-8000-00805f9b34fb", 
+            "str": "Local North Coordinate"
+        }, 
+        {
+            "uuid": "00002ab1-0000-1000-8000-00805f9b34fb", 
+            "str": "Local East Coordinate"
+        }, 
+        {
+            "uuid": "00002ab2-0000-1000-8000-00805f9b34fb", 
+            "str": "Floor Number"
+        }, 
+        {
+            "uuid": "00002ab3-0000-1000-8000-00805f9b34fb", 
+            "str": "Altitude"
+        }, 
+        {
+            "uuid": "00002ab4-0000-1000-8000-00805f9b34fb", 
+            "str": "Uncertainty"
+        }, 
+        {
+            "uuid": "00002ab5-0000-1000-8000-00805f9b34fb", 
+            "str": "Location Name"
+        }, 
+        {
+            "uuid": "00002ab6-0000-1000-8000-00805f9b34fb", 
+            "str": "URI"
+        }, 
+        {
+            "uuid": "00002ab7-0000-1000-8000-00805f9b34fb", 
+            "str": "HTTP Headers"
+        }, 
+        {
+            "uuid": "00002ab8-0000-1000-8000-00805f9b34fb", 
+            "str": "HTTP Status Code"
+        }, 
+        {
+            "uuid": "00002ab9-0000-1000-8000-00805f9b34fb", 
+            "str": "HTTP Entity Body"
+        }, 
+        {
+            "uuid": "00002aba-0000-1000-8000-00805f9b34fb", 
+            "str": "HTTP Control Point"
+        }, 
+        {
+            "uuid": "00002abb-0000-1000-8000-00805f9b34fb", 
+            "str": "HTTPS Security"
+        }, 
+        {
+            "uuid": "00002abc-0000-1000-8000-00805f9b34fb", 
+            "str": "TDS Control Point"
+        }, 
+        {
+            "uuid": "00002abd-0000-1000-8000-00805f9b34fb", 
+            "str": "OTS Feature"
+        }, 
+        {
+            "uuid": "00002abe-0000-1000-8000-00805f9b34fb", 
+            "str": "Object Name"
+        }, 
+        {
+            "uuid": "00002abf-0000-1000-8000-00805f9b34fb", 
+            "str": "Object Type"
+        }, 
+        {
+            "uuid": "00002ac0-0000-1000-8000-00805f9b34fb", 
+            "str": "Object Size"
+        }, 
+        {
+            "uuid": "00002ac1-0000-1000-8000-00805f9b34fb", 
+            "str": "Object First-Created"
+        }, 
+        {
+            "uuid": "00002ac2-0000-1000-8000-00805f9b34fb", 
+            "str": "Object Last-Modified"
+        }, 
+        {
+            "uuid": "00002ac3-0000-1000-8000-00805f9b34fb", 
+            "str": "Object ID"
+        }, 
+        {
+            "uuid": "00002ac4-0000-1000-8000-00805f9b34fb", 
+            "str": "Object Properties"
+        }, 
+        {
+            "uuid": "00002ac5-0000-1000-8000-00805f9b34fb", 
+            "str": "Object Action Control Point"
+        }, 
+        {
+            "uuid": "00002ac6-0000-1000-8000-00805f9b34fb", 
+            "str": "Object List Control Point"
+        }, 
+        {
+            "uuid": "00002ac7-0000-1000-8000-00805f9b34fb", 
+            "str": "Object List Filter"
+        }, 
+        {
+            "uuid": "00002ac8-0000-1000-8000-00805f9b34fb", 
+            "str": "Object Changed"
+        }, 
+        {
+            "uuid": "00002ac9-0000-1000-8000-00805f9b34fb", 
+            "str": "Resolvable Private Address Only"
+        }, 
+        {
+            "uuid": "00002acc-0000-1000-8000-00805f9b34fb", 
+            "str": "Fitness Machine Feature"
+        }, 
+        {
+            "uuid": "00002acd-0000-1000-8000-00805f9b34fb", 
+            "str": "Treadmill Data"
+        }, 
+        {
+            "uuid": "00002ace-0000-1000-8000-00805f9b34fb", 
+            "str": "Cross Trainer Data"
+        }, 
+        {
+            "uuid": "00002acf-0000-1000-8000-00805f9b34fb", 
+            "str": "Step Climber Data"
+        }, 
+        {
+            "uuid": "00002ad0-0000-1000-8000-00805f9b34fb", 
+            "str": "Stair Climber Data"
+        }, 
+        {
+            "uuid": "00002ad1-0000-1000-8000-00805f9b34fb", 
+            "str": "Rower Data"
+        }, 
+        {
+            "uuid": "00002ad2-0000-1000-8000-00805f9b34fb", 
+            "str": "Indoor Bike Data"
+        }, 
+        {
+            "uuid": "00002ad3-0000-1000-8000-00805f9b34fb", 
+            "str": "Training Status"
+        }, 
+        {
+            "uuid": "00002ad4-0000-1000-8000-00805f9b34fb", 
+            "str": "Supported Speed Range"
+        }, 
+        {
+            "uuid": "00002ad5-0000-1000-8000-00805f9b34fb", 
+            "str": "Supported Inclination Range"
+        }, 
+        {
+            "uuid": "00002ad6-0000-1000-8000-00805f9b34fb", 
+            "str": "Supported Resistance Level Range"
+        }, 
+        {
+            "uuid": "00002ad7-0000-1000-8000-00805f9b34fb", 
+            "str": "Supported Heart Rate Range"
+        }, 
+        {
+            "uuid": "00002ad8-0000-1000-8000-00805f9b34fb", 
+            "str": "Supported Power Range"
+        }, 
+        {
+            "uuid": "00002ad9-0000-1000-8000-00805f9b34fb", 
+            "str": "Fitness Machine Control Point"
+        }, 
+        {
+            "uuid": "00002ada-0000-1000-8000-00805f9b34fb", 
+            "str": "Fitness Machine Status"
+        }, 
+        {
+            "uuid": "00002adb-0000-1000-8000-00805f9b34fb", 
+            "str": "Mesh Provisioning Data In"
+        }, 
+        {
+            "uuid": "00002adc-0000-1000-8000-00805f9b34fb", 
+            "str": "Mesh Provisioning Data Out"
+        }, 
+        {
+            "uuid": "00002add-0000-1000-8000-00805f9b34fb", 
+            "str": "Mesh Proxy Data In"
+        }, 
+        {
+            "uuid": "00002ade-0000-1000-8000-00805f9b34fb", 
+            "str": "Mesh Proxy Data Out"
+        }, 
+        {
+            "uuid": "0000feff-0000-1000-8000-00805f9b34fb", 
+            "str": "GN Netcom"
+        }, 
+        {
+            "uuid": "0000fefe-0000-1000-8000-00805f9b34fb", 
+            "str": "GN ReSound A/S"
+        }, 
+        {
+            "uuid": "0000fefd-0000-1000-8000-00805f9b34fb", 
+            "str": "Gimbal, Inc."
+        }, 
+        {
+            "uuid": "0000fefc-0000-1000-8000-00805f9b34fb", 
+            "str": "Gimbal, Inc."
+        }, 
+        {
+            "uuid": "0000fefb-0000-1000-8000-00805f9b34fb", 
+            "str": "Stollmann E+V GmbH"
+        }, 
+        {
+            "uuid": "0000fefa-0000-1000-8000-00805f9b34fb", 
+            "str": "PayPal, Inc."
+        }, 
+        {
+            "uuid": "0000fef9-0000-1000-8000-00805f9b34fb", 
+            "str": "PayPal, Inc."
+        }, 
+        {
+            "uuid": "0000fef8-0000-1000-8000-00805f9b34fb", 
+            "str": "Aplix Corporation"
+        }, 
+        {
+            "uuid": "0000fef7-0000-1000-8000-00805f9b34fb", 
+            "str": "Aplix Corporation"
+        }, 
+        {
+            "uuid": "0000fef6-0000-1000-8000-00805f9b34fb", 
+            "str": "Wicentric, Inc."
+        }, 
+        {
+            "uuid": "0000fef5-0000-1000-8000-00805f9b34fb", 
+            "str": "Dialog Semiconductor GmbH"
+        }, 
+        {
+            "uuid": "0000fef4-0000-1000-8000-00805f9b34fb", 
+            "str": "Google"
+        }, 
+        {
+            "uuid": "0000fef3-0000-1000-8000-00805f9b34fb", 
+            "str": "Google"
+        }, 
+        {
+            "uuid": "0000fef2-0000-1000-8000-00805f9b34fb", 
+            "str": "CSR"
+        }, 
+        {
+            "uuid": "0000fef1-0000-1000-8000-00805f9b34fb", 
+            "str": "CSR"
+        }, 
+        {
+            "uuid": "0000fef0-0000-1000-8000-00805f9b34fb", 
+            "str": "Intel"
+        }, 
+        {
+            "uuid": "0000feef-0000-1000-8000-00805f9b34fb", 
+            "str": "Polar Electro Oy"
+        }, 
+        {
+            "uuid": "0000feee-0000-1000-8000-00805f9b34fb", 
+            "str": "Polar Electro Oy"
+        }, 
+        {
+            "uuid": "0000feed-0000-1000-8000-00805f9b34fb", 
+            "str": "Tile, Inc."
+        }, 
+        {
+            "uuid": "0000feec-0000-1000-8000-00805f9b34fb", 
+            "str": "Tile, Inc."
+        }, 
+        {
+            "uuid": "0000feeb-0000-1000-8000-00805f9b34fb", 
+            "str": "Swirl Networks, Inc."
+        }, 
+        {
+            "uuid": "0000feea-0000-1000-8000-00805f9b34fb", 
+            "str": "Swirl Networks, Inc."
+        }, 
+        {
+            "uuid": "0000fee9-0000-1000-8000-00805f9b34fb", 
+            "str": "Quintic Corp."
+        }, 
+        {
+            "uuid": "0000fee8-0000-1000-8000-00805f9b34fb", 
+            "str": "Quintic Corp."
+        }, 
+        {
+            "uuid": "0000fee7-0000-1000-8000-00805f9b34fb", 
+            "str": "Tencent Holdings Limited"
+        }, 
+        {
+            "uuid": "0000fee6-0000-1000-8000-00805f9b34fb", 
+            "str": "Seed Labs, Inc."
+        }, 
+        {
+            "uuid": "0000fee5-0000-1000-8000-00805f9b34fb", 
+            "str": "Nordic Semiconductor ASA"
+        }, 
+        {
+            "uuid": "0000fee4-0000-1000-8000-00805f9b34fb", 
+            "str": "Nordic Semiconductor ASA"
+        }, 
+        {
+            "uuid": "0000fee3-0000-1000-8000-00805f9b34fb", 
+            "str": "Anki, Inc."
+        }, 
+        {
+            "uuid": "0000fee2-0000-1000-8000-00805f9b34fb", 
+            "str": "Anki, Inc."
+        }, 
+        {
+            "uuid": "0000fee1-0000-1000-8000-00805f9b34fb", 
+            "str": "Anhui Huami Information Technology Co."
+        }, 
+        {
+            "uuid": "0000fee0-0000-1000-8000-00805f9b34fb", 
+            "str": "Anhui Huami Information Technology Co."
+        }, 
+        {
+            "uuid": "0000fedf-0000-1000-8000-00805f9b34fb", 
+            "str": "Design SHIFT"
+        }, 
+        {
+            "uuid": "0000fede-0000-1000-8000-00805f9b34fb", 
+            "str": "Coin, Inc."
+        }, 
+        {
+            "uuid": "0000fedd-0000-1000-8000-00805f9b34fb", 
+            "str": "Jawbone"
+        }, 
+        {
+            "uuid": "0000fedc-0000-1000-8000-00805f9b34fb", 
+            "str": "Jawbone"
+        }, 
+        {
+            "uuid": "0000fedb-0000-1000-8000-00805f9b34fb", 
+            "str": "Perka, Inc."
+        }, 
+        {
+            "uuid": "0000feda-0000-1000-8000-00805f9b34fb", 
+            "str": "ISSC Technologies Corporation"
+        }, 
+        {
+            "uuid": "0000fed9-0000-1000-8000-00805f9b34fb", 
+            "str": "Pebble Technology Corporation"
+        }, 
+        {
+            "uuid": "0000fed8-0000-1000-8000-00805f9b34fb", 
+            "str": "Google"
+        }, 
+        {
+            "uuid": "0000fed7-0000-1000-8000-00805f9b34fb", 
+            "str": "Broadcom Corporation"
+        }, 
+        {
+            "uuid": "0000fed6-0000-1000-8000-00805f9b34fb", 
+            "str": "Broadcom Corporation"
+        }, 
+        {
+            "uuid": "0000fed5-0000-1000-8000-00805f9b34fb", 
+            "str": "Plantronics Inc."
+        }, 
+        {
+            "uuid": "0000fed4-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fed3-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fed2-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fed1-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fed0-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fecf-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fece-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fecd-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fecc-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fecb-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000feca-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fec9-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fec8-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fec7-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fec6-0000-1000-8000-00805f9b34fb", 
+            "str": "Kocomojo, LLC"
+        }, 
+        {
+            "uuid": "0000fec5-0000-1000-8000-00805f9b34fb", 
+            "str": "Realtek Semiconductor Corp."
+        }, 
+        {
+            "uuid": "0000fec4-0000-1000-8000-00805f9b34fb", 
+            "str": "PLUS Location Systems"
+        }, 
+        {
+            "uuid": "0000fec3-0000-1000-8000-00805f9b34fb", 
+            "str": "360fly, Inc."
+        }, 
+        {
+            "uuid": "0000fec2-0000-1000-8000-00805f9b34fb", 
+            "str": "Blue Spark Technologies, Inc."
+        }, 
+        {
+            "uuid": "0000fec1-0000-1000-8000-00805f9b34fb", 
+            "str": "KDDI Corporation"
+        }, 
+        {
+            "uuid": "0000fec0-0000-1000-8000-00805f9b34fb", 
+            "str": "KDDI Corporation"
+        }, 
+        {
+            "uuid": "0000febf-0000-1000-8000-00805f9b34fb", 
+            "str": "Nod, Inc."
+        }, 
+        {
+            "uuid": "0000febe-0000-1000-8000-00805f9b34fb", 
+            "str": "Bose Corporation"
+        }, 
+        {
+            "uuid": "0000febd-0000-1000-8000-00805f9b34fb", 
+            "str": "Clover Network, Inc."
+        }, 
+        {
+            "uuid": "0000febc-0000-1000-8000-00805f9b34fb", 
+            "str": "Dexcom, Inc."
+        }, 
+        {
+            "uuid": "0000febb-0000-1000-8000-00805f9b34fb", 
+            "str": "adafruit industries"
+        }, 
+        {
+            "uuid": "0000feba-0000-1000-8000-00805f9b34fb", 
+            "str": "Tencent Holdings Limited"
+        }, 
+        {
+            "uuid": "0000feb9-0000-1000-8000-00805f9b34fb", 
+            "str": "LG Electronics"
+        }, 
+        {
+            "uuid": "0000feb8-0000-1000-8000-00805f9b34fb", 
+            "str": "Facebook, Inc."
+        }, 
+        {
+            "uuid": "0000feb7-0000-1000-8000-00805f9b34fb", 
+            "str": "Facebook, Inc."
+        }, 
+        {
+            "uuid": "0000feb6-0000-1000-8000-00805f9b34fb", 
+            "str": "Vencer Co, Ltd"
+        }, 
+        {
+            "uuid": "0000feb5-0000-1000-8000-00805f9b34fb", 
+            "str": "WiSilica Inc."
+        }, 
+        {
+            "uuid": "0000feb4-0000-1000-8000-00805f9b34fb", 
+            "str": "WiSilica Inc."
+        }, 
+        {
+            "uuid": "0000feb3-0000-1000-8000-00805f9b34fb", 
+            "str": "Taobao"
+        }, 
+        {
+            "uuid": "0000feb2-0000-1000-8000-00805f9b34fb", 
+            "str": "Microsoft Corporation"
+        }, 
+        {
+            "uuid": "0000feb1-0000-1000-8000-00805f9b34fb", 
+            "str": "Electronics Tomorrow Limited"
+        }, 
+        {
+            "uuid": "0000feb0-0000-1000-8000-00805f9b34fb", 
+            "str": "Nest Labs Inc."
+        }, 
+        {
+            "uuid": "0000feaf-0000-1000-8000-00805f9b34fb", 
+            "str": "Nest Labs Inc."
+        }, 
+        {
+            "uuid": "0000feae-0000-1000-8000-00805f9b34fb", 
+            "str": "Nokia Corporation"
+        }, 
+        {
+            "uuid": "0000fead-0000-1000-8000-00805f9b34fb", 
+            "str": "Nokia Corporation"
+        }, 
+        {
+            "uuid": "0000feac-0000-1000-8000-00805f9b34fb", 
+            "str": "Nokia Corporation"
+        }, 
+        {
+            "uuid": "0000feab-0000-1000-8000-00805f9b34fb", 
+            "str": "Nokia Corporation"
+        }, 
+        {
+            "uuid": "0000feaa-0000-1000-8000-00805f9b34fb", 
+            "str": "Google"
+        }, 
+        {
+            "uuid": "0000fea9-0000-1000-8000-00805f9b34fb", 
+            "str": "Savant Systems LLC"
+        }, 
+        {
+            "uuid": "0000fea8-0000-1000-8000-00805f9b34fb", 
+            "str": "Savant Systems LLC"
+        }, 
+        {
+            "uuid": "0000fea7-0000-1000-8000-00805f9b34fb", 
+            "str": "UTC Fire and Security"
+        }, 
+        {
+            "uuid": "0000fea6-0000-1000-8000-00805f9b34fb", 
+            "str": "GoPro, Inc."
+        }, 
+        {
+            "uuid": "0000fea5-0000-1000-8000-00805f9b34fb", 
+            "str": "GoPro, Inc."
+        }, 
+        {
+            "uuid": "0000fea4-0000-1000-8000-00805f9b34fb", 
+            "str": "Paxton Access Ltd"
+        }, 
+        {
+            "uuid": "0000fea3-0000-1000-8000-00805f9b34fb", 
+            "str": "ITT Industries"
+        }, 
+        {
+            "uuid": "0000fea2-0000-1000-8000-00805f9b34fb", 
+            "str": "Intrepid Control Systems, Inc."
+        }, 
+        {
+            "uuid": "0000fea1-0000-1000-8000-00805f9b34fb", 
+            "str": "Intrepid Control Systems, Inc."
+        }, 
+        {
+            "uuid": "0000fea0-0000-1000-8000-00805f9b34fb", 
+            "str": "Google"
+        }, 
+        {
+            "uuid": "0000fe9f-0000-1000-8000-00805f9b34fb", 
+            "str": "Google"
+        }, 
+        {
+            "uuid": "0000fe9e-0000-1000-8000-00805f9b34fb", 
+            "str": "Dialog Semiconductor B.V."
+        }, 
+        {
+            "uuid": "0000fe9d-0000-1000-8000-00805f9b34fb", 
+            "str": "Mobiquity Networks Inc"
+        }, 
+        {
+            "uuid": "0000fe9c-0000-1000-8000-00805f9b34fb", 
+            "str": "GSI Laboratories, Inc."
+        }, 
+        {
+            "uuid": "0000fe9b-0000-1000-8000-00805f9b34fb", 
+            "str": "Samsara Networks, Inc"
+        }, 
+        {
+            "uuid": "0000fe9a-0000-1000-8000-00805f9b34fb", 
+            "str": "Estimote"
+        }, 
+        {
+            "uuid": "0000fe99-0000-1000-8000-00805f9b34fb", 
+            "str": "Currant, Inc."
+        }, 
+        {
+            "uuid": "0000fe98-0000-1000-8000-00805f9b34fb", 
+            "str": "Currant, Inc."
+        }, 
+        {
+            "uuid": "0000fe97-0000-1000-8000-00805f9b34fb", 
+            "str": "Tesla Motor Inc."
+        }, 
+        {
+            "uuid": "0000fe96-0000-1000-8000-00805f9b34fb", 
+            "str": "Tesla Motor Inc."
+        }, 
+        {
+            "uuid": "0000fe95-0000-1000-8000-00805f9b34fb", 
+            "str": "Xiaomi Inc."
+        }, 
+        {
+            "uuid": "0000fe94-0000-1000-8000-00805f9b34fb", 
+            "str": "OttoQ Inc."
+        }, 
+        {
+            "uuid": "0000fe93-0000-1000-8000-00805f9b34fb", 
+            "str": "OttoQ Inc."
+        }, 
+        {
+            "uuid": "0000fe92-0000-1000-8000-00805f9b34fb", 
+            "str": "Jarden Safety & Security"
+        }, 
+        {
+            "uuid": "0000fe91-0000-1000-8000-00805f9b34fb", 
+            "str": "Shanghai Imilab Technology Co.,Ltd"
+        }, 
+        {
+            "uuid": "0000fe90-0000-1000-8000-00805f9b34fb", 
+            "str": "JUMA"
+        }, 
+        {
+            "uuid": "0000fe8f-0000-1000-8000-00805f9b34fb", 
+            "str": "CSR"
+        }, 
+        {
+            "uuid": "0000fe8e-0000-1000-8000-00805f9b34fb", 
+            "str": "ARM Ltd"
+        }, 
+        {
+            "uuid": "0000fe8d-0000-1000-8000-00805f9b34fb", 
+            "str": "Interaxon Inc."
+        }, 
+        {
+            "uuid": "0000fe8c-0000-1000-8000-00805f9b34fb", 
+            "str": "TRON Forum"
+        }, 
+        {
+            "uuid": "0000fe8b-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fe8a-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fe89-0000-1000-8000-00805f9b34fb", 
+            "str": "B&O Play A/S"
+        }, 
+        {
+            "uuid": "0000fe88-0000-1000-8000-00805f9b34fb", 
+            "str": "SALTO SYSTEMS S.L."
+        }, 
+        {
+            "uuid": "0000fe87-0000-1000-8000-00805f9b34fb", 
+            "str": "Qingdao Yeelink Information Technology Co., Ltd. ( \u9752\u5c9b\u4ebf\u8054\u5ba2\u4fe1\u606f\u6280\u672f\u6709\u9650\u516c\u53f8 )"
+        }, 
+        {
+            "uuid": "0000fe86-0000-1000-8000-00805f9b34fb", 
+            "str": "HUAWEI Technologies Co., Ltd. ( \u534e\u4e3a\u6280\u672f\u6709\u9650\u516c\u53f8 )"
+        }, 
+        {
+            "uuid": "0000fe85-0000-1000-8000-00805f9b34fb", 
+            "str": "RF Digital Corp"
+        }, 
+        {
+            "uuid": "0000fe84-0000-1000-8000-00805f9b34fb", 
+            "str": "RF Digital Corp"
+        }, 
+        {
+            "uuid": "0000fe83-0000-1000-8000-00805f9b34fb", 
+            "str": "Blue Bite"
+        }, 
+        {
+            "uuid": "0000fe82-0000-1000-8000-00805f9b34fb", 
+            "str": "Medtronic Inc."
+        }, 
+        {
+            "uuid": "0000fe81-0000-1000-8000-00805f9b34fb", 
+            "str": "Medtronic Inc."
+        }, 
+        {
+            "uuid": "0000fe80-0000-1000-8000-00805f9b34fb", 
+            "str": "Doppler Lab"
+        }, 
+        {
+            "uuid": "0000fe7f-0000-1000-8000-00805f9b34fb", 
+            "str": "Doppler Lab"
+        }, 
+        {
+            "uuid": "0000fe7e-0000-1000-8000-00805f9b34fb", 
+            "str": "Awear Solutions Ltd"
+        }, 
+        {
+            "uuid": "0000fe7d-0000-1000-8000-00805f9b34fb", 
+            "str": "Aterica Health Inc."
+        }, 
+        {
+            "uuid": "0000fe7c-0000-1000-8000-00805f9b34fb", 
+            "str": "Stollmann E+V GmbH"
+        }, 
+        {
+            "uuid": "0000fe7b-0000-1000-8000-00805f9b34fb", 
+            "str": "Orion Labs, Inc."
+        }, 
+        {
+            "uuid": "0000fe7a-0000-1000-8000-00805f9b34fb", 
+            "str": "Bragi GmbH"
+        }, 
+        {
+            "uuid": "0000fe79-0000-1000-8000-00805f9b34fb", 
+            "str": "Zebra Technologies"
+        }, 
+        {
+            "uuid": "0000fe78-0000-1000-8000-00805f9b34fb", 
+            "str": "Hewlett-Packard Company"
+        }, 
+        {
+            "uuid": "0000fe77-0000-1000-8000-00805f9b34fb", 
+            "str": "Hewlett-Packard Company"
+        }, 
+        {
+            "uuid": "0000fe76-0000-1000-8000-00805f9b34fb", 
+            "str": "TangoMe"
+        }, 
+        {
+            "uuid": "0000fe75-0000-1000-8000-00805f9b34fb", 
+            "str": "TangoMe"
+        }, 
+        {
+            "uuid": "0000fe74-0000-1000-8000-00805f9b34fb", 
+            "str": "unwire"
+        }, 
+        {
+            "uuid": "0000fe73-0000-1000-8000-00805f9b34fb", 
+            "str": "St. Jude Medical, Inc."
+        }, 
+        {
+            "uuid": "0000fe72-0000-1000-8000-00805f9b34fb", 
+            "str": "St. Jude Medical, Inc."
+        }, 
+        {
+            "uuid": "0000fe71-0000-1000-8000-00805f9b34fb", 
+            "str": "Plume Design Inc"
+        }, 
+        {
+            "uuid": "0000fe70-0000-1000-8000-00805f9b34fb", 
+            "str": "Beijing Jingdong Century Trading Co., Ltd."
+        }, 
+        {
+            "uuid": "0000fe6f-0000-1000-8000-00805f9b34fb", 
+            "str": "LINE Corporation"
+        }, 
+        {
+            "uuid": "0000fe6e-0000-1000-8000-00805f9b34fb", 
+            "str": "The University of Tokyo"
+        }, 
+        {
+            "uuid": "0000fe6d-0000-1000-8000-00805f9b34fb", 
+            "str": "The University of Tokyo"
+        }, 
+        {
+            "uuid": "0000fe6c-0000-1000-8000-00805f9b34fb", 
+            "str": "TASER International, Inc."
+        }, 
+        {
+            "uuid": "0000fe6b-0000-1000-8000-00805f9b34fb", 
+            "str": "TASER International, Inc."
+        }, 
+        {
+            "uuid": "0000fe6a-0000-1000-8000-00805f9b34fb", 
+            "str": "Kontakt Micro-Location Sp. z o.o."
+        }, 
+        {
+            "uuid": "0000fe69-0000-1000-8000-00805f9b34fb", 
+            "str": "Qualcomm Life Inc"
+        }, 
+        {
+            "uuid": "0000fe68-0000-1000-8000-00805f9b34fb", 
+            "str": "Qualcomm Life Inc"
+        }, 
+        {
+            "uuid": "0000fe67-0000-1000-8000-00805f9b34fb", 
+            "str": "Lab Sensor Solutions"
+        }, 
+        {
+            "uuid": "0000fe66-0000-1000-8000-00805f9b34fb", 
+            "str": "Intel Corporation"
+        }, 
+        {
+            "uuid": "0000fe65-0000-1000-8000-00805f9b34fb", 
+            "str": "CHIPOLO d.o.o."
+        }, 
+        {
+            "uuid": "0000fe64-0000-1000-8000-00805f9b34fb", 
+            "str": "Siemens AG"
+        }, 
+        {
+            "uuid": "0000fe63-0000-1000-8000-00805f9b34fb", 
+            "str": "Connected Yard, Inc."
+        }, 
+        {
+            "uuid": "0000fe62-0000-1000-8000-00805f9b34fb", 
+            "str": "Indagem Tech LLC"
+        }, 
+        {
+            "uuid": "0000fe61-0000-1000-8000-00805f9b34fb", 
+            "str": "Logitech International SA"
+        }, 
+        {
+            "uuid": "0000fe60-0000-1000-8000-00805f9b34fb", 
+            "str": "Lierda Science & Technology Group Co., Ltd."
+        }, 
+        {
+            "uuid": "0000fe5F-0000-1000-8000-00805f9b34fb", 
+            "str": "Eyefi, Inc."
+        }, 
+        {
+            "uuid": "0000fe5E-0000-1000-8000-00805f9b34fb", 
+            "str": "Plastc Corporation"
+        }, 
+        {
+            "uuid": "0000fe5D-0000-1000-8000-00805f9b34fb", 
+            "str": "Grundfos A/S"
+        }, 
+        {
+            "uuid": "0000fe5C-0000-1000-8000-00805f9b34fb", 
+            "str": "million hunters GmbH"
+        }, 
+        {
+            "uuid": "0000fe5B-0000-1000-8000-00805f9b34fb", 
+            "str": "GT-tronics HK Ltd"
+        }, 
+        {
+            "uuid": "0000fe5A-0000-1000-8000-00805f9b34fb", 
+            "str": "Chronologics Corporation"
+        }, 
+        {
+            "uuid": "0000fe59-0000-1000-8000-00805f9b34fb", 
+            "str": "Nordic Semiconductor ASA"
+        }, 
+        {
+            "uuid": "0000fe58-0000-1000-8000-00805f9b34fb", 
+            "str": "Nordic Semiconductor ASA"
+        }, 
+        {
+            "uuid": "0000fe57-0000-1000-8000-00805f9b34fb", 
+            "str": "Dotted Labs"
+        }, 
+        {
+            "uuid": "0000fe56-0000-1000-8000-00805f9b34fb", 
+            "str": "Google Inc."
+        }, 
+        {
+            "uuid": "0000fe55-0000-1000-8000-00805f9b34fb", 
+            "str": "Google Inc."
+        }, 
+        {
+            "uuid": "0000fe54-0000-1000-8000-00805f9b34fb", 
+            "str": "Motiv, Inc."
+        }, 
+        {
+            "uuid": "0000fe53-0000-1000-8000-00805f9b34fb", 
+            "str": "3M"
+        }, 
+        {
+            "uuid": "0000fe52-0000-1000-8000-00805f9b34fb", 
+            "str": "SetPoint Medical"
+        }, 
+        {
+            "uuid": "0000fe51-0000-1000-8000-00805f9b34fb", 
+            "str": "SRAM"
+        }, 
+        {
+            "uuid": "0000fe50-0000-1000-8000-00805f9b34fb", 
+            "str": "Google Inc."
+        }, 
+        {
+            "uuid": "0000fe4F-0000-1000-8000-00805f9b34fb", 
+            "str": "Molekule, Inc."
+        }, 
+        {
+            "uuid": "0000fe4E-0000-1000-8000-00805f9b34fb", 
+            "str": "NTT docomo"
+        }, 
+        {
+            "uuid": "0000fe4D-0000-1000-8000-00805f9b34fb", 
+            "str": "Casambi Technologies Oy"
+        }, 
+        {
+            "uuid": "0000fe4C-0000-1000-8000-00805f9b34fb", 
+            "str": "Volkswagen AG"
+        }, 
+        {
+            "uuid": "0000fe4B-0000-1000-8000-00805f9b34fb", 
+            "str": "Koninklijke Philips N.V."
+        }, 
+        {
+            "uuid": "0000fe4A-0000-1000-8000-00805f9b34fb", 
+            "str": "OMRON HEALTHCARE Co., Ltd."
+        }, 
+        {
+            "uuid": "0000fe49-0000-1000-8000-00805f9b34fb", 
+            "str": "SenionLab AB"
+        }, 
+        {
+            "uuid": "0000fe48-0000-1000-8000-00805f9b34fb", 
+            "str": "General Motors"
+        }, 
+        {
+            "uuid": "0000fe47-0000-1000-8000-00805f9b34fb", 
+            "str": "General Motors"
+        }, 
+        {
+            "uuid": "0000fe46-0000-1000-8000-00805f9b34fb", 
+            "str": "B&O Play A/S"
+        }, 
+        {
+            "uuid": "0000fe45-0000-1000-8000-00805f9b34fb", 
+            "str": "Snapchat Inc"
+        }, 
+        {
+            "uuid": "0000fe44-0000-1000-8000-00805f9b34fb", 
+            "str": "SK Telecom"
+        }, 
+        {
+            "uuid": "0000fe43-0000-1000-8000-00805f9b34fb", 
+            "str": "Andreas Stihl AG & Co. KG"
+        }, 
+        {
+            "uuid": "0000fe42-0000-1000-8000-00805f9b34fb", 
+            "str": "Nets A/S"
+        }, 
+        {
+            "uuid": "0000fe41-0000-1000-8000-00805f9b34fb", 
+            "str": "Inugo Systems Limited"
+        }, 
+        {
+            "uuid": "0000fe40-0000-1000-8000-00805f9b34fb", 
+            "str": "Inugo Systems Limited"
+        }, 
+        {
+            "uuid": "0000fe3F-0000-1000-8000-00805f9b34fb", 
+            "str": "Friday Labs Limited"
+        }, 
+        {
+            "uuid": "0000fe3E-0000-1000-8000-00805f9b34fb", 
+            "str": "BD Medical"
+        }, 
+        {
+            "uuid": "0000fe3D-0000-1000-8000-00805f9b34fb", 
+            "str": "BD Medical"
+        }, 
+        {
+            "uuid": "0000fe3C-0000-1000-8000-00805f9b34fb", 
+            "str": "Alibaba"
+        }, 
+        {
+            "uuid": "0000fe3B-0000-1000-8000-00805f9b34fb", 
+            "str": "Dolby Laboratories"
+        }, 
+        {
+            "uuid": "0000fe3A-0000-1000-8000-00805f9b34fb", 
+            "str": "TTS Tooltechnic Systems AG & Co. KG"
+        }, 
+        {
+            "uuid": "0000fe39-0000-1000-8000-00805f9b34fb", 
+            "str": "TTS Tooltechnic Systems AG & Co. KG"
+        }, 
+        {
+            "uuid": "0000fe38-0000-1000-8000-00805f9b34fb", 
+            "str": "Spaceek LTD"
+        }, 
+        {
+            "uuid": "0000fe37-0000-1000-8000-00805f9b34fb", 
+            "str": "Spaceek LTD"
+        }, 
+        {
+            "uuid": "0000fe36-0000-1000-8000-00805f9b34fb", 
+            "str": "HUAWEI Technologies Co., Ltd"
+        }, 
+        {
+            "uuid": "0000fe35-0000-1000-8000-00805f9b34fb", 
+            "str": "HUAWEI Technologies Co., Ltd"
+        }, 
+        {
+            "uuid": "0000fe34-0000-1000-8000-00805f9b34fb", 
+            "str": "SmallLoop LLC"
+        }, 
+        {
+            "uuid": "0000fe33-0000-1000-8000-00805f9b34fb", 
+            "str": "CHIPOLO d.o.o."
+        }, 
+        {
+            "uuid": "0000fe32-0000-1000-8000-00805f9b34fb", 
+            "str": "Pro-Mark, Inc."
+        }, 
+        {
+            "uuid": "0000fe31-0000-1000-8000-00805f9b34fb", 
+            "str": "Volkswagen AG"
+        }, 
+        {
+            "uuid": "0000fe30-0000-1000-8000-00805f9b34fb", 
+            "str": "Volkswagen AG"
+        }, 
+        {
+            "uuid": "0000fe2F-0000-1000-8000-00805f9b34fb", 
+            "str": "CRESCO Wireless, Inc"
+        }, 
+        {
+            "uuid": "0000fe2E-0000-1000-8000-00805f9b34fb", 
+            "str": "ERi,Inc."
+        }, 
+        {
+            "uuid": "0000fe2D-0000-1000-8000-00805f9b34fb", 
+            "str": "SMART INNOVATION Co.,Ltd"
+        }, 
+        {
+            "uuid": "0000fe2C-0000-1000-8000-00805f9b34fb", 
+            "str": "Google Inc."
+        }, 
+        {
+            "uuid": "0000fe2B-0000-1000-8000-00805f9b34fb", 
+            "str": "ITT Industries"
+        }, 
+        {
+            "uuid": "0000fe2A-0000-1000-8000-00805f9b34fb", 
+            "str": "DaisyWorks, Inc."
+        }, 
+        {
+            "uuid": "0000fe29-0000-1000-8000-00805f9b34fb", 
+            "str": "Gibson Innovations"
+        }, 
+        {
+            "uuid": "0000fe28-0000-1000-8000-00805f9b34fb", 
+            "str": "Ayla Network"
+        }, 
+        {
+            "uuid": "0000fe27-0000-1000-8000-00805f9b34fb", 
+            "str": "Google Inc."
+        }, 
+        {
+            "uuid": "0000fe26-0000-1000-8000-00805f9b34fb", 
+            "str": "Google Inc."
+        }, 
+        {
+            "uuid": "0000fe25-0000-1000-8000-00805f9b34fb", 
+            "str": "Apple, Inc."
+        }, 
+        {
+            "uuid": "0000fe24-0000-1000-8000-00805f9b34fb", 
+            "str": "August Home Inc"
+        }, 
+        {
+            "uuid": "0000fe23-0000-1000-8000-00805f9b34fb", 
+            "str": "Zoll Medical Corporation"
+        }, 
+        {
+            "uuid": "0000fe22-0000-1000-8000-00805f9b34fb", 
+            "str": "Zoll Medical Corporation"
+        }, 
+        {
+            "uuid": "0000fe21-0000-1000-8000-00805f9b34fb", 
+            "str": "Bose Corporation"
+        }, 
+        {
+            "uuid": "0000fe20-0000-1000-8000-00805f9b34fb", 
+            "str": "Emerson"
+        }, 
+        {
+            "uuid": "0000fe1F-0000-1000-8000-00805f9b34fb", 
+            "str": "Garmin International, Inc."
+        }, 
+        {
+            "uuid": "0000fe1E-0000-1000-8000-00805f9b34fb", 
+            "str": "Smart Innovations Co., Ltd"
+        }, 
+        {
+            "uuid": "0000fe1D-0000-1000-8000-00805f9b34fb", 
+            "str": "Illuminati Instrument Corporation"
+        }, 
+        {
+            "uuid": "0000fe1C-0000-1000-8000-00805f9b34fb", 
+            "str": "NetMedia, Inc."
+        }, 
+        {
+            "uuid": "0000fffc-0000-1000-8000-00805f9b34fb", 
+            "str": "AirFuel Alliance"
+        }, 
+        {
+            "uuid": "0000fffe-0000-1000-8000-00805f9b34fb", 
+            "str": "Alliance for Wireless Power (A4WP)"
+        }, 
+        {
+            "uuid": "0000fffd-0000-1000-8000-00805f9b34fb", 
+            "str": "Fast IDentity Online Alliance (FIDO)"
+        }, 
+        {
+            "uuid": "a3c87500-8ed3-4bdf-8a39-a01bebede295", 
+            "str": "Eddystone Configuration Service"
+        }, 
+        {
+            "uuid": "a3c87501-8ed3-4bdf-8a39-a01bebede295", 
+            "str": "Capabilities"
+        }, 
+        {
+            "uuid": "a3c87502-8ed3-4bdf-8a39-a01bebede295", 
+            "str": "Active Slot"
+        }, 
+        {
+            "uuid": "a3c87503-8ed3-4bdf-8a39-a01bebede295", 
+            "str": "Advertising Interval"
+        }, 
+        {
+            "uuid": "a3c87504-8ed3-4bdf-8a39-a01bebede295", 
+            "str": "Radio Tx Power"
+        }, 
+        {
+            "uuid": "a3c87505-8ed3-4bdf-8a39-a01bebede295", 
+            "str": "(Advanced) Advertised Tx Power"
+        }, 
+        {
+            "uuid": "a3c87506-8ed3-4bdf-8a39-a01bebede295", 
+            "str": "Lock State"
+        }, 
+        {
+            "uuid": "a3c87507-8ed3-4bdf-8a39-a01bebede295", 
+            "str": "Unlock"
+        }, 
+        {
+            "uuid": "a3c87508-8ed3-4bdf-8a39-a01bebede295", 
+            "str": "Public ECDH Key"
+        }, 
+        {
+            "uuid": "a3c87509-8ed3-4bdf-8a39-a01bebede295", 
+            "str": "EID Identity Key"
+        }, 
+        {
+            "uuid": "a3c8750a-8ed3-4bdf-8a39-a01bebede295", 
+            "str": "ADV Slot Data"
+        }, 
+        {
+            "uuid": "a3c8750b-8ed3-4bdf-8a39-a01bebede295", 
+            "str": "(Advanced) Factory reset"
+        }, 
+        {
+            "uuid": "a3c8750c-8ed3-4bdf-8a39-a01bebede295", 
+            "str": "(Advanced) Remain Connectable"
+        }, 
+        {
+            "uuid": "e95d0753-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit Accelerometer Service"
+        }, 
+        {
+            "uuid": "e95dca4b-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit Accelerometer Data"
+        }, 
+        {
+            "uuid": "e95dfb24-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit Accelerometer Period"
+        }, 
+        {
+            "uuid": "e95df2d8-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit Magnetometer Service"
+        }, 
+        {
+            "uuid": "e95dfb11-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit Magnetometer Data"
+        }, 
+        {
+            "uuid": "e95d386c-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit Magnetometer Period"
+        }, 
+        {
+            "uuid": "e95d9715-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit Magnetometer Bearing"
+        }, 
+        {
+            "uuid": "e95d9882-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit Button Service"
+        }, 
+        {
+            "uuid": "e95dda90-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit Button A State"
+        }, 
+        {
+            "uuid": "e95dda91-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit Button B State"
+        }, 
+        {
+            "uuid": "e95d127b-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit IO PIN Service"
+        }, 
+        {
+            "uuid": "e95d8d00-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit PIN Data"
+        }, 
+        {
+            "uuid": "e95d5899-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit PIN AD Configuration"
+        }, 
+        {
+            "uuid": "e95d93ee-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit LED Text"
+        }, 
+        {
+            "uuid": "e95d23c4-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit Client Requirements"
+        }, 
+        {
+            "uuid": "e95d93b0-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit DFU Control Service"
+        }, 
+        {
+            "uuid": "e95d6100-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit Temperature Service"
+        }, 
+        {
+            "uuid": "e95d1b25-251d-470a-a062-fa1922dfa9a8", 
+            "str": "MicroBit Temperature Period"
+        }, 
+        {
+            "uuid": "6e400002-b5a3-f393-e0a9-e50e24dcca9e", 
+            "str": "Nordic UART TX"
+        }, 
+        {
+            "uuid": "6e400003-b5a3-f393-e0a9-e50e24dcca9e", 
+            "str": "Nordic UART RX"
+        }
+    ]
+}

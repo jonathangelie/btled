@@ -19,6 +19,7 @@ import sys
 import inspect, os
 import time
 import re
+import uuid
 
 # for options parsing 
 import textwrap
@@ -28,6 +29,7 @@ path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 sys.path.append(os.path.normpath(path + '/../pybtle/'))
 cmd = imp.load_source('cmd', os.path.normpath(path + '/../pybtle/cmd.py'))
 gattc = imp.load_source('gattc', os.path.normpath(path + '/../pybtle/gattc.py'))
+uuid = imp.load_source('uuid', os.path.normpath(path + '/../pybtle/uuid.py'))
 
 
 c_red       = '\033[31m'
@@ -75,17 +77,17 @@ class Central:
         ret = self.gattc.connect(self.devId, addr, addrtype, sec_level)
 
     def print_attr(self, attr):
-        print c_cyan + "service: " + attr["service"]["uuid"]
+        print c_cyan + "service: " + uuid.uuid_to_str(attr["service"]["uuid"])
         print c_white + "start: %d" % attr["service"]["start"]
         print c_white + "end: %d" % attr["service"]["end"]
         for chr in attr["service"]["characteristics"]:
-            print "\t" + c_green + "characteristic: " + chr["uuid"]
+            print "\t" + c_green + "characteristic: " + uuid.uuid_to_str(chr["uuid"])
             print "\t" + c_white + "handle: %d" % chr["handle"]
             print "\t" + c_white + "value_handle:  %d" % chr["value_handle"]
             print "\t" + c_white + "properties: %02x" % chr["properties"]
             print "\t" + c_white + "ext prop: %04x" % chr["ext_prop"]
             for desc in  chr["desc"]:
-                print "\t\t" + c_yellow + "descriptor: " + desc["uuid"]
+                print "\t\t" + c_yellow + "descriptor: " + uuid.uuid_to_str(desc["uuid"])
                 print "\t\t" + c_white + "handle: %d" % desc["handle"]
 
     def service_discovery(self):
@@ -97,8 +99,7 @@ class Central:
                 self.db = db
                 for attr in db:
                     self.print_attr(attr)
-                # battery level characteristic 
-                self.enable_notification("00002a19-0000-1000-8000-00805f9b34fb")
+                self.enable_notification("Battery Level")
             return db
 
     def enable_notification(self, uuid):
@@ -145,7 +146,7 @@ try:
         central.service_discovery()
         time.sleep(1)
 
-    central.disable_notification("00002a19-0000-1000-8000-00805f9b34fb")
+    central.disable_notification("Battery Level")
     for temp in range(5):
         time.sleep(1)
 
