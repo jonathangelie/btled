@@ -82,20 +82,20 @@ response status [ok]
 $ sudo python ./example/central.py -c hci0 -a "00:11:22:33:44:55"
 connected with: 00:11:22:33:44:55
 
-service: 0000180a-0000-1000-8000-00805f9b34fb
+service: Device Information
 start: 1
 end: 8
-        characteristic: 00002a24-0000-1000-8000-00805f9b34fb
+        characteristic: Model Number String
         handle: 2
         value_handle:  3
         properties: 02
         ext prop: 0000
-        characteristic: 00002a25-0000-1000-8000-00805f9b34fb
+        characteristic: Serial Number String
         handle: 4
         value_handle:  5
         properties: 02
         ext prop: 0000
-        characteristic: 00002a19-0000-1000-8000-00805f9b34fb
+        characteristic: Battery Level
         handle: 6
         value_handle:  7
         properties: 12
@@ -109,28 +109,18 @@ end: 12
         properties: 3a
         ext prop: 0000
 
-Subscribing to characteristic: 00002a19-0000-1000-8000-00805f9b34fb
+Subscribing to characteristic: Battery Level
 
-Notification from characteristic: 00002a19-0000-1000-8000-00805f9b34fb
+Notification from characteristic: Battery Level
         value_handle: 7
         len: 2
         data: 67
-Notification from characteristic: 00002a19-0000-1000-8000-00805f9b34fb
+Notification from characteristic: Battery Level
         value_handle: 7
         len: 2
         data: 66
-Notification from characteristic: 00002a19-0000-1000-8000-00805f9b34fb
-        value_handle: 7
-        len: 2
-        data: 67
 
-Unubscribing to characteristic: 00002a19-0000-1000-8000-00805f9b34fb
-
-Subscribing to characteristic: 000fake-UUID-1000-8000-00805f9b34fb
-Unubscription failed reason: uuid 000fake-UUID-1000-8000-00805f9b34fb not found
-
-Unsubscribing to characteristic: 000fake-UUID-1000-8000-00805f9b34fb
-Unsubscription failed reason: uuid 000fake-UUID-1000-8000-00805f9b34fb not found
+Unubscribing to characteristic: Battery Level
 
 ```
 
