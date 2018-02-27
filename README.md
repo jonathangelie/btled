@@ -5,11 +5,11 @@
 The origin of the btled server/client application comes from a personnal desire to gathers 
 into one interface most of powerful features offers by Bluez stack.
 
-Bled is based on the new D-bus GATT API.
+BTled is based on the new D-bus GATT API.
 
 ## Design
 
-Btled component is inspired by a whole open source project, but is written focusing on speed, simplicity, and flexibility.
+BTled component is inspired by a whole open source project, but is written focusing on speed, simplicity, and flexibility.
 
 ![Btled design](./images/btled_design.png)
 ### Build
@@ -23,6 +23,9 @@ make -C src
 ```shell
 sudo apt-get install ./dpk/btled_1.0_all.deb
 ```
+
+### API
+GAP and GATT Client / Server API can be found [here](http://jonathangelie.com/btled/index.html).
 
 ### Example
 
