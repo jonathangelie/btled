@@ -19,14 +19,40 @@
 
 #define SOCKET_MTU	128
 
+/*
+ * on IPC reception callback
+ *
+ * @data: pointer to data received
+ * @data_len: data length
+ */
 typedef void (*socket_rx_notifier)(uint8_t *data, uint8_t data_len);
-
+/*
+ * Socket initialization parameters
+ *
+ * @mtu: Maximum Transmit Unit
+ * @rx_cb: Rx notifier
+ */
 struct btsocket_param {
 	uint16_t mtu;
 	socket_rx_notifier rx_cb;
 };
+/*
+ * IPC socket initialization
+ *
+ * @param: name of the syscall
+ */
 uint8_t btsocket_init(struct btsocket_param *param);
+/*
+ * Sending payload over IPC socket
+ *
+ * @data: pointer to data
+ * @data_len: data length
+ */
 uint8_t btsocket_send(uint8_t *data, uint8_t data_len);
+/*
+ * Closing IPC socket
+ *
+ */
 void btsocket_close();
 
 #endif /* BTSOCKET_HEADER_H */

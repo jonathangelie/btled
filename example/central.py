@@ -86,9 +86,11 @@ class Central:
             print "\t" + c_white + "value_handle:  %d" % chr["value_handle"]
             print "\t" + c_white + "properties: %02x" % chr["properties"]
             print "\t" + c_white + "ext prop: %04x" % chr["ext_prop"]
+            '''
             for desc in  chr["desc"]:
                 print "\t\t" + c_yellow + "descriptor: " + uuid.uuid_to_str(desc["uuid"])
                 print "\t\t" + c_white + "handle: %d" % desc["handle"]
+            '''
 
     def service_discovery(self):
         try:

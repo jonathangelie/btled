@@ -1,3 +1,4 @@
+""""""
 '''
   Copyright (C) 2018  Jonathan Gelie <contact@jonathangelie.com>
 
@@ -27,11 +28,37 @@ GATT_INDICATION   = 0x02
 
 class gattc():
 
+    """Generic Attribute Profile (GATT) Client class
+
+    code example 
+    ::
+        import gattc
+        import cmd
+        import gap
+        client = gattc.gattc(cmd.cmd())
+        client.connect(address, addr_type)
+        client.service_discovery()
+    """
     def __init__(self, cmd):
         self.cmd = cmd
         self.attrs = None
 
     def connect(self, devId, addr, addrtype, sec_level):
+        """Create a connection
+        
+        Args:
+            devId (int): Adapter index.
+            addr (str): BLE address to connect (00:11:22:33:44:55).
+            addrtype (str): "public" or "random"
+            sec_level(str): security level from ("low", "medium", "high")
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+        """
         ret = self.cmd.connect(devId, addr, addrtype, sec_level, self.service_discovery)
         return ret
 
@@ -39,17 +66,75 @@ class gattc():
         self.attrs = result
 
     def get_db(self):
+        """Retrieve GATT services, characteristics, descriptors found on GATT server
+    
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+    
+        """
         return self.attrs
 
     def write_cmd(self, devId, chr, handle, value):
+        """Perform a write without response
+    
+        Args:
+            devId (int): adapter index.
+            chr (str): characteristic uuid.
+            handle (int): characteristic value handle.
+            value (str): data to write.
+    
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+    
+        """
         ret = self.cmd.write_cmd(devId, chr, handle, value)
         return ret
 
     def write_req(self, devId, chr, handle, value):
+        """Perform a write with response
+    
+        Args:
+            devId (int): adapter index.
+            chr (str): characteristic uuid.
+            handle (int): characteristic value handle.
+            value (str): data to write.
+    
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+    
+        """
         ret = self.cmd.write_req(devId, chr, handle, value)
         return ret
 
     def read(self, devId, chr, handle):
+        """Perform a a GATT Read Characteristic or Descriptor procedure
+    
+        Args:
+            devId (int): adapter index.
+            chr (str): characteristic uuid.
+            handle (int): characteristic value handle.
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+                'value': "read value"
+            }
+    
+        """
         ret = self.cmd.read(devId, chr, handle)
         return ret
 
@@ -78,6 +163,21 @@ class gattc():
             pass
 
     def subscribe_notification(self, devId, chrc_uuid, notification_cb):
+        """Subscribing to Notification.
+
+        Args:
+            devId (int): adapter index.
+            chr (str): characteristic uuid.
+            notification_cb (func): Notification callback.
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+    
+        """
         ret = {"status": "error", "reason": ("uuid %s not found" % chrc_uuid)}
         chr = self.get_characteristic_by_uuid(chrc_uuid)
         if None == chr:
@@ -106,6 +206,20 @@ class gattc():
         return ret
 
     def unsubscribe_notification(self, devId, chrc_uuid):
+        """Unsubscribing to Notification.
+
+        Args:
+            devId (int): adapter index.
+            chr (str): characteristic uuid.
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+    
+        """
         ret = {"status": "error", "reason": ("uuid %s not found" % chrc_uuid)}
         chr = self.get_characteristic_by_uuid(chrc_uuid)
         if None == chr:

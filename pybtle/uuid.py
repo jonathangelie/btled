@@ -1,3 +1,4 @@
+""""""
 '''
   Copyright (C) 2018  Jonathan Gelie <contact@jonathangelie.com>
 
@@ -31,6 +32,12 @@ this.__uuid__ = None
 base_uuid = "-0000-1000-8000-00805f9b34fb"
 
 def uuid128_to_str(value):
+    """Converts 128bits UUID to its human representation.
+
+    :param value: 128bits UUID.
+    :type value: string
+    :rtype: string
+    """
     if this.__uuid__ == None:
         this.__uuid__ = uuid()
     for u128 in this.__uuid__.instance.uuids["uuid128"]:
@@ -39,6 +46,12 @@ def uuid128_to_str(value):
     return value
 
 def uuid_to_str(value):
+    """Converts 16bits or 128bits UUID to its human representation.
+
+    :param value: 16bits or 128bits UUID.
+    :type value: string
+    :rtype: string
+    """
     u128 = value
     u16 = re.search("0x(.+)", value)
     if None != u16:
@@ -47,6 +60,12 @@ def uuid_to_str(value):
     return uuid128_to_str(u128)
 
 def str_to_uuid128(value):
+    """Return 128bits UUID from UUUID string name.
+
+    :param value: UUID name.
+    :type value: string
+    :rtype: string
+    """
     if this.__uuid__ == None:
         this.__uuid__ = uuid()
     for u128 in this.__uuid__.instance.uuids["uuid128"]:

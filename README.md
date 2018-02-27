@@ -2,19 +2,10 @@
 
 ## Motivation
 
-The origin of the btled server/client application come from a personnal desire to gathers 
-into one interface most of powerful capabilities offers by Linux bluetooth stack.
+The origin of the btled server/client application comes from a personnal desire to gathers 
+into one interface most of powerful features offers by Bluez stack.
 
-In fact Bluez exposed many useful tools like btmgmt, btmon, btgatt-client, btattach, but while developing, verifying or testing BLE firmware, we have to jump from a binary to an other one.
-
-Fortunately, exists two majors python script with similar requierements:
-
-* pyGatt is a awesome mulitplatform (Linux and Windows) scripts.
-However, as pyGatt is based on the deprecated gatttool, it does not offers mgmt capacity like setting local name, connection parameters for instance.
-* Bluepy is another tools communicating (through stdin, stdout) with its corresponding bluepy-helper binary to handle Bluez management interface.
-However, the main drawback is that Bluepy is launching as many bluepy-helper binary as BT interface you want to work with.
-
-However both of them are deprecated as they are using hci socket interface instead of the new D-Bus Gatt API.
+Bled is based on the new D-bus GATT API.
 
 ## Design
 

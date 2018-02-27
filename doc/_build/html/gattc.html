@@ -1,0 +1,422 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>GATT Client interface &mdash; btled</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="next" title="UUID module" href="uuid.html" />
+    <link rel="prev" title="GAP interface" href="gap.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Bluetooth LE Daemon - btled
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#install">Install</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="gap.html">GAP interface</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">GATT Client interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uuid.html">UUID module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cmd.html">cmd interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="author.html">Author</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Bluetooth LE Daemon - btled</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api.html">API</a> &raquo;</li>
+        
+      <li>GATT Client interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gatt-client-interface">
+<h1>GATT Client interface<a class="headerlink" href="#gatt-client-interface" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-pybtle.gattc"></span><dl class="class">
+<dt id="pybtle.gattc.gattc">
+<em class="property">class </em><code class="descclassname">pybtle.gattc.</code><code class="descname">gattc</code><span class="sig-paren">(</span><em>cmd</em><span class="sig-paren">)</span><a class="headerlink" href="#pybtle.gattc.gattc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic Attribute Profile (GATT) Client class</p>
+<p>code example</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">gattc</span>
+<span class="kn">import</span> <span class="nn">cmd</span>
+<span class="kn">import</span> <span class="nn">gap</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">gattc</span><span class="o">.</span><span class="n">gattc</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">cmd</span><span class="p">())</span>
+<span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">addr_type</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">service_discovery</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pybtle.gattc.gattc.connect">
+<code class="descname">connect</code><span class="sig-paren">(</span><em>devId</em>, <em>addr</em>, <em>addrtype</em>, <em>sec_level</em><span class="sig-paren">)</span><a class="headerlink" href="#pybtle.gattc.gattc.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a connection</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>devId</strong> (<em>int</em>) &#8211; Adapter index.</li>
+<li><strong>addr</strong> (<em>str</em>) &#8211; BLE address to connect (00:11:22:33:44:55).</li>
+<li><strong>addrtype</strong> (<em>str</em>) &#8211; &#8220;public&#8221; or &#8220;random&#8221;</li>
+<li><strong>sec_level</strong> (<em>str</em>) &#8211; security level from (&#8220;low&#8221;, &#8220;medium&#8221;, &#8220;high&#8221;)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">),</span>
+    <span class="s1">&#39;reason&#39;</span><span class="p">:</span> <span class="s2">&quot;failure reason&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybtle.gattc.gattc.get_db">
+<code class="descname">get_db</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pybtle.gattc.gattc.get_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve GATT services, characteristics, descriptors found on GATT server</p>
+<p>Returns:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">),</span>
+    <span class="s1">&#39;reason&#39;</span><span class="p">:</span> <span class="s2">&quot;failure reason&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybtle.gattc.gattc.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>devId</em>, <em>chr</em>, <em>handle</em><span class="sig-paren">)</span><a class="headerlink" href="#pybtle.gattc.gattc.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a a GATT Read Characteristic or Descriptor procedure</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>devId</strong> (<em>int</em>) &#8211; adapter index.</li>
+<li><strong>chr</strong> (<em>str</em>) &#8211; characteristic uuid.</li>
+<li><strong>handle</strong> (<em>int</em>) &#8211; characteristic value handle.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+<div class="highlight-python"><div class="highlight"><pre>{
+    &#39;result&#39;: (&quot;ok&quot;, &quot;error&quot;),
+    &#39;reason&#39;: &quot;failure reason&quot;
+    &#39;value&#39;: &quot;read value&quot;
+}
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybtle.gattc.gattc.subscribe_notification">
+<code class="descname">subscribe_notification</code><span class="sig-paren">(</span><em>devId</em>, <em>chrc_uuid</em>, <em>notification_cb</em><span class="sig-paren">)</span><a class="headerlink" href="#pybtle.gattc.gattc.subscribe_notification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subscribing to Notification.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>devId</strong> (<em>int</em>) &#8211; adapter index.</li>
+<li><strong>chr</strong> (<em>str</em>) &#8211; characteristic uuid.</li>
+<li><strong>notification_cb</strong> (<em>func</em>) &#8211; Notification callback.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">),</span>
+    <span class="s1">&#39;reason&#39;</span><span class="p">:</span> <span class="s2">&quot;failure reason&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybtle.gattc.gattc.unsubscribe_notification">
+<code class="descname">unsubscribe_notification</code><span class="sig-paren">(</span><em>devId</em>, <em>chrc_uuid</em><span class="sig-paren">)</span><a class="headerlink" href="#pybtle.gattc.gattc.unsubscribe_notification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unsubscribing to Notification.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>devId</strong> (<em>int</em>) &#8211; adapter index.</li>
+<li><strong>chr</strong> (<em>str</em>) &#8211; characteristic uuid.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">),</span>
+    <span class="s1">&#39;reason&#39;</span><span class="p">:</span> <span class="s2">&quot;failure reason&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybtle.gattc.gattc.write_cmd">
+<code class="descname">write_cmd</code><span class="sig-paren">(</span><em>devId</em>, <em>chr</em>, <em>handle</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#pybtle.gattc.gattc.write_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a write without response</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>devId</strong> (<em>int</em>) &#8211; adapter index.</li>
+<li><strong>chr</strong> (<em>str</em>) &#8211; characteristic uuid.</li>
+<li><strong>handle</strong> (<em>int</em>) &#8211; characteristic value handle.</li>
+<li><strong>value</strong> (<em>str</em>) &#8211; data to write.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">),</span>
+    <span class="s1">&#39;reason&#39;</span><span class="p">:</span> <span class="s2">&quot;failure reason&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybtle.gattc.gattc.write_req">
+<code class="descname">write_req</code><span class="sig-paren">(</span><em>devId</em>, <em>chr</em>, <em>handle</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#pybtle.gattc.gattc.write_req" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a write with response</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>devId</strong> (<em>int</em>) &#8211; adapter index.</li>
+<li><strong>chr</strong> (<em>str</em>) &#8211; characteristic uuid.</li>
+<li><strong>handle</strong> (<em>int</em>) &#8211; characteristic value handle.</li>
+<li><strong>value</strong> (<em>str</em>) &#8211; data to write.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">),</span>
+    <span class="s1">&#39;reason&#39;</span><span class="p">:</span> <span class="s2">&quot;failure reason&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="uuid.html" class="btn btn-neutral float-right" title="UUID module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gap.html" class="btn btn-neutral" title="GAP interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Jonathan Gelie.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            LANGUAGE:'en',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,3 +1,4 @@
+""""""
 '''
   Copyright (C) 2018  Jonathan Gelie <contact@jonathangelie.com>
 
@@ -53,7 +54,8 @@ class cmdException(Exception):
     pass
 
 class cmd :
-
+    """Responsible for (de)serializing command and notify upper layer
+    """
     def __init__(self):
         self.ipc = btipc.btipc(evt_delegate = self.parse_event)
         self.cmd = None
@@ -276,37 +278,150 @@ class cmd :
         return ret
 
     def read_controller_info(self, adapter):
+        """Sending reading controller information command
+        
+        Args:
+            adapter (int): Adapter index
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+                'version': "hex"
+                'manufacturer': "hex"
+                'supported_settings': "hex"
+                'current_settings': "hex"
+                'dev_class': "hex"
+                'name': "str"
+            }
+        """
         bin = struct.pack('>B', 0)
         return self.send_cmd(adapter, CMD_MGMT_READ_CONTROLLER_INFO, bin)
 
     def conn_param(self, adapter, addr, min, max, latency, timeout):
+        """Sending set connection parameter command
+        
+        Args:
+            adapter (int): Adapter index
+            addr (str): BLE address
+            min (int): Minimum connection interval
+            max (int): Maximum connection interval
+            latency (int): latency
+            timeout (int): Supervision timeout
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+        """
         bin = addr
         bin += struct.pack('>HHHH', min, max, latency, timeout)
         return self.send_cmd(adapter, CMD_MGMT_SET_CONNECTION_PARAM, bin)
 
     def set_local_name(self, adapter, name):
+        """Sending set Advertising local Name command
+        
+        Args:
+            adapter (int): Adapter index
+            name (str): Advertising local Name
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+        """
         bin = struct.pack('>B', len(name))
         bin += name
         return self.send_cmd(adapter, CMD_MGMT_SET_LOCAL_NAME, bin)
 
     def power_on(self, adapter):
+        """Sending powering ON command
+        
+        Args:
+            adapter (int): Adapter index
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+        """
         bin = struct.pack('>B', 1)
         return self.send_cmd(adapter, CMD_MGMT_POWER, bin)
 
     def power_off(self, adapter):
+        """Sendind powering OFF command
+        
+        Args:
+            adapter (int): Adapter index
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+        """
         bin = struct.pack('>B', 0)
         return self.send_cmd(adapter, CMD_MGMT_POWER, bin)
 
     def scan_start(self, adapter, scan_delegate):
+        """Sending start BLE scan command
+        
+        Args:
+            adapter (int): Adapter index
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+        """
         self.delegate[EVT_SCAN_RESULT] = scan_delegate
         bin = struct.pack('>B', 1)
         return self.send_cmd(adapter, CMD_MGMT_SCAN, bin)
 
     def scan_stop(self, adapter):
+        """Sending stop BLE scan command
+        
+        Args:
+            adapter (int): Adapter index
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+        """
         bin = struct.pack('>B', 0)
         return self.send_cmd(adapter, CMD_MGMT_SCAN, bin)
 
     def connect(self, adapter, addr, addrtype, sec_level, service_discovery_cb):
+        """Sending create connection command
+        
+        Args:
+            adapter (int): Adapter index.
+            addr (str): BLE address to connect (00:11:22:33:44:55).
+            addrtype (str): "public" or "random"
+            sec_level(str): security level from ("low", "medium", "high")
+            discovery_cb (callback) function called on_service_discovery
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+
+        """
         if addrtype == "public":
             addrtype = 1
         elif addrtype == "random":
@@ -325,11 +440,40 @@ class cmd :
         return self.send_cmd(adapter, CMD_GATTC_CONNECT_REQ, bin, timeout = 15)
 
     def subscribe(self, adapter, value_handle, value, notification_cb):
+        """Sending Notification / Indication subscription command
+
+        Args:
+            adapter (int): adapter index.
+            value_handle (int): characteristic value handle
+            value (int): 1 for Notification; 2 for Indication
+            notification_cb (func): Notification callback.
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+
+        """
         if value != 0:
             self.delegate[EVT_GATTC_NOTIFICATION] = notification_cb
         bin = struct.pack('>BH', value, value_handle)
         return self.send_cmd(adapter, CMD_GATTC_SUBSCRIBE_REQ, bin)
 
     def unsubscribe(self, adapter, cccd_id):
+        """Sending stop BLE scan command
+        
+        Args:
+            adapter (int): Adapter index
+            cccd_id (int): Subscription ID
+
+        Returns:
+        ::
+            {
+                'result': ("ok", "error"),
+                'reason': "failure reason"
+            }
+        """
         bin = struct.pack('>B', cccd_id)
         return self.send_cmd(adapter, CMD_GATTC_UNSUBSCRIBE_REQ, bin)
